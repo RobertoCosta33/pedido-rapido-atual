@@ -16,6 +16,8 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SettingsIcon from '@mui/icons-material/Settings';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MenuIcon from '@mui/icons-material/Menu';
+import PeopleIcon from '@mui/icons-material/People';
+import StarIcon from '@mui/icons-material/Star';
 import Badge from '@mui/material/Badge';
 import IconButton from '@mui/material/IconButton';
 import LightModeIcon from '@mui/icons-material/LightMode';
@@ -113,6 +115,13 @@ const navSections: NavSectionData[] = [
     items: [
       { href: '/admin/stock', label: 'Insumos', icon: <InventoryIcon />, badge: 2 },
       { href: '/admin/recipes', label: 'Receitas', icon: <ReceiptLongIcon /> },
+    ],
+  },
+  {
+    title: 'Equipe',
+    items: [
+      { href: '/admin/employees', label: 'Funcionários', icon: <PeopleIcon /> },
+      { href: '/admin/ratings', label: 'Avaliações', icon: <StarIcon /> },
     ],
   },
   {

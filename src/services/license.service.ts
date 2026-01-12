@@ -6,25 +6,46 @@
 import { api } from './api';
 import { mockDataService, simulateDelay, MockLicense } from './mock.service';
 
+export interface LicenseFeatures {
+  stockManagement: boolean;
+  recipeManagement: boolean;
+  analytics: boolean;
+  advancedAnalytics: boolean;
+  employeeManagement: boolean;
+  publicRanking: boolean;
+  prioritySupport: boolean;
+  customDomain: boolean;
+  apiAccess: boolean;
+}
+
+export interface LicenseLimits {
+  products: number;
+  ordersPerMonth: number;
+  employees: number;
+}
+
 export interface License {
   id: string;
   kioskId: string;
   kioskName: string;
+  planId: string;
   plan: 'basic' | 'professional' | 'premium';
   status: 'active' | 'expiring_soon' | 'expired' | 'suspended';
   startDate: Date;
   expiryDate: Date;
+  billingCycle: 'monthly' | 'semiannual' | 'annual';
   price: number;
-  billingCycle: 'monthly' | 'yearly';
-  features: string[];
-  maxProducts: number;
-  maxOrdersPerMonth: number;
+  totalPaid: number;
+  autoRenew: boolean;
+  features: LicenseFeatures;
+  limits: LicenseLimits;
   paymentHistory: Array<{
     id: string;
     date: Date;
     amount: number;
     status: 'paid' | 'pending' | 'failed';
     method: string;
+    invoice?: string;
   }>;
   createdAt: Date;
   updatedAt: Date;
@@ -37,19 +58,24 @@ const toLicense = (mock: MockLicense): License => ({
   id: mock.id,
   kioskId: mock.kioskId,
   kioskName: mock.kioskName,
+  planId: mock.planId,
   plan: mock.plan as License['plan'],
   status: mock.status as License['status'],
   startDate: new Date(mock.startDate),
   expiryDate: new Date(mock.expiryDate),
-  price: mock.price,
   billingCycle: mock.billingCycle as License['billingCycle'],
-  features: mock.features,
-  maxProducts: mock.maxProducts,
-  maxOrdersPerMonth: mock.maxOrdersPerMonth,
+  price: mock.price,
+  totalPaid: mock.totalPaid,
+  autoRenew: mock.autoRenew,
+  features: mock.features as LicenseFeatures,
+  limits: mock.limits as LicenseLimits,
   paymentHistory: mock.paymentHistory.map((p) => ({
-    ...p,
+    id: p.id,
     date: new Date(p.date),
+    amount: p.amount,
     status: p.status as 'paid' | 'pending' | 'failed',
+    method: p.method,
+    invoice: p.invoice,
   })),
   createdAt: new Date(mock.createdAt),
   updatedAt: new Date(mock.updatedAt),
@@ -244,28 +270,86 @@ export const licenseService = {
         premium: 299.90,
       };
       
-      const planFeatures = {
-        basic: ['stock_management', 'basic_analytics'],
-        professional: ['unlimited_products', 'unlimited_orders', 'stock_management', 'recipe_management', 'analytics'],
-        premium: ['unlimited_products', 'unlimited_orders', 'stock_management', 'recipe_management', 'analytics', 'priority_support', 'custom_domain'],
+      const planFeatures: Record<string, LicenseFeatures> = {
+        basic: {
+          stockManagement: true,
+          recipeManagement: false,
+          analytics: false,
+          advancedAnalytics: false,
+          employeeManagement: false,
+          publicRanking: false,
+          prioritySupport: false,
+          customDomain: false,
+          apiAccess: false,
+        },
+        professional: {
+          stockManagement: true,
+          recipeManagement: true,
+          analytics: true,
+          advancedAnalytics: false,
+          employeeManagement: true,
+          publicRanking: true,
+          prioritySupport: false,
+          customDomain: false,
+          apiAccess: false,
+        },
+        premium: {
+          stockManagement: true,
+          recipeManagement: true,
+          analytics: true,
+          advancedAnalytics: true,
+          employeeManagement: true,
+          publicRanking: true,
+          prioritySupport: true,
+          customDomain: true,
+          apiAccess: true,
+        },
+      };
+
+      const planLimits: Record<string, LicenseLimits> = {
+        basic: { products: 50, ordersPerMonth: 500, employees: 0 },
+        professional: { products: -1, ordersPerMonth: -1, employees: 5 },
+        premium: { products: -1, ordersPerMonth: -1, employees: -1 },
       };
       
       const updated: MockLicense = {
         ...license,
+        planId: `plan_${newPlan}`,
         plan: newPlan,
         price: planPrices[newPlan],
         features: planFeatures[newPlan],
-        maxProducts: newPlan === 'basic' ? 50 : -1,
-        maxOrdersPerMonth: newPlan === 'basic' ? 500 : -1,
+        limits: planLimits[newPlan],
         updatedAt: new Date().toISOString(),
       };
       
+      mockDataService.updateLicense(id, updated);
       return toLicense(updated);
     }
     
     const response = await api.patch<License>(`/licenses/${id}/plan`, { plan: newPlan });
     return response.data;
   },
+
+};
+
+/**
+ * Verifica se feature está disponível na licença
+ */
+export const hasLicenseFeature = async (kioskId: string, feature: keyof LicenseFeatures): Promise<boolean> => {
+  const license = await licenseService.getByKiosk(kioskId);
+  if (!license) return false;
+  return license.features[feature] === true;
+};
+
+/**
+ * Verifica se limite foi atingido
+ */
+export const checkLicenseLimit = async (kioskId: string, limitType: keyof LicenseLimits, currentValue: number): Promise<boolean> => {
+  const license = await licenseService.getByKiosk(kioskId);
+  if (!license) return false;
+  const limit = license.limits[limitType];
+  if (limit === -1) return true; // Ilimitado
+  return currentValue < limit;
 };
 
 export default licenseService;

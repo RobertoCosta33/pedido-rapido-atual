@@ -13,6 +13,8 @@ import CardMembershipIcon from '@mui/icons-material/CardMembership';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import SettingsIcon from '@mui/icons-material/Settings';
 import MenuIcon from '@mui/icons-material/Menu';
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import { Sidebar, NavSectionData } from '@/components';
 import { useAuth } from '@/contexts';
 
@@ -83,10 +85,17 @@ const navSections: NavSectionData[] = [
     ],
   },
   {
-    title: 'Gestão',
+    title: 'Monetização',
     items: [
+      { href: '/super-admin/plans', label: 'Planos', icon: <MonetizationOnIcon /> },
       { href: '/super-admin/licenses', label: 'Licenças', icon: <CardMembershipIcon /> },
+    ],
+  },
+  {
+    title: 'Análises',
+    items: [
       { href: '/super-admin/reports', label: 'Relatórios', icon: <AssessmentIcon /> },
+      { href: '/ranking', label: 'Ranking Público', icon: <EmojiEventsIcon /> },
     ],
   },
   {

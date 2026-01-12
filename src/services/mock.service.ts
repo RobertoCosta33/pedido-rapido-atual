@@ -11,6 +11,9 @@ import productsData from '@/mock/products.json';
 import stockData from '@/mock/stock.json';
 import recipesData from '@/mock/recipes.json';
 import ordersData from '@/mock/orders.json';
+import plansData from '@/mock/plans.json';
+import employeesData from '@/mock/employees.json';
+import ratingsData from '@/mock/ratings.json';
 
 // Tipos para os dados mock
 export interface MockUser {
@@ -186,24 +189,120 @@ export interface MockLicense {
   id: string;
   kioskId: string;
   kioskName: string;
+  planId: string;
   plan: string;
   status: string;
   startDate: string;
   expiryDate: string;
-  price: number;
   billingCycle: string;
-  features: string[];
-  maxProducts: number;
-  maxOrdersPerMonth: number;
+  price: number;
+  totalPaid: number;
+  autoRenew: boolean;
+  features: {
+    stockManagement: boolean;
+    recipeManagement: boolean;
+    analytics: boolean;
+    advancedAnalytics: boolean;
+    employeeManagement: boolean;
+    publicRanking: boolean;
+    prioritySupport: boolean;
+    customDomain: boolean;
+    apiAccess: boolean;
+  };
+  limits: {
+    products: number;
+    ordersPerMonth: number;
+    employees: number;
+  };
   paymentHistory: Array<{
     id: string;
     date: string;
     amount: number;
     status: string;
     method: string;
+    invoice?: string;
   }>;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface MockPlan {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  badge: string | null;
+  pricing: {
+    monthly: number;
+    semiannual: number;
+    annual: number;
+    monthlyDiscount: {
+      semiannual: number;
+      annual: number;
+    };
+  };
+  limits: {
+    products: number;
+    ordersPerMonth: number;
+    employees: number;
+    categories: number;
+    imagesPerProduct: number;
+  };
+  features: {
+    stockManagement: boolean;
+    recipeManagement: boolean;
+    analytics: boolean;
+    advancedAnalytics: boolean;
+    employeeManagement: boolean;
+    publicRanking: boolean;
+    prioritySupport: boolean;
+    customDomain: boolean;
+    apiAccess: boolean;
+    whatsappIntegration: boolean;
+    multipleMenus: boolean;
+    promotions: boolean;
+    loyaltyProgram: boolean;
+    tableManagement: boolean;
+    kitchenDisplay: boolean;
+    exportReports: boolean;
+  };
+  order: number;
+  isActive: boolean;
+  isPopular: boolean;
+}
+
+export interface MockEmployee {
+  id: string;
+  kioskId: string;
+  name: string;
+  role: string;
+  photo: string;
+  phone: string;
+  email: string;
+  document: string;
+  hireDate: string;
+  salary: number;
+  workSchedule: string;
+  isActive: boolean;
+  rating: number;
+  totalRatings: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface MockRating {
+  id: string;
+  type: 'product' | 'employee' | 'kiosk' | 'service';
+  targetId: string;
+  targetName: string;
+  kioskId: string;
+  kioskName: string;
+  orderId: string;
+  customerId: string;
+  customerName: string;
+  rating: number;
+  comment: string;
+  createdAt: string;
 }
 
 // Estado mutável para simular operações CRUD
@@ -215,6 +314,9 @@ let stock: MockIngredient[] = [...(stockData as MockIngredient[])];
 let recipes: MockRecipe[] = [...(recipesData as MockRecipe[])];
 let orders: MockOrder[] = [...(ordersData as MockOrder[])];
 let licenses: MockLicense[] = [...(licensesData as MockLicense[])];
+let plans: MockPlan[] = [...(plansData as MockPlan[])];
+let employees: MockEmployee[] = [...(employeesData as MockEmployee[])];
+let ratings: MockRating[] = [...(ratingsData as MockRating[])];
 
 /**
  * Simula delay de rede
@@ -362,6 +464,105 @@ export const mockDataService = {
   getLicenseByKiosk: (kioskId: string) => 
     licenses.find((l) => l.kioskId === kioskId),
   getLicenseById: (id: string) => licenses.find((l) => l.id === id),
+  updateLicense: (id: string, data: Partial<MockLicense>) => {
+    const index = licenses.findIndex((l) => l.id === id);
+    if (index !== -1) {
+      licenses[index] = { ...licenses[index], ...data };
+      return licenses[index];
+    }
+    return null;
+  },
+
+  // Plans
+  getPlans: () => plans.filter((p) => p.isActive),
+  getPlanById: (id: string) => plans.find((p) => p.id === id),
+  getPlanBySlug: (slug: string) => plans.find((p) => p.slug === slug),
+
+  // Employees
+  getEmployees: () => employees,
+  getEmployeesByKiosk: (kioskId: string) => 
+    employees.filter((e) => e.kioskId === kioskId),
+  getEmployeeById: (id: string) => employees.find((e) => e.id === id),
+  addEmployee: (employee: MockEmployee) => {
+    employees.push(employee);
+    return employee;
+  },
+  updateEmployee: (id: string, data: Partial<MockEmployee>) => {
+    const index = employees.findIndex((e) => e.id === id);
+    if (index !== -1) {
+      employees[index] = { ...employees[index], ...data };
+      return employees[index];
+    }
+    return null;
+  },
+  deleteEmployee: (id: string) => {
+    const index = employees.findIndex((e) => e.id === id);
+    if (index !== -1) {
+      employees.splice(index, 1);
+      return true;
+    }
+    return false;
+  },
+  getTopEmployees: (limit: number = 10) => {
+    return [...employees]
+      .filter((e) => e.isActive && e.totalRatings >= 10)
+      .sort((a, b) => b.rating - a.rating)
+      .slice(0, limit);
+  },
+
+  // Ratings
+  getRatings: () => ratings,
+  getRatingsByKiosk: (kioskId: string) => 
+    ratings.filter((r) => r.kioskId === kioskId),
+  getRatingsByTarget: (type: string, targetId: string) => 
+    ratings.filter((r) => r.type === type && r.targetId === targetId),
+  getRatingsByOrder: (orderId: string) => 
+    ratings.filter((r) => r.orderId === orderId),
+  addRating: (rating: MockRating) => {
+    ratings.push(rating);
+    return rating;
+  },
+  getAverageRating: (type: string, targetId: string) => {
+    const targetRatings = ratings.filter((r) => r.type === type && r.targetId === targetId);
+    if (targetRatings.length === 0) return 0;
+    return targetRatings.reduce((sum, r) => sum + r.rating, 0) / targetRatings.length;
+  },
+  getTopRatedProducts: (limit: number = 10) => {
+    const productRatings = ratings.filter((r) => r.type === 'product');
+    const grouped: Record<string, { id: string; name: string; kioskId: string; kioskName: string; sum: number; count: number }> = {};
+    
+    productRatings.forEach((r) => {
+      if (!grouped[r.targetId]) {
+        grouped[r.targetId] = { id: r.targetId, name: r.targetName, kioskId: r.kioskId, kioskName: r.kioskName, sum: 0, count: 0 };
+      }
+      grouped[r.targetId].sum += r.rating;
+      grouped[r.targetId].count += 1;
+    });
+
+    return Object.values(grouped)
+      .filter((g) => g.count >= 3)
+      .map((g) => ({ ...g, average: g.sum / g.count }))
+      .sort((a, b) => b.average - a.average)
+      .slice(0, limit);
+  },
+  getTopRatedKiosks: (limit: number = 10) => {
+    const kioskRatings = ratings.filter((r) => r.type === 'kiosk');
+    const grouped: Record<string, { id: string; name: string; sum: number; count: number }> = {};
+    
+    kioskRatings.forEach((r) => {
+      if (!grouped[r.targetId]) {
+        grouped[r.targetId] = { id: r.targetId, name: r.targetName, sum: 0, count: 0 };
+      }
+      grouped[r.targetId].sum += r.rating;
+      grouped[r.targetId].count += 1;
+    });
+
+    return Object.values(grouped)
+      .filter((g) => g.count >= 2)
+      .map((g) => ({ ...g, average: g.sum / g.count }))
+      .sort((a, b) => b.average - a.average)
+      .slice(0, limit);
+  },
 
   // Statistics
   getStats: (kioskId?: string) => {

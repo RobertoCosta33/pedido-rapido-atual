@@ -358,6 +358,7 @@ const UsersPage: React.FC = () => {
         <DataTable
           columns={columns}
           data={filteredUsers}
+          keyExtractor={(user) => user.id}
           emptyMessage="Nenhum usuário encontrado"
         />
       </Card>

@@ -3,58 +3,105 @@
     "id": "lic_001",
     "kioskId": "kiosk_001",
     "kioskName": "Quiosque Praia Central",
+    "planId": "plan_premium",
     "plan": "premium",
     "status": "active",
     "startDate": "2024-01-01T00:00:00Z",
     "expiryDate": "2025-12-31T23:59:59Z",
+    "billingCycle": "annual",
     "price": 299.90,
-    "billingCycle": "monthly",
-    "features": ["unlimited_products", "unlimited_orders", "stock_management", "recipe_management", "analytics", "priority_support", "custom_domain"],
-    "maxProducts": -1,
-    "maxOrdersPerMonth": -1,
+    "totalPaid": 2878.80,
+    "autoRenew": true,
+    "features": {
+      "stockManagement": true,
+      "recipeManagement": true,
+      "analytics": true,
+      "advancedAnalytics": true,
+      "employeeManagement": true,
+      "publicRanking": true,
+      "prioritySupport": true,
+      "customDomain": true,
+      "apiAccess": true
+    },
+    "limits": {
+      "products": -1,
+      "ordersPerMonth": -1,
+      "employees": -1
+    },
     "paymentHistory": [
-      { "id": "pay_001", "date": "2024-11-01T10:00:00Z", "amount": 299.90, "status": "paid", "method": "credit_card" },
-      { "id": "pay_002", "date": "2024-10-01T10:00:00Z", "amount": 299.90, "status": "paid", "method": "credit_card" },
-      { "id": "pay_003", "date": "2024-09-01T10:00:00Z", "amount": 299.90, "status": "paid", "method": "pix" }
+      { "id": "pay_001", "date": "2024-01-01T10:00:00Z", "amount": 2878.80, "status": "paid", "method": "credit_card", "invoice": "INV-2024-001" },
+      { "id": "pay_002", "date": "2023-01-01T10:00:00Z", "amount": 2638.80, "status": "paid", "method": "credit_card", "invoice": "INV-2023-001" }
     ],
-    "createdAt": "2024-01-01T10:00:00Z",
-    "updatedAt": "2024-11-01T10:00:00Z"
+    "createdAt": "2023-01-01T10:00:00Z",
+    "updatedAt": "2024-01-01T10:00:00Z"
   },
   {
     "id": "lic_002",
     "kioskId": "kiosk_002",
     "kioskName": "Sabor do Mar",
+    "planId": "plan_professional",
     "plan": "professional",
     "status": "active",
     "startDate": "2024-02-01T00:00:00Z",
     "expiryDate": "2025-06-30T23:59:59Z",
+    "billingCycle": "semiannual",
     "price": 199.90,
-    "billingCycle": "monthly",
-    "features": ["unlimited_products", "unlimited_orders", "stock_management", "recipe_management", "analytics"],
-    "maxProducts": -1,
-    "maxOrdersPerMonth": -1,
+    "totalPaid": 1079.40,
+    "autoRenew": true,
+    "features": {
+      "stockManagement": true,
+      "recipeManagement": true,
+      "analytics": true,
+      "advancedAnalytics": false,
+      "employeeManagement": true,
+      "publicRanking": true,
+      "prioritySupport": false,
+      "customDomain": false,
+      "apiAccess": false
+    },
+    "limits": {
+      "products": -1,
+      "ordersPerMonth": -1,
+      "employees": 5
+    },
     "paymentHistory": [
-      { "id": "pay_004", "date": "2024-11-01T10:00:00Z", "amount": 199.90, "status": "paid", "method": "pix" },
-      { "id": "pay_005", "date": "2024-10-01T10:00:00Z", "amount": 199.90, "status": "paid", "method": "pix" }
+      { "id": "pay_003", "date": "2024-08-01T10:00:00Z", "amount": 1079.40, "status": "paid", "method": "pix", "invoice": "INV-2024-045" },
+      { "id": "pay_004", "date": "2024-02-01T10:00:00Z", "amount": 1079.40, "status": "paid", "method": "pix", "invoice": "INV-2024-012" }
     ],
     "createdAt": "2024-02-01T10:00:00Z",
-    "updatedAt": "2024-11-01T10:00:00Z"
+    "updatedAt": "2024-08-01T10:00:00Z"
   },
   {
     "id": "lic_003",
     "kioskId": "kiosk_003",
     "kioskName": "Tropical Beach",
+    "planId": "plan_professional",
     "plan": "professional",
     "status": "active",
     "startDate": "2024-02-15T00:00:00Z",
     "expiryDate": "2025-09-30T23:59:59Z",
-    "price": 199.90,
     "billingCycle": "monthly",
-    "features": ["unlimited_products", "unlimited_orders", "stock_management", "recipe_management", "analytics"],
-    "maxProducts": -1,
-    "maxOrdersPerMonth": -1,
+    "price": 199.90,
+    "totalPaid": 1999.00,
+    "autoRenew": true,
+    "features": {
+      "stockManagement": true,
+      "recipeManagement": true,
+      "analytics": true,
+      "advancedAnalytics": false,
+      "employeeManagement": true,
+      "publicRanking": true,
+      "prioritySupport": false,
+      "customDomain": false,
+      "apiAccess": false
+    },
+    "limits": {
+      "products": -1,
+      "ordersPerMonth": -1,
+      "employees": 5
+    },
     "paymentHistory": [
-      { "id": "pay_006", "date": "2024-11-01T10:00:00Z", "amount": 199.90, "status": "paid", "method": "credit_card" }
+      { "id": "pay_005", "date": "2024-11-01T10:00:00Z", "amount": 199.90, "status": "paid", "method": "credit_card", "invoice": "INV-2024-089" }
     ],
     "createdAt": "2024-02-15T10:00:00Z",
     "updatedAt": "2024-11-01T10:00:00Z"
@@ -63,56 +110,103 @@
     "id": "lic_004",
     "kioskId": "kiosk_004",
     "kioskName": "Sol Nascente",
+    "planId": "plan_basic",
     "plan": "basic",
     "status": "expiring_soon",
     "startDate": "2024-03-01T00:00:00Z",
     "expiryDate": "2025-03-31T23:59:59Z",
+    "billingCycle": "annual",
     "price": 99.90,
-    "billingCycle": "monthly",
-    "features": ["stock_management", "basic_analytics"],
-    "maxProducts": 50,
-    "maxOrdersPerMonth": 500,
+    "totalPaid": 958.80,
+    "autoRenew": false,
+    "features": {
+      "stockManagement": true,
+      "recipeManagement": false,
+      "analytics": false,
+      "advancedAnalytics": false,
+      "employeeManagement": false,
+      "publicRanking": false,
+      "prioritySupport": false,
+      "customDomain": false,
+      "apiAccess": false
+    },
+    "limits": {
+      "products": 50,
+      "ordersPerMonth": 500,
+      "employees": 0
+    },
     "paymentHistory": [
-      { "id": "pay_007", "date": "2024-11-01T10:00:00Z", "amount": 99.90, "status": "paid", "method": "pix" }
+      { "id": "pay_006", "date": "2024-03-01T10:00:00Z", "amount": 958.80, "status": "paid", "method": "boleto", "invoice": "INV-2024-023" }
     ],
     "createdAt": "2024-03-01T10:00:00Z",
-    "updatedAt": "2024-11-01T10:00:00Z"
+    "updatedAt": "2024-03-01T10:00:00Z"
   },
   {
     "id": "lic_005",
     "kioskId": "kiosk_005",
     "kioskName": "Maresia Bar",
+    "planId": "plan_premium",
     "plan": "premium",
     "status": "active",
     "startDate": "2024-03-15T00:00:00Z",
     "expiryDate": "2025-11-30T23:59:59Z",
+    "billingCycle": "annual",
     "price": 299.90,
-    "billingCycle": "monthly",
-    "features": ["unlimited_products", "unlimited_orders", "stock_management", "recipe_management", "analytics", "priority_support", "custom_domain"],
-    "maxProducts": -1,
-    "maxOrdersPerMonth": -1,
+    "totalPaid": 2878.80,
+    "autoRenew": true,
+    "features": {
+      "stockManagement": true,
+      "recipeManagement": true,
+      "analytics": true,
+      "advancedAnalytics": true,
+      "employeeManagement": true,
+      "publicRanking": true,
+      "prioritySupport": true,
+      "customDomain": true,
+      "apiAccess": true
+    },
+    "limits": {
+      "products": -1,
+      "ordersPerMonth": -1,
+      "employees": -1
+    },
     "paymentHistory": [
-      { "id": "pay_008", "date": "2024-11-01T10:00:00Z", "amount": 299.90, "status": "paid", "method": "credit_card" },
-      { "id": "pay_009", "date": "2024-10-01T10:00:00Z", "amount": 299.90, "status": "paid", "method": "credit_card" }
+      { "id": "pay_007", "date": "2024-03-15T10:00:00Z", "amount": 2878.80, "status": "paid", "method": "credit_card", "invoice": "INV-2024-028" }
     ],
     "createdAt": "2024-03-15T10:00:00Z",
-    "updatedAt": "2024-11-01T10:00:00Z"
+    "updatedAt": "2024-03-15T10:00:00Z"
   },
   {
     "id": "lic_006",
     "kioskId": "kiosk_006",
     "kioskName": "Onda Azul",
+    "planId": "plan_professional",
     "plan": "professional",
     "status": "active",
     "startDate": "2024-04-01T00:00:00Z",
     "expiryDate": "2025-08-31T23:59:59Z",
-    "price": 199.90,
     "billingCycle": "monthly",
-    "features": ["unlimited_products", "unlimited_orders", "stock_management", "recipe_management", "analytics"],
-    "maxProducts": -1,
-    "maxOrdersPerMonth": -1,
+    "price": 199.90,
+    "totalPaid": 1399.30,
+    "autoRenew": true,
+    "features": {
+      "stockManagement": true,
+      "recipeManagement": true,
+      "analytics": true,
+      "advancedAnalytics": false,
+      "employeeManagement": true,
+      "publicRanking": true,
+      "prioritySupport": false,
+      "customDomain": false,
+      "apiAccess": false
+    },
+    "limits": {
+      "products": -1,
+      "ordersPerMonth": -1,
+      "employees": 5
+    },
     "paymentHistory": [
-      { "id": "pay_010", "date": "2024-11-01T10:00:00Z", "amount": 199.90, "status": "paid", "method": "pix" }
+      { "id": "pay_008", "date": "2024-11-01T10:00:00Z", "amount": 199.90, "status": "paid", "method": "pix", "invoice": "INV-2024-090" }
     ],
     "createdAt": "2024-04-01T10:00:00Z",
     "updatedAt": "2024-11-01T10:00:00Z"
@@ -121,56 +215,103 @@
     "id": "lic_007",
     "kioskId": "kiosk_007",
     "kioskName": "Coqueiro Verde",
+    "planId": "plan_basic",
     "plan": "basic",
     "status": "expiring_soon",
     "startDate": "2024-04-15T00:00:00Z",
     "expiryDate": "2025-04-30T23:59:59Z",
+    "billingCycle": "annual",
     "price": 99.90,
-    "billingCycle": "monthly",
-    "features": ["stock_management", "basic_analytics"],
-    "maxProducts": 50,
-    "maxOrdersPerMonth": 500,
+    "totalPaid": 958.80,
+    "autoRenew": false,
+    "features": {
+      "stockManagement": true,
+      "recipeManagement": false,
+      "analytics": false,
+      "advancedAnalytics": false,
+      "employeeManagement": false,
+      "publicRanking": false,
+      "prioritySupport": false,
+      "customDomain": false,
+      "apiAccess": false
+    },
+    "limits": {
+      "products": 50,
+      "ordersPerMonth": 500,
+      "employees": 0
+    },
     "paymentHistory": [
-      { "id": "pay_011", "date": "2024-11-01T10:00:00Z", "amount": 99.90, "status": "paid", "method": "boleto" }
+      { "id": "pay_009", "date": "2024-04-15T10:00:00Z", "amount": 958.80, "status": "paid", "method": "boleto", "invoice": "INV-2024-035" }
     ],
     "createdAt": "2024-04-15T10:00:00Z",
-    "updatedAt": "2024-11-01T10:00:00Z"
+    "updatedAt": "2024-04-15T10:00:00Z"
   },
   {
     "id": "lic_008",
     "kioskId": "kiosk_008",
     "kioskName": "Areia Branca",
+    "planId": "plan_premium",
     "plan": "premium",
     "status": "active",
     "startDate": "2024-05-01T00:00:00Z",
     "expiryDate": "2025-10-31T23:59:59Z",
+    "billingCycle": "semiannual",
     "price": 299.90,
-    "billingCycle": "monthly",
-    "features": ["unlimited_products", "unlimited_orders", "stock_management", "recipe_management", "analytics", "priority_support", "custom_domain"],
-    "maxProducts": -1,
-    "maxOrdersPerMonth": -1,
+    "totalPaid": 1619.40,
+    "autoRenew": true,
+    "features": {
+      "stockManagement": true,
+      "recipeManagement": true,
+      "analytics": true,
+      "advancedAnalytics": true,
+      "employeeManagement": true,
+      "publicRanking": true,
+      "prioritySupport": true,
+      "customDomain": true,
+      "apiAccess": true
+    },
+    "limits": {
+      "products": -1,
+      "ordersPerMonth": -1,
+      "employees": -1
+    },
     "paymentHistory": [
-      { "id": "pay_012", "date": "2024-11-01T10:00:00Z", "amount": 299.90, "status": "paid", "method": "credit_card" },
-      { "id": "pay_013", "date": "2024-10-01T10:00:00Z", "amount": 299.90, "status": "paid", "method": "credit_card" }
+      { "id": "pay_010", "date": "2024-05-01T10:00:00Z", "amount": 1619.40, "status": "paid", "method": "credit_card", "invoice": "INV-2024-042" }
     ],
     "createdAt": "2024-05-01T10:00:00Z",
-    "updatedAt": "2024-11-01T10:00:00Z"
+    "updatedAt": "2024-05-01T10:00:00Z"
   },
   {
     "id": "lic_009",
     "kioskId": "kiosk_009",
     "kioskName": "Recanto do Sol",
+    "planId": "plan_professional",
     "plan": "professional",
     "status": "active",
     "startDate": "2024-05-15T00:00:00Z",
     "expiryDate": "2025-07-31T23:59:59Z",
-    "price": 199.90,
     "billingCycle": "monthly",
-    "features": ["unlimited_products", "unlimited_orders", "stock_management", "recipe_management", "analytics"],
-    "maxProducts": -1,
-    "maxOrdersPerMonth": -1,
+    "price": 199.90,
+    "totalPaid": 1199.40,
+    "autoRenew": true,
+    "features": {
+      "stockManagement": true,
+      "recipeManagement": true,
+      "analytics": true,
+      "advancedAnalytics": false,
+      "employeeManagement": true,
+      "publicRanking": true,
+      "prioritySupport": false,
+      "customDomain": false,
+      "apiAccess": false
+    },
+    "limits": {
+      "products": -1,
+      "ordersPerMonth": -1,
+      "employees": 5
+    },
     "paymentHistory": [
-      { "id": "pay_014", "date": "2024-11-01T10:00:00Z", "amount": 199.90, "status": "paid", "method": "pix" }
+      { "id": "pay_011", "date": "2024-11-01T10:00:00Z", "amount": 199.90, "status": "paid", "method": "pix", "invoice": "INV-2024-091" }
     ],
     "createdAt": "2024-05-15T10:00:00Z",
     "updatedAt": "2024-11-01T10:00:00Z"
@@ -179,20 +320,35 @@
     "id": "lic_010",
     "kioskId": "kiosk_010",
     "kioskName": "Paraíso Tropical",
+    "planId": "plan_basic",
     "plan": "basic",
     "status": "active",
     "startDate": "2024-06-01T00:00:00Z",
     "expiryDate": "2025-05-31T23:59:59Z",
+    "billingCycle": "annual",
     "price": 99.90,
-    "billingCycle": "monthly",
-    "features": ["stock_management", "basic_analytics"],
-    "maxProducts": 50,
-    "maxOrdersPerMonth": 500,
+    "totalPaid": 958.80,
+    "autoRenew": true,
+    "features": {
+      "stockManagement": true,
+      "recipeManagement": false,
+      "analytics": false,
+      "advancedAnalytics": false,
+      "employeeManagement": false,
+      "publicRanking": false,
+      "prioritySupport": false,
+      "customDomain": false,
+      "apiAccess": false
+    },
+    "limits": {
+      "products": 50,
+      "ordersPerMonth": 500,
+      "employees": 0
+    },
     "paymentHistory": [
-      { "id": "pay_015", "date": "2024-11-01T10:00:00Z", "amount": 99.90, "status": "paid", "method": "pix" }
+      { "id": "pay_012", "date": "2024-06-01T10:00:00Z", "amount": 958.80, "status": "paid", "method": "pix", "invoice": "INV-2024-051" }
     ],
     "createdAt": "2024-06-01T10:00:00Z",
-    "updatedAt": "2024-11-01T10:00:00Z"
+    "updatedAt": "2024-06-01T10:00:00Z"
   }
 ]
-

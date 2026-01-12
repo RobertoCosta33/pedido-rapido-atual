@@ -1,0 +1,135 @@
+[
+  {
+    "id": "plan_basic",
+    "name": "Basic",
+    "slug": "basic",
+    "description": "Ideal para quiosques iniciantes",
+    "badge": null,
+    "pricing": {
+      "monthly": 99.90,
+      "semiannual": 539.40,
+      "annual": 958.80,
+      "monthlyDiscount": {
+        "semiannual": 10,
+        "annual": 20
+      }
+    },
+    "limits": {
+      "products": 50,
+      "ordersPerMonth": 500,
+      "employees": 0,
+      "categories": 5,
+      "imagesPerProduct": 1
+    },
+    "features": {
+      "stockManagement": true,
+      "recipeManagement": false,
+      "analytics": false,
+      "advancedAnalytics": false,
+      "employeeManagement": false,
+      "publicRanking": false,
+      "prioritySupport": false,
+      "customDomain": false,
+      "apiAccess": false,
+      "whatsappIntegration": false,
+      "multipleMenus": false,
+      "promotions": false,
+      "loyaltyProgram": false,
+      "tableManagement": false,
+      "kitchenDisplay": false,
+      "exportReports": false
+    },
+    "order": 1,
+    "isActive": true,
+    "isPopular": false
+  },
+  {
+    "id": "plan_professional",
+    "name": "Professional",
+    "slug": "professional",
+    "description": "Para quiosques em crescimento",
+    "badge": "Mais Popular",
+    "pricing": {
+      "monthly": 199.90,
+      "semiannual": 1079.40,
+      "annual": 1918.80,
+      "monthlyDiscount": {
+        "semiannual": 10,
+        "annual": 20
+      }
+    },
+    "limits": {
+      "products": -1,
+      "ordersPerMonth": -1,
+      "employees": 5,
+      "categories": -1,
+      "imagesPerProduct": 5
+    },
+    "features": {
+      "stockManagement": true,
+      "recipeManagement": true,
+      "analytics": true,
+      "advancedAnalytics": false,
+      "employeeManagement": true,
+      "publicRanking": true,
+      "prioritySupport": false,
+      "customDomain": false,
+      "apiAccess": false,
+      "whatsappIntegration": true,
+      "multipleMenus": true,
+      "promotions": true,
+      "loyaltyProgram": false,
+      "tableManagement": true,
+      "kitchenDisplay": true,
+      "exportReports": true
+    },
+    "order": 2,
+    "isActive": true,
+    "isPopular": true
+  },
+  {
+    "id": "plan_premium",
+    "name": "Premium",
+    "slug": "premium",
+    "description": "Solução completa para grandes operações",
+    "badge": "Completo",
+    "pricing": {
+      "monthly": 299.90,
+      "semiannual": 1619.40,
+      "annual": 2878.80,
+      "monthlyDiscount": {
+        "semiannual": 10,
+        "annual": 20
+      }
+    },
+    "limits": {
+      "products": -1,
+      "ordersPerMonth": -1,
+      "employees": -1,
+      "categories": -1,
+      "imagesPerProduct": 10
+    },
+    "features": {
+      "stockManagement": true,
+      "recipeManagement": true,
+      "analytics": true,
+      "advancedAnalytics": true,
+      "employeeManagement": true,
+      "publicRanking": true,
+      "prioritySupport": true,
+      "customDomain": true,
+      "apiAccess": true,
+      "whatsappIntegration": true,
+      "multipleMenus": true,
+      "promotions": true,
+      "loyaltyProgram": true,
+      "tableManagement": true,
+      "kitchenDisplay": true,
+      "exportReports": true
+    },
+    "order": 3,
+    "isActive": true,
+    "isPopular": false
+  }
+]
+

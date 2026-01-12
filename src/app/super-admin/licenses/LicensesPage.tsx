@@ -395,6 +395,7 @@ const LicensesPage: React.FC = () => {
         <DataTable
           columns={columns}
           data={filteredLicenses}
+          keyExtractor={(license) => license.id}
           emptyMessage="Nenhuma licença encontrada"
         />
       </Card>
