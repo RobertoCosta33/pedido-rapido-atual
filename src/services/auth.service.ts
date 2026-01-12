@@ -11,7 +11,9 @@ import {
   AuthTokens,
   PasswordResetRequest,
   PasswordResetConfirm,
+  UserRole,
 } from '@/types';
+import { mockDataService, simulateDelay, MockUser } from './mock.service';
 
 interface AuthResponse {
   user: User;
@@ -19,53 +21,19 @@ interface AuthResponse {
 }
 
 /**
- * Mock de usuários para desenvolvimento
- * Remover em produção e usar API real
+ * Converte MockUser para User
  */
-const mockUsers: Record<string, { user: User; password: string }> = {
-  'super@pedidorapido.com': {
-    user: {
-      id: '1',
-      email: 'super@pedidorapido.com',
-      name: 'Super Admin',
-      role: 'super_admin',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      isActive: true,
-    },
-    password: 'admin123',
-  },
-  'admin@quiosque.com': {
-    user: {
-      id: '2',
-      email: 'admin@quiosque.com',
-      name: 'Admin Quiosque',
-      role: 'admin',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      isActive: true,
-    },
-    password: 'admin123',
-  },
-  'cliente@email.com': {
-    user: {
-      id: '3',
-      email: 'cliente@email.com',
-      name: 'Cliente Teste',
-      role: 'customer',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      isActive: true,
-    },
-    password: 'cliente123',
-  },
-};
-
-/**
- * Simula delay de API
- */
-const simulateDelay = (ms: number = 500): Promise<void> =>
-  new Promise((resolve) => setTimeout(resolve, ms));
+const toUser = (mockUser: MockUser): User => ({
+  id: mockUser.id,
+  email: mockUser.email,
+  name: mockUser.name,
+  role: mockUser.role as UserRole,
+  avatar: mockUser.avatar,
+  phone: mockUser.phone,
+  createdAt: new Date(mockUser.createdAt),
+  updatedAt: new Date(mockUser.updatedAt),
+  isActive: mockUser.isActive,
+});
 
 /**
  * Gera tokens mock
@@ -81,18 +49,22 @@ export const authService = {
    * Realiza login do usuário
    */
   login: async (credentials: LoginCredentials): Promise<AuthResponse> => {
-    // Desenvolvimento: usar mock
     if (process.env.NODE_ENV === 'development') {
-      await simulateDelay();
+      await simulateDelay(500);
       
-      const mockUser = mockUsers[credentials.email];
+      // Busca usuário no mock pelo email
+      const mockUser = mockDataService.getUserByEmail(credentials.email);
       
       if (!mockUser || mockUser.password !== credentials.password) {
         throw new Error('Email ou senha inválidos');
       }
       
+      if (!mockUser.isActive) {
+        throw new Error('Usuário inativo. Entre em contato com o suporte.');
+      }
+      
       return {
-        user: mockUser.user,
+        user: toUser(mockUser),
         tokens: generateMockTokens(),
       };
     }
@@ -106,32 +78,32 @@ export const authService = {
    * Registra novo usuário
    */
   register: async (data: RegisterData): Promise<AuthResponse> => {
-    // Desenvolvimento: criar mock
     if (process.env.NODE_ENV === 'development') {
-      await simulateDelay();
+      await simulateDelay(500);
       
-      if (mockUsers[data.email]) {
+      const existingUser = mockDataService.getUserByEmail(data.email);
+      if (existingUser) {
         throw new Error('Email já cadastrado');
       }
       
-      const newUser: User = {
-        id: String(Object.keys(mockUsers).length + 1),
+      const newUser: MockUser = {
+        id: `usr_${String(mockDataService.getUsers().length + 1).padStart(3, '0')}`,
         email: data.email,
+        password: data.password,
         name: data.name,
         role: 'customer',
         phone: data.phone,
-        createdAt: new Date(),
-        updatedAt: new Date(),
         isActive: true,
+        favoriteKiosks: [],
+        orderHistory: [],
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
       };
       
-      mockUsers[data.email] = {
-        user: newUser,
-        password: data.password,
-      };
+      mockDataService.addUser(newUser);
       
       return {
-        user: newUser,
+        user: toUser(newUser),
         tokens: generateMockTokens(),
       };
     }
@@ -144,7 +116,6 @@ export const authService = {
    * Valida token de acesso
    */
   validateToken: async (token: string): Promise<boolean> => {
-    // Desenvolvimento: sempre válido
     if (process.env.NODE_ENV === 'development') {
       await simulateDelay(100);
       return token.startsWith('mock-access-token');
@@ -162,7 +133,6 @@ export const authService = {
    * Renova token de acesso
    */
   refreshToken: async (refreshToken: string): Promise<AuthTokens> => {
-    // Desenvolvimento: gera novo token
     if (process.env.NODE_ENV === 'development') {
       await simulateDelay(100);
       
@@ -183,6 +153,14 @@ export const authService = {
   requestPasswordReset: async (data: PasswordResetRequest): Promise<void> => {
     if (process.env.NODE_ENV === 'development') {
       await simulateDelay();
+      
+      const user = mockDataService.getUserByEmail(data.email);
+      if (!user) {
+        // Não revela se o email existe ou não por segurança
+        return;
+      }
+      
+      console.log(`[MOCK] Link de recuperação enviado para ${data.email}`);
       return;
     }
     
@@ -195,6 +173,7 @@ export const authService = {
   confirmPasswordReset: async (data: PasswordResetConfirm): Promise<void> => {
     if (process.env.NODE_ENV === 'development') {
       await simulateDelay();
+      console.log(`[MOCK] Senha alterada com token ${data.token}`);
       return;
     }
     
@@ -204,11 +183,12 @@ export const authService = {
   /**
    * Obtém perfil do usuário atual
    */
-  getProfile: async (): Promise<User> => {
+  getProfile: async (userId: string): Promise<User> => {
     if (process.env.NODE_ENV === 'development') {
       await simulateDelay();
-      // Retorna primeiro usuário como exemplo
-      return mockUsers['super@pedidorapido.com'].user;
+      const user = mockDataService.getUserById(userId);
+      if (!user) throw new Error('Usuário não encontrado');
+      return toUser(user);
     }
     
     const response = await api.get<User>('/auth/profile');
@@ -218,10 +198,19 @@ export const authService = {
   /**
    * Atualiza perfil do usuário
    */
-  updateProfile: async (data: Partial<User>): Promise<User> => {
+  updateProfile: async (userId: string, data: Partial<User>): Promise<User> => {
     if (process.env.NODE_ENV === 'development') {
       await simulateDelay();
-      return { ...mockUsers['super@pedidorapido.com'].user, ...data };
+      
+      const updated = mockDataService.updateUser(userId, {
+        name: data.name,
+        phone: data.phone,
+        avatar: data.avatar,
+        updatedAt: new Date().toISOString(),
+      });
+      
+      if (!updated) throw new Error('Usuário não encontrado');
+      return toUser(updated);
     }
     
     const response = await api.patch<User>('/auth/profile', data);
@@ -231,15 +220,45 @@ export const authService = {
   /**
    * Altera senha do usuário
    */
-  changePassword: async (currentPassword: string, newPassword: string): Promise<void> => {
+  changePassword: async (
+    userId: string,
+    currentPassword: string,
+    newPassword: string
+  ): Promise<void> => {
     if (process.env.NODE_ENV === 'development') {
       await simulateDelay();
+      
+      const user = mockDataService.getUserById(userId);
+      if (!user) throw new Error('Usuário não encontrado');
+      
+      if (user.password !== currentPassword) {
+        throw new Error('Senha atual incorreta');
+      }
+      
+      mockDataService.updateUser(userId, {
+        password: newPassword,
+        updatedAt: new Date().toISOString(),
+      });
+      
       return;
     }
     
     await api.post('/auth/change-password', { currentPassword, newPassword });
   },
+
+  /**
+   * Verifica se email está disponível
+   */
+  checkEmailAvailability: async (email: string): Promise<boolean> => {
+    if (process.env.NODE_ENV === 'development') {
+      await simulateDelay(200);
+      const user = mockDataService.getUserByEmail(email);
+      return !user;
+    }
+    
+    const response = await api.get<{ available: boolean }>(`/auth/check-email?email=${email}`);
+    return response.data.available;
+  },
 };
 
 export default authService;
-

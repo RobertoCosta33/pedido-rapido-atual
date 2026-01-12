@@ -2,19 +2,23 @@
 
 /**
  * Dashboard do Admin do Quiosque
+ * Mostra estatísticas, pedidos recentes e alertas de estoque
  */
 
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled, { keyframes } from 'styled-components';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import { CircularProgress, Box } from '@mui/material';
 import { Card, Button } from '@/components';
 import { formatCurrency } from '@/utils/formatters';
 import { ORDER_STATUS } from '@/utils/constants';
+import { orderService, mockDataService } from '@/services';
+import { Order } from '@/types';
+import Link from 'next/link';
 
 const fadeIn = keyframes`
   from {
@@ -168,13 +172,13 @@ const OrderCustomer = styled.span`
   font-size: 0.875rem;
 `;
 
-const OrderStatus = styled.span<{ $status: keyof typeof ORDER_STATUS }>`
+const OrderStatusBadge = styled.span<{ $status: keyof typeof ORDER_STATUS }>`
   padding: 4px 12px;
   border-radius: ${({ theme }) => theme.borderRadius.full};
   font-size: 0.75rem;
   font-weight: 600;
-  background: ${({ $status }) => ORDER_STATUS[$status].bgColor};
-  color: ${({ $status }) => ORDER_STATUS[$status].color};
+  background: ${({ $status }) => ORDER_STATUS[$status]?.bgColor || '#e0e0e0'};
+  color: ${({ $status }) => ORDER_STATUS[$status]?.color || '#666'};
 `;
 
 const OrderTime = styled.span`
@@ -279,36 +283,143 @@ const ProductRevenue = styled.span`
   color: ${({ theme }) => theme.colors.success.main};
 `;
 
-// Mock data
-const stats = [
-  { icon: <ShoppingCartIcon />, label: 'Pedidos Hoje', value: '47', color: '#FF6B35' },
-  { icon: <AttachMoneyIcon />, label: 'Faturamento', value: formatCurrency(3847.50), color: '#2ECC71' },
-  { icon: <RestaurantIcon />, label: 'Itens Vendidos', value: '156', color: '#33B5E5' },
-  { icon: <WarningAmberIcon />, label: 'Alertas Estoque', value: '3', color: '#FFBB33' },
-];
+const EmptyMessage = styled.p`
+  text-align: center;
+  color: ${({ theme }) => theme.colors.text.secondary};
+  padding: ${({ theme }) => theme.spacing.lg};
+`;
 
-const recentOrders = [
-  { id: '#1247', customer: 'Mesa 12', status: 'preparing' as const, time: '5 min' },
-  { id: '#1246', customer: 'João Silva', status: 'ready' as const, time: '8 min' },
-  { id: '#1245', customer: 'Mesa 5', status: 'pending' as const, time: '2 min' },
-  { id: '#1244', customer: 'Maria Santos', status: 'delivered' as const, time: '15 min' },
-];
+interface DashboardStats {
+  ordersToday: number;
+  revenueToday: number;
+  itemsSold: number;
+  lowStockAlerts: number;
+}
 
-const stockAlerts = [
-  { name: 'Refrigerante Lata', current: 8, minimum: 50 },
-  { name: 'Pão Brioche', current: 12, minimum: 20 },
-  { name: 'Bacon', current: 450, minimum: 500, unit: 'g' },
-];
+interface StockAlert {
+  name: string;
+  current: number;
+  minimum: number;
+  unit: string;
+}
 
-const topProducts = [
-  { name: 'X-Burger Clássico', sales: 45, revenue: 1300.50 },
-  { name: 'Batata Frita', sales: 38, revenue: 718.20 },
-  { name: 'X-Bacon Supreme', sales: 32, revenue: 1116.80 },
-  { name: 'Refrigerante Lata', sales: 67, revenue: 462.30 },
-  { name: 'Brownie com Sorvete', sales: 21, revenue: 480.90 },
-];
+interface TopProduct {
+  name: string;
+  sales: number;
+  revenue: number;
+}
 
 export const AdminDashboard: React.FC = () => {
+  const [loading, setLoading] = useState(true);
+  const [stats, setStats] = useState<DashboardStats>({
+    ordersToday: 0,
+    revenueToday: 0,
+    itemsSold: 0,
+    lowStockAlerts: 0,
+  });
+  const [recentOrders, setRecentOrders] = useState<Order[]>([]);
+  const [stockAlerts, setStockAlerts] = useState<StockAlert[]>([]);
+  const [topProducts, setTopProducts] = useState<TopProduct[]>([]);
+
+  const kioskId = 'kiosk_001';
+
+  const loadData = useCallback(async () => {
+    try {
+      setLoading(true);
+
+      // Carrega pedidos
+      const orders = await orderService.getByKiosk(kioskId, { limit: 50 });
+      
+      // Pedidos recentes (últimos 5 não completados)
+      const recent = orders
+        .filter((o) => !['delivered', 'cancelled'].includes(o.status))
+        .slice(0, 5);
+      setRecentOrders(recent);
+
+      // Estatísticas
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      
+      const todayOrders = orders.filter((o) => new Date(o.createdAt) >= today);
+      const deliveredToday = todayOrders.filter((o) => o.status === 'delivered');
+      
+      const revenueToday = deliveredToday.reduce((sum, o) => sum + o.total, 0);
+      const itemsSold = deliveredToday.reduce(
+        (sum, o) => sum + o.items.reduce((s, i) => s + i.quantity, 0),
+        0
+      );
+
+      // Alertas de estoque baixo
+      const lowStock = mockDataService.getLowStockItems(kioskId);
+      setStockAlerts(
+        lowStock.slice(0, 5).map((item) => ({
+          name: item.name,
+          current: item.currentStock,
+          minimum: item.minimumStock,
+          unit: item.unit,
+        }))
+      );
+
+      setStats({
+        ordersToday: todayOrders.length,
+        revenueToday,
+        itemsSold,
+        lowStockAlerts: lowStock.length,
+      });
+
+      // Produtos mais vendidos
+      const productCounts: Record<string, { name: string; sales: number; revenue: number }> = {};
+      for (const order of deliveredToday) {
+        for (const item of order.items) {
+          if (!productCounts[item.productId]) {
+            productCounts[item.productId] = { name: item.productName, sales: 0, revenue: 0 };
+          }
+          productCounts[item.productId].sales += item.quantity;
+          productCounts[item.productId].revenue += item.totalPrice;
+        }
+      }
+
+      const top = Object.values(productCounts)
+        .sort((a, b) => b.sales - a.sales)
+        .slice(0, 5);
+      setTopProducts(top);
+    } catch (err) {
+      console.error('Erro ao carregar dashboard:', err);
+    } finally {
+      setLoading(false);
+    }
+  }, [kioskId]);
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
+
+  // Calcula tempo decorrido
+  const getTimeAgo = (date: Date): string => {
+    const now = new Date();
+    const diff = Math.floor((now.getTime() - new Date(date).getTime()) / 60000);
+    if (diff < 1) return 'Agora';
+    if (diff < 60) return `${diff} min`;
+    return `${Math.floor(diff / 60)}h`;
+  };
+
+  if (loading) {
+    return (
+      <Container>
+        <Box display="flex" justifyContent="center" alignItems="center" minHeight="400px">
+          <CircularProgress />
+        </Box>
+      </Container>
+    );
+  }
+
+  const statsData = [
+    { icon: <ShoppingCartIcon />, label: 'Pedidos Hoje', value: String(stats.ordersToday), color: '#FF6B35' },
+    { icon: <AttachMoneyIcon />, label: 'Faturamento', value: formatCurrency(stats.revenueToday), color: '#2ECC71' },
+    { icon: <RestaurantIcon />, label: 'Itens Vendidos', value: String(stats.itemsSold), color: '#33B5E5' },
+    { icon: <WarningAmberIcon />, label: 'Alertas Estoque', value: String(stats.lowStockAlerts), color: '#FFBB33' },
+  ];
+
   return (
     <Container>
       <Header>
@@ -317,7 +428,7 @@ export const AdminDashboard: React.FC = () => {
       </Header>
       
       <StatsGrid>
-        {stats.map((stat, index) => (
+        {statsData.map((stat, index) => (
           <StatCard key={index} $color={stat.color}>
             <StatIcon $color={stat.color}>{stat.icon}</StatIcon>
             <StatValue>{stat.value}</StatValue>
@@ -330,59 +441,71 @@ export const AdminDashboard: React.FC = () => {
         <Section>
           <SectionHeader>
             <SectionTitle>Pedidos Recentes</SectionTitle>
-            <Button variant="ghost" size="small">
-              Ver todos
-            </Button>
+            <Link href="/admin/orders">
+              <Button variant="ghost" size="small">
+                Ver todos
+              </Button>
+            </Link>
           </SectionHeader>
           
           <Card padding="12px">
-            <OrderList>
-              {recentOrders.map((order) => (
-                <OrderItem key={order.id}>
-                  <OrderInfo>
-                    <div>
-                      <OrderNumber>{order.id}</OrderNumber>
-                      <OrderCustomer> • {order.customer}</OrderCustomer>
-                    </div>
-                  </OrderInfo>
-                  <OrderStatus $status={order.status}>
-                    {ORDER_STATUS[order.status].label}
-                  </OrderStatus>
-                  <OrderTime>
-                    <AccessTimeIcon />
-                    {order.time}
-                  </OrderTime>
-                </OrderItem>
-              ))}
-            </OrderList>
+            {recentOrders.length === 0 ? (
+              <EmptyMessage>Nenhum pedido pendente</EmptyMessage>
+            ) : (
+              <OrderList>
+                {recentOrders.map((order) => (
+                  <OrderItem key={order.id}>
+                    <OrderInfo>
+                      <div>
+                        <OrderNumber>#{order.id.slice(-3)}</OrderNumber>
+                        <OrderCustomer> • {order.customerName}</OrderCustomer>
+                      </div>
+                    </OrderInfo>
+                    <OrderStatusBadge $status={order.status as keyof typeof ORDER_STATUS}>
+                      {ORDER_STATUS[order.status as keyof typeof ORDER_STATUS]?.label || order.status}
+                    </OrderStatusBadge>
+                    <OrderTime>
+                      <AccessTimeIcon />
+                      {getTimeAgo(order.createdAt)}
+                    </OrderTime>
+                  </OrderItem>
+                ))}
+              </OrderList>
+            )}
           </Card>
         </Section>
         
         <Section>
           <SectionHeader>
             <SectionTitle>Alertas de Estoque</SectionTitle>
-            <Button variant="ghost" size="small">
-              Ver estoque
-            </Button>
+            <Link href="/admin/stock">
+              <Button variant="ghost" size="small">
+                Ver estoque
+              </Button>
+            </Link>
           </SectionHeader>
           
           <Card padding="12px">
-            <AlertList>
-              {stockAlerts.map((alert, index) => (
-                <AlertItem key={index}>
-                  <WarningAmberIcon />
-                  <AlertContent>
-                    <AlertTitle>{alert.name}</AlertTitle>
-                    <AlertSubtitle>
-                      Atual: {alert.current}{alert.unit || ' un'} | Mínimo: {alert.minimum}{alert.unit || ' un'}
-                    </AlertSubtitle>
-                  </AlertContent>
-                  <Button variant="outline" size="small">
-                    Repor
-                  </Button>
-                </AlertItem>
-              ))}
-            </AlertList>
+            {stockAlerts.length === 0 ? (
+              <EmptyMessage>Nenhum alerta de estoque</EmptyMessage>
+            ) : (
+              <AlertList>
+                {stockAlerts.map((alert, index) => (
+                  <AlertItem key={index}>
+                    <WarningAmberIcon />
+                    <AlertContent>
+                      <AlertTitle>{alert.name}</AlertTitle>
+                      <AlertSubtitle>
+                        Atual: {alert.current} {alert.unit} | Mínimo: {alert.minimum} {alert.unit}
+                      </AlertSubtitle>
+                    </AlertContent>
+                    <Button variant="outline" size="small">
+                      Repor
+                    </Button>
+                  </AlertItem>
+                ))}
+              </AlertList>
+            )}
           </Card>
         </Section>
         
@@ -392,22 +515,25 @@ export const AdminDashboard: React.FC = () => {
           </SectionHeader>
           
           <Card>
-            <TopProductsList>
-              {topProducts.map((product, index) => (
-                <TopProductItem key={index}>
-                  <ProductRank>{index + 1}</ProductRank>
-                  <ProductInfo>
-                    <ProductName>{product.name}</ProductName>
-                    <ProductSales>{product.sales} vendas hoje</ProductSales>
-                  </ProductInfo>
-                  <ProductRevenue>{formatCurrency(product.revenue)}</ProductRevenue>
-                </TopProductItem>
-              ))}
-            </TopProductsList>
+            {topProducts.length === 0 ? (
+              <EmptyMessage>Nenhuma venda hoje</EmptyMessage>
+            ) : (
+              <TopProductsList>
+                {topProducts.map((product, index) => (
+                  <TopProductItem key={index}>
+                    <ProductRank>{index + 1}</ProductRank>
+                    <ProductInfo>
+                      <ProductName>{product.name}</ProductName>
+                      <ProductSales>{product.sales} vendas hoje</ProductSales>
+                    </ProductInfo>
+                    <ProductRevenue>{formatCurrency(product.revenue)}</ProductRevenue>
+                  </TopProductItem>
+                ))}
+              </TopProductsList>
+            )}
           </Card>
         </Section>
       </Grid>
     </Container>
   );
 };
-

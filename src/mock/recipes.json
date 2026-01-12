@@ -1,0 +1,138 @@
+[
+  {
+    "id": "rec_001",
+    "kioskId": "kiosk_001",
+    "productId": "prod_015",
+    "name": "Receita Moqueca de Peixe",
+    "description": "Moqueca tradicional com peixe fresco",
+    "yield": 1,
+    "yieldUnit": "porção",
+    "preparationTime": 35,
+    "instructions": [
+      "Tempere o peixe",
+      "Refogue os vegetais",
+      "Adicione o leite de coco",
+      "Cozinhe por 25 min"
+    ],
+    "ingredients": [
+      {
+        "ingredientId": "ing_002",
+        "ingredientName": "Peixe Fresco",
+        "quantity": 0.4,
+        "unit": "kg",
+        "costPerPortion": 18
+      },
+      {
+        "ingredientId": "ing_007",
+        "ingredientName": "Leite de Coco",
+        "quantity": 0.2,
+        "unit": "l",
+        "costPerPortion": 2.4
+      },
+      {
+        "ingredientId": "ing_008",
+        "ingredientName": "Azeite de Dendê",
+        "quantity": 0.05,
+        "unit": "l",
+        "costPerPortion": 1.4
+      },
+      {
+        "ingredientId": "ing_011",
+        "ingredientName": "Cebola",
+        "quantity": 0.1,
+        "unit": "kg",
+        "costPerPortion": 0.5
+      },
+      {
+        "ingredientId": "ing_013",
+        "ingredientName": "Tomate",
+        "quantity": 0.15,
+        "unit": "kg",
+        "costPerPortion": 1.2
+      }
+    ],
+    "totalCost": 23.5,
+    "isActive": true,
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "rec_002",
+    "kioskId": "kiosk_001",
+    "productId": "prod_016",
+    "name": "Receita Moqueca de Camarão",
+    "description": "Moqueca com camarões rosa selecionados",
+    "yield": 1,
+    "yieldUnit": "porção",
+    "preparationTime": 35,
+    "instructions": [
+      "Limpe os camarões",
+      "Refogue os temperos",
+      "Adicione leite de coco e dendê",
+      "Finalize com coentro"
+    ],
+    "ingredients": [
+      {
+        "ingredientId": "ing_001",
+        "ingredientName": "Camarão Rosa",
+        "quantity": 0.35,
+        "unit": "kg",
+        "costPerPortion": 26.25
+      },
+      {
+        "ingredientId": "ing_007",
+        "ingredientName": "Leite de Coco",
+        "quantity": 0.25,
+        "unit": "l",
+        "costPerPortion": 3
+      },
+      {
+        "ingredientId": "ing_008",
+        "ingredientName": "Azeite de Dendê",
+        "quantity": 0.05,
+        "unit": "l",
+        "costPerPortion": 1.4
+      }
+    ],
+    "totalCost": 30.65,
+    "isActive": true,
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "rec_003",
+    "kioskId": "kiosk_001",
+    "productId": "prod_017",
+    "name": "Receita Bobó de Camarão",
+    "description": "Bobó cremoso com camarões",
+    "yield": 1,
+    "yieldUnit": "porção",
+    "preparationTime": 30,
+    "instructions": [
+      "Cozinhe a mandioca",
+      "Bata até formar creme",
+      "Refogue camarões",
+      "Misture tudo"
+    ],
+    "ingredients": [
+      {
+        "ingredientId": "ing_001",
+        "ingredientName": "Camarão Rosa",
+        "quantity": 0.3,
+        "unit": "kg",
+        "costPerPortion": 22.5
+      },
+      {
+        "ingredientId": "ing_007",
+        "ingredientName": "Leite de Coco",
+        "quantity": 0.2,
+        "unit": "l",
+        "costPerPortion": 2.4
+      }
+    ],
+    "totalCost": 24.9,
+    "isActive": true,
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  }
+]

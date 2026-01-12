@@ -1,0 +1,2322 @@
+[
+  {
+    "id": "prod_001",
+    "kioskId": "kiosk_001",
+    "categoryId": "cat_001",
+    "name": "Caipirinha Tradicional",
+    "description": "Delicioso(a) caipirinha tradicional preparado(a) com ingredientes frescos e selecionados.",
+    "price": 18.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000001?w=400"
+    ],
+    "isAvailable": false,
+    "isHighlighted": true,
+    "preparationTime": 5,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_002",
+    "kioskId": "kiosk_001",
+    "categoryId": "cat_001",
+    "name": "Caipirinha de Morango",
+    "description": "Delicioso(a) caipirinha de morango preparado(a) com ingredientes frescos e selecionados.",
+    "price": 22.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000002?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 5,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_003",
+    "kioskId": "kiosk_001",
+    "categoryId": "cat_001",
+    "name": "Cerveja Long Neck",
+    "description": "Delicioso(a) cerveja long neck preparado(a) com ingredientes frescos e selecionados.",
+    "price": 12.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000003?w=400"
+    ],
+    "isAvailable": false,
+    "isHighlighted": false,
+    "preparationTime": 1,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_004",
+    "kioskId": "kiosk_001",
+    "categoryId": "cat_001",
+    "name": "Chopp 300ml",
+    "description": "Delicioso(a) chopp 300ml preparado(a) com ingredientes frescos e selecionados.",
+    "price": 9.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000004?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 2,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_005",
+    "kioskId": "kiosk_001",
+    "categoryId": "cat_001",
+    "name": "Água de Coco",
+    "description": "Delicioso(a) água de coco preparado(a) com ingredientes frescos e selecionados.",
+    "price": 8.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000005?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 2,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_006",
+    "kioskId": "kiosk_001",
+    "categoryId": "cat_001",
+    "name": "Suco de Laranja",
+    "description": "Delicioso(a) suco de laranja preparado(a) com ingredientes frescos e selecionados.",
+    "price": 12.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000006?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": true,
+    "preparationTime": 5,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_007",
+    "kioskId": "kiosk_001",
+    "categoryId": "cat_001",
+    "name": "Refrigerante Lata",
+    "description": "Delicioso(a) refrigerante lata preparado(a) com ingredientes frescos e selecionados.",
+    "price": 6.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000007?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 1,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_008",
+    "kioskId": "kiosk_001",
+    "categoryId": "cat_001",
+    "name": "Água Mineral",
+    "description": "Delicioso(a) água mineral preparado(a) com ingredientes frescos e selecionados.",
+    "price": 4.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000008?w=400"
+    ],
+    "isAvailable": false,
+    "isHighlighted": false,
+    "preparationTime": 1,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_009",
+    "kioskId": "kiosk_001",
+    "categoryId": "cat_002",
+    "name": "Porção de Batata Frita",
+    "description": "Delicioso(a) porção de batata frita preparado(a) com ingredientes frescos e selecionados.",
+    "price": 32.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000009?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 15,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_010",
+    "kioskId": "kiosk_001",
+    "categoryId": "cat_002",
+    "name": "Isca de Peixe",
+    "description": "Delicioso(a) isca de peixe preparado(a) com ingredientes frescos e selecionados.",
+    "price": 48.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000010?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 18,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_011",
+    "kioskId": "kiosk_001",
+    "categoryId": "cat_002",
+    "name": "Camarão Empanado",
+    "description": "Delicioso(a) camarão empanado preparado(a) com ingredientes frescos e selecionados.",
+    "price": 68.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000011?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 20,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_012",
+    "kioskId": "kiosk_001",
+    "categoryId": "cat_002",
+    "name": "Lula à Dorê",
+    "description": "Delicioso(a) lula à dorê preparado(a) com ingredientes frescos e selecionados.",
+    "price": 58.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000012?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 18,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_013",
+    "kioskId": "kiosk_001",
+    "categoryId": "cat_002",
+    "name": "Casquinha de Siri",
+    "description": "Delicioso(a) casquinha de siri preparado(a) com ingredientes frescos e selecionados.",
+    "price": 28.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000013?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": true,
+    "preparationTime": 12,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_014",
+    "kioskId": "kiosk_001",
+    "categoryId": "cat_002",
+    "name": "Bolinho de Bacalhau",
+    "description": "Delicioso(a) bolinho de bacalhau preparado(a) com ingredientes frescos e selecionados.",
+    "price": 42.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000014?w=400"
+    ],
+    "isAvailable": false,
+    "isHighlighted": false,
+    "preparationTime": 15,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_015",
+    "kioskId": "kiosk_001",
+    "categoryId": "cat_003",
+    "name": "Moqueca de Peixe",
+    "description": "Delicioso(a) moqueca de peixe preparado(a) com ingredientes frescos e selecionados.",
+    "price": 89.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000015?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 35,
+    "recipeId": "rec_001",
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_016",
+    "kioskId": "kiosk_001",
+    "categoryId": "cat_003",
+    "name": "Moqueca de Camarão",
+    "description": "Delicioso(a) moqueca de camarão preparado(a) com ingredientes frescos e selecionados.",
+    "price": 109.9,
+    "promotionalPrice": 93.42,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000016?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 35,
+    "recipeId": "rec_002",
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_017",
+    "kioskId": "kiosk_001",
+    "categoryId": "cat_003",
+    "name": "Bobó de Camarão",
+    "description": "Delicioso(a) bobó de camarão preparado(a) com ingredientes frescos e selecionados.",
+    "price": 98.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000017?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 30,
+    "recipeId": "rec_003",
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_018",
+    "kioskId": "kiosk_001",
+    "categoryId": "cat_003",
+    "name": "Peixe Grelhado",
+    "description": "Delicioso(a) peixe grelhado preparado(a) com ingredientes frescos e selecionados.",
+    "price": 68.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000018?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 25,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_019",
+    "kioskId": "kiosk_001",
+    "categoryId": "cat_004",
+    "name": "Pudim de Leite",
+    "description": "Delicioso(a) pudim de leite preparado(a) com ingredientes frescos e selecionados.",
+    "price": 14.9,
+    "promotionalPrice": 12.67,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000019?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 3,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_020",
+    "kioskId": "kiosk_001",
+    "categoryId": "cat_004",
+    "name": "Mousse de Maracujá",
+    "description": "Delicioso(a) mousse de maracujá preparado(a) com ingredientes frescos e selecionados.",
+    "price": 16.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000020?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 3,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_021",
+    "kioskId": "kiosk_002",
+    "categoryId": "cat_005",
+    "name": "Mojito",
+    "description": "Delicioso(a) mojito preparado(a) com ingredientes frescos e selecionados.",
+    "price": 26.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000021?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 6,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_022",
+    "kioskId": "kiosk_002",
+    "categoryId": "cat_005",
+    "name": "Piña Colada",
+    "description": "Delicioso(a) piña colada preparado(a) com ingredientes frescos e selecionados.",
+    "price": 28.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000022?w=400"
+    ],
+    "isAvailable": false,
+    "isHighlighted": true,
+    "preparationTime": 8,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_023",
+    "kioskId": "kiosk_002",
+    "categoryId": "cat_005",
+    "name": "Margarita",
+    "description": "Delicioso(a) margarita preparado(a) com ingredientes frescos e selecionados.",
+    "price": 28.9,
+    "promotionalPrice": 24.57,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000023?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 6,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_024",
+    "kioskId": "kiosk_002",
+    "categoryId": "cat_005",
+    "name": "Cerveja Artesanal",
+    "description": "Delicioso(a) cerveja artesanal preparado(a) com ingredientes frescos e selecionados.",
+    "price": 18.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000024?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 1,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_025",
+    "kioskId": "kiosk_002",
+    "categoryId": "cat_005",
+    "name": "Batida de Coco",
+    "description": "Delicioso(a) batida de coco preparado(a) com ingredientes frescos e selecionados.",
+    "price": 18.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000025?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 5,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_026",
+    "kioskId": "kiosk_002",
+    "categoryId": "cat_005",
+    "name": "Caipiroska",
+    "description": "Delicioso(a) caipiroska preparado(a) com ingredientes frescos e selecionados.",
+    "price": 22.9,
+    "promotionalPrice": 19.47,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000026?w=400"
+    ],
+    "isAvailable": false,
+    "isHighlighted": false,
+    "preparationTime": 5,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_027",
+    "kioskId": "kiosk_002",
+    "categoryId": "cat_006",
+    "name": "Porção de Camarão",
+    "description": "Delicioso(a) porção de camarão preparado(a) com ingredientes frescos e selecionados.",
+    "price": 78.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000027?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 20,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_028",
+    "kioskId": "kiosk_002",
+    "categoryId": "cat_006",
+    "name": "Porção de Lula",
+    "description": "Delicioso(a) porção de lula preparado(a) com ingredientes frescos e selecionados.",
+    "price": 62.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000028?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": true,
+    "preparationTime": 18,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_029",
+    "kioskId": "kiosk_002",
+    "categoryId": "cat_006",
+    "name": "Tábua de Frios",
+    "description": "Delicioso(a) tábua de frios preparado(a) com ingredientes frescos e selecionados.",
+    "price": 78.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000029?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": true,
+    "preparationTime": 10,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_030",
+    "kioskId": "kiosk_002",
+    "categoryId": "cat_007",
+    "name": "Caldeirada de Frutos do Mar",
+    "description": "Delicioso(a) caldeirada de frutos do mar preparado(a) com ingredientes frescos e selecionados.",
+    "price": 98.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000030?w=400"
+    ],
+    "isAvailable": false,
+    "isHighlighted": true,
+    "preparationTime": 35,
+    "recipeId": "rec_004",
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_031",
+    "kioskId": "kiosk_002",
+    "categoryId": "cat_007",
+    "name": "Lagosta Grelhada",
+    "description": "Delicioso(a) lagosta grelhada preparado(a) com ingredientes frescos e selecionados.",
+    "price": 189.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000031?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 35,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_032",
+    "kioskId": "kiosk_002",
+    "categoryId": "cat_007",
+    "name": "Arroz de Polvo",
+    "description": "Delicioso(a) arroz de polvo preparado(a) com ingredientes frescos e selecionados.",
+    "price": 98.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000032?w=400"
+    ],
+    "isAvailable": false,
+    "isHighlighted": false,
+    "preparationTime": 35,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_033",
+    "kioskId": "kiosk_002",
+    "categoryId": "cat_007",
+    "name": "Camarão na Moranga",
+    "description": "Delicioso(a) camarão na moranga preparado(a) com ingredientes frescos e selecionados.",
+    "price": 128.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000033?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 40,
+    "recipeId": "rec_005",
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_034",
+    "kioskId": "kiosk_002",
+    "categoryId": "cat_008",
+    "name": "Petit Gateau",
+    "description": "Delicioso(a) petit gateau preparado(a) com ingredientes frescos e selecionados.",
+    "price": 24.9,
+    "promotionalPrice": 21.17,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000034?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 12,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_035",
+    "kioskId": "kiosk_002",
+    "categoryId": "cat_008",
+    "name": "Sorvete 2 Bolas",
+    "description": "Delicioso(a) sorvete 2 bolas preparado(a) com ingredientes frescos e selecionados.",
+    "price": 18.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000035?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 3,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_036",
+    "kioskId": "kiosk_003",
+    "categoryId": "cat_009",
+    "name": "Suco de Acerola",
+    "description": "Delicioso(a) suco de acerola preparado(a) com ingredientes frescos e selecionados.",
+    "price": 10.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000036?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 5,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_037",
+    "kioskId": "kiosk_003",
+    "categoryId": "cat_009",
+    "name": "Suco de Cajá",
+    "description": "Delicioso(a) suco de cajá preparado(a) com ingredientes frescos e selecionados.",
+    "price": 10.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000037?w=400"
+    ],
+    "isAvailable": false,
+    "isHighlighted": false,
+    "preparationTime": 5,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_038",
+    "kioskId": "kiosk_003",
+    "categoryId": "cat_009",
+    "name": "Suco de Graviola",
+    "description": "Delicioso(a) suco de graviola preparado(a) com ingredientes frescos e selecionados.",
+    "price": 12.9,
+    "promotionalPrice": 10.97,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000038?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 5,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_039",
+    "kioskId": "kiosk_003",
+    "categoryId": "cat_009",
+    "name": "Vitamina de Banana",
+    "description": "Delicioso(a) vitamina de banana preparado(a) com ingredientes frescos e selecionados.",
+    "price": 14.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000039?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 5,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_040",
+    "kioskId": "kiosk_003",
+    "categoryId": "cat_010",
+    "name": "Acarajé Tradicional",
+    "description": "Delicioso(a) acarajé tradicional preparado(a) com ingredientes frescos e selecionados.",
+    "price": 18.9,
+    "promotionalPrice": 16.06,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000040?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 12,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_041",
+    "kioskId": "kiosk_003",
+    "categoryId": "cat_010",
+    "name": "Acarajé Especial",
+    "description": "Delicioso(a) acarajé especial preparado(a) com ingredientes frescos e selecionados.",
+    "price": 24.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000041?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": true,
+    "preparationTime": 15,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_042",
+    "kioskId": "kiosk_003",
+    "categoryId": "cat_010",
+    "name": "Abará",
+    "description": "Delicioso(a) abará preparado(a) com ingredientes frescos e selecionados.",
+    "price": 16.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000042?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 10,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_043",
+    "kioskId": "kiosk_003",
+    "categoryId": "cat_011",
+    "name": "Moqueca Baiana",
+    "description": "Delicioso(a) moqueca baiana preparado(a) com ingredientes frescos e selecionados.",
+    "price": 95.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000043?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 35,
+    "recipeId": "rec_006",
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_044",
+    "kioskId": "kiosk_003",
+    "categoryId": "cat_011",
+    "name": "Vatapá",
+    "description": "Delicioso(a) vatapá preparado(a) com ingredientes frescos e selecionados.",
+    "price": 68.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000044?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 25,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_045",
+    "kioskId": "kiosk_003",
+    "categoryId": "cat_011",
+    "name": "Caruru",
+    "description": "Delicioso(a) caruru preparado(a) com ingredientes frescos e selecionados.",
+    "price": 58.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000045?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 25,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_046",
+    "kioskId": "kiosk_003",
+    "categoryId": "cat_012",
+    "name": "Açaí 300ml",
+    "description": "Delicioso(a) açaí 300ml preparado(a) com ingredientes frescos e selecionados.",
+    "price": 22.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000046?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 5,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_047",
+    "kioskId": "kiosk_003",
+    "categoryId": "cat_012",
+    "name": "Açaí 500ml",
+    "description": "Delicioso(a) açaí 500ml preparado(a) com ingredientes frescos e selecionados.",
+    "price": 32.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000047?w=400"
+    ],
+    "isAvailable": false,
+    "isHighlighted": false,
+    "preparationTime": 5,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_048",
+    "kioskId": "kiosk_003",
+    "categoryId": "cat_012",
+    "name": "Açaí na Tigela",
+    "description": "Delicioso(a) açaí na tigela preparado(a) com ingredientes frescos e selecionados.",
+    "price": 28.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000048?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": true,
+    "preparationTime": 8,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_049",
+    "kioskId": "kiosk_004",
+    "categoryId": "cat_013",
+    "name": "Café com Leite",
+    "description": "Delicioso(a) café com leite preparado(a) com ingredientes frescos e selecionados.",
+    "price": 6.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000049?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 3,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_050",
+    "kioskId": "kiosk_004",
+    "categoryId": "cat_013",
+    "name": "Cappuccino",
+    "description": "Delicioso(a) cappuccino preparado(a) com ingredientes frescos e selecionados.",
+    "price": 9.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000050?w=400"
+    ],
+    "isAvailable": false,
+    "isHighlighted": false,
+    "preparationTime": 5,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_051",
+    "kioskId": "kiosk_004",
+    "categoryId": "cat_013",
+    "name": "Pão na Chapa",
+    "description": "Delicioso(a) pão na chapa preparado(a) com ingredientes frescos e selecionados.",
+    "price": 8.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000051?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": true,
+    "preparationTime": 5,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_052",
+    "kioskId": "kiosk_004",
+    "categoryId": "cat_013",
+    "name": "Cuscuz com Ovo",
+    "description": "Delicioso(a) cuscuz com ovo preparado(a) com ingredientes frescos e selecionados.",
+    "price": 16.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000052?w=400"
+    ],
+    "isAvailable": false,
+    "isHighlighted": false,
+    "preparationTime": 12,
+    "recipeId": "rec_007",
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_053",
+    "kioskId": "kiosk_004",
+    "categoryId": "cat_013",
+    "name": "Omelete Completa",
+    "description": "Delicioso(a) omelete completa preparado(a) com ingredientes frescos e selecionados.",
+    "price": 22.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000053?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 12,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_054",
+    "kioskId": "kiosk_004",
+    "categoryId": "cat_014",
+    "name": "Tapioca Simples",
+    "description": "Delicioso(a) tapioca simples preparado(a) com ingredientes frescos e selecionados.",
+    "price": 12.9,
+    "promotionalPrice": 10.97,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000054?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 8,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_055",
+    "kioskId": "kiosk_004",
+    "categoryId": "cat_014",
+    "name": "Tapioca de Carne Seca",
+    "description": "Delicioso(a) tapioca de carne seca preparado(a) com ingredientes frescos e selecionados.",
+    "price": 22.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000055?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 12,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_056",
+    "kioskId": "kiosk_004",
+    "categoryId": "cat_014",
+    "name": "Tapioca de Queijo Coalho",
+    "description": "Delicioso(a) tapioca de queijo coalho preparado(a) com ingredientes frescos e selecionados.",
+    "price": 18.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000056?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 10,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_057",
+    "kioskId": "kiosk_004",
+    "categoryId": "cat_014",
+    "name": "Tapioca de Frango",
+    "description": "Delicioso(a) tapioca de frango preparado(a) com ingredientes frescos e selecionados.",
+    "price": 20.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000057?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 12,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_058",
+    "kioskId": "kiosk_004",
+    "categoryId": "cat_015",
+    "name": "Sanduíche Natural",
+    "description": "Delicioso(a) sanduíche natural preparado(a) com ingredientes frescos e selecionados.",
+    "price": 18.9,
+    "promotionalPrice": 16.06,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000058?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 10,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_059",
+    "kioskId": "kiosk_004",
+    "categoryId": "cat_015",
+    "name": "X-Tudo",
+    "description": "Delicioso(a) x-tudo preparado(a) com ingredientes frescos e selecionados.",
+    "price": 28.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000059?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 15,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_060",
+    "kioskId": "kiosk_004",
+    "categoryId": "cat_015",
+    "name": "Misto Quente",
+    "description": "Delicioso(a) misto quente preparado(a) com ingredientes frescos e selecionados.",
+    "price": 12.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000060?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 8,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_061",
+    "kioskId": "kiosk_005",
+    "categoryId": "cat_016",
+    "name": "Caipirinha de Limão",
+    "description": "Delicioso(a) caipirinha de limão preparado(a) com ingredientes frescos e selecionados.",
+    "price": 18.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000061?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 5,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_062",
+    "kioskId": "kiosk_005",
+    "categoryId": "cat_016",
+    "name": "Drink do Mar",
+    "description": "Delicioso(a) drink do mar preparado(a) com ingredientes frescos e selecionados.",
+    "price": 32.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000062?w=400"
+    ],
+    "isAvailable": false,
+    "isHighlighted": false,
+    "preparationTime": 8,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_063",
+    "kioskId": "kiosk_005",
+    "categoryId": "cat_016",
+    "name": "Sex on the Beach",
+    "description": "Delicioso(a) sex on the beach preparado(a) com ingredientes frescos e selecionados.",
+    "price": 32.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000063?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 6,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_064",
+    "kioskId": "kiosk_005",
+    "categoryId": "cat_016",
+    "name": "Blue Lagoon",
+    "description": "Delicioso(a) blue lagoon preparado(a) com ingredientes frescos e selecionados.",
+    "price": 28.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000064?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": true,
+    "preparationTime": 6,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_065",
+    "kioskId": "kiosk_005",
+    "categoryId": "cat_017",
+    "name": "Caranguejo Inteiro",
+    "description": "Delicioso(a) caranguejo inteiro preparado(a) com ingredientes frescos e selecionados.",
+    "price": 45.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000065?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 25,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_066",
+    "kioskId": "kiosk_005",
+    "categoryId": "cat_017",
+    "name": "Caranguejo ao Alho",
+    "description": "Delicioso(a) caranguejo ao alho preparado(a) com ingredientes frescos e selecionados.",
+    "price": 68.9,
+    "promotionalPrice": 58.57,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000066?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 28,
+    "recipeId": "rec_008",
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_067",
+    "kioskId": "kiosk_005",
+    "categoryId": "cat_017",
+    "name": "Patinha de Caranguejo",
+    "description": "Delicioso(a) patinha de caranguejo preparado(a) com ingredientes frescos e selecionados.",
+    "price": 58.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000067?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": true,
+    "preparationTime": 20,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_068",
+    "kioskId": "kiosk_005",
+    "categoryId": "cat_017",
+    "name": "Casquinha de Caranguejo",
+    "description": "Delicioso(a) casquinha de caranguejo preparado(a) com ingredientes frescos e selecionados.",
+    "price": 32.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000068?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 15,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_069",
+    "kioskId": "kiosk_005",
+    "categoryId": "cat_018",
+    "name": "Caldo de Sururu",
+    "description": "Delicioso(a) caldo de sururu preparado(a) com ingredientes frescos e selecionados.",
+    "price": 28.9,
+    "promotionalPrice": 24.57,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000069?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 20,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_070",
+    "kioskId": "kiosk_005",
+    "categoryId": "cat_018",
+    "name": "Caldo de Camarão",
+    "description": "Delicioso(a) caldo de camarão preparado(a) com ingredientes frescos e selecionados.",
+    "price": 32.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000070?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 20,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_071",
+    "kioskId": "kiosk_005",
+    "categoryId": "cat_018",
+    "name": "Caldo Verde",
+    "description": "Delicioso(a) caldo verde preparado(a) com ingredientes frescos e selecionados.",
+    "price": 22.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000071?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 18,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_072",
+    "kioskId": "kiosk_006",
+    "categoryId": "cat_019",
+    "name": "Vinho Tinto Taça",
+    "description": "Delicioso(a) vinho tinto taça preparado(a) com ingredientes frescos e selecionados.",
+    "price": 22.9,
+    "promotionalPrice": 19.47,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000072?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 2,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_073",
+    "kioskId": "kiosk_006",
+    "categoryId": "cat_019",
+    "name": "Vinho Branco Taça",
+    "description": "Delicioso(a) vinho branco taça preparado(a) com ingredientes frescos e selecionados.",
+    "price": 22.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000073?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 2,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_074",
+    "kioskId": "kiosk_006",
+    "categoryId": "cat_019",
+    "name": "Espumante Taça",
+    "description": "Delicioso(a) espumante taça preparado(a) com ingredientes frescos e selecionados.",
+    "price": 28.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000074?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 2,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_075",
+    "kioskId": "kiosk_006",
+    "categoryId": "cat_019",
+    "name": "Sangria",
+    "description": "Delicioso(a) sangria preparado(a) com ingredientes frescos e selecionados.",
+    "price": 32.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000075?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 5,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_076",
+    "kioskId": "kiosk_006",
+    "categoryId": "cat_020",
+    "name": "Carpaccio de Salmão",
+    "description": "Delicioso(a) carpaccio de salmão preparado(a) com ingredientes frescos e selecionados.",
+    "price": 48.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000076?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": true,
+    "preparationTime": 15,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_077",
+    "kioskId": "kiosk_006",
+    "categoryId": "cat_020",
+    "name": "Bruschetta Italiana",
+    "description": "Delicioso(a) bruschetta italiana preparado(a) com ingredientes frescos e selecionados.",
+    "price": 28.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000077?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 12,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_078",
+    "kioskId": "kiosk_006",
+    "categoryId": "cat_020",
+    "name": "Ceviche",
+    "description": "Delicioso(a) ceviche preparado(a) com ingredientes frescos e selecionados.",
+    "price": 52.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000078?w=400"
+    ],
+    "isAvailable": false,
+    "isHighlighted": true,
+    "preparationTime": 18,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_079",
+    "kioskId": "kiosk_006",
+    "categoryId": "cat_021",
+    "name": "Risoto de Camarão",
+    "description": "Delicioso(a) risoto de camarão preparado(a) com ingredientes frescos e selecionados.",
+    "price": 88.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000079?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 30,
+    "recipeId": "rec_009",
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_080",
+    "kioskId": "kiosk_006",
+    "categoryId": "cat_021",
+    "name": "Filé ao Molho de Alcaparras",
+    "description": "Delicioso(a) filé ao molho de alcaparras preparado(a) com ingredientes frescos e selecionados.",
+    "price": 98.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000080?w=400"
+    ],
+    "isAvailable": false,
+    "isHighlighted": false,
+    "preparationTime": 35,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_081",
+    "kioskId": "kiosk_006",
+    "categoryId": "cat_021",
+    "name": "Salmão Grelhado",
+    "description": "Delicioso(a) salmão grelhado preparado(a) com ingredientes frescos e selecionados.",
+    "price": 85.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000081?w=400"
+    ],
+    "isAvailable": false,
+    "isHighlighted": false,
+    "preparationTime": 28,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_082",
+    "kioskId": "kiosk_007",
+    "categoryId": "cat_022",
+    "name": "Água de Coco Natural",
+    "description": "Delicioso(a) água de coco natural preparado(a) com ingredientes frescos e selecionados.",
+    "price": 7.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000082?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 2,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_083",
+    "kioskId": "kiosk_007",
+    "categoryId": "cat_022",
+    "name": "Água de Coco com Polpa",
+    "description": "Delicioso(a) água de coco com polpa preparado(a) com ingredientes frescos e selecionados.",
+    "price": 10.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000083?w=400"
+    ],
+    "isAvailable": false,
+    "isHighlighted": false,
+    "preparationTime": 3,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_084",
+    "kioskId": "kiosk_007",
+    "categoryId": "cat_022",
+    "name": "Coco Verde",
+    "description": "Delicioso(a) coco verde preparado(a) com ingredientes frescos e selecionados.",
+    "price": 6.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000084?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 1,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_085",
+    "kioskId": "kiosk_007",
+    "categoryId": "cat_023",
+    "name": "Moqueca Capixaba",
+    "description": "Delicioso(a) moqueca capixaba preparado(a) com ingredientes frescos e selecionados.",
+    "price": 92.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000085?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 35,
+    "recipeId": "rec_010",
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_086",
+    "kioskId": "kiosk_007",
+    "categoryId": "cat_023",
+    "name": "Moqueca de Robalo",
+    "description": "Delicioso(a) moqueca de robalo preparado(a) com ingredientes frescos e selecionados.",
+    "price": 98.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000086?w=400"
+    ],
+    "isAvailable": false,
+    "isHighlighted": false,
+    "preparationTime": 35,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_087",
+    "kioskId": "kiosk_007",
+    "categoryId": "cat_023",
+    "name": "Torta Capixaba",
+    "description": "Delicioso(a) torta capixaba preparado(a) com ingredientes frescos e selecionados.",
+    "price": 42.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000087?w=400"
+    ],
+    "isAvailable": false,
+    "isHighlighted": false,
+    "preparationTime": 20,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_088",
+    "kioskId": "kiosk_007",
+    "categoryId": "cat_024",
+    "name": "Torta de Limão",
+    "description": "Delicioso(a) torta de limão preparado(a) com ingredientes frescos e selecionados.",
+    "price": 16.9,
+    "promotionalPrice": 14.36,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000088?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 3,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_089",
+    "kioskId": "kiosk_007",
+    "categoryId": "cat_024",
+    "name": "Torta de Chocolate",
+    "description": "Delicioso(a) torta de chocolate preparado(a) com ingredientes frescos e selecionados.",
+    "price": 18.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000089?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 3,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_090",
+    "kioskId": "kiosk_007",
+    "categoryId": "cat_024",
+    "name": "Torta de Maracujá",
+    "description": "Delicioso(a) torta de maracujá preparado(a) com ingredientes frescos e selecionados.",
+    "price": 16.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000090?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 3,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_091",
+    "kioskId": "kiosk_008",
+    "categoryId": "cat_025",
+    "name": "Champanhe Taça",
+    "description": "Delicioso(a) champanhe taça preparado(a) com ingredientes frescos e selecionados.",
+    "price": 45.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000091?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 2,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_092",
+    "kioskId": "kiosk_008",
+    "categoryId": "cat_025",
+    "name": "Espumante Nacional",
+    "description": "Delicioso(a) espumante nacional preparado(a) com ingredientes frescos e selecionados.",
+    "price": 32.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000092?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 2,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_093",
+    "kioskId": "kiosk_008",
+    "categoryId": "cat_025",
+    "name": "Aperol Spritz",
+    "description": "Delicioso(a) aperol spritz preparado(a) com ingredientes frescos e selecionados.",
+    "price": 38.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000093?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 5,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_094",
+    "kioskId": "kiosk_008",
+    "categoryId": "cat_026",
+    "name": "Mini Croquetes",
+    "description": "Delicioso(a) mini croquetes preparado(a) com ingredientes frescos e selecionados.",
+    "price": 38.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000094?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 15,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_095",
+    "kioskId": "kiosk_008",
+    "categoryId": "cat_026",
+    "name": "Ostras Frescas (6un)",
+    "description": "Delicioso(a) ostras frescas (6un) preparado(a) com ingredientes frescos e selecionados.",
+    "price": 68.9,
+    "promotionalPrice": 58.57,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000095?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 8,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_096",
+    "kioskId": "kiosk_008",
+    "categoryId": "cat_026",
+    "name": "Tartare de Atum",
+    "description": "Delicioso(a) tartare de atum preparado(a) com ingredientes frescos e selecionados.",
+    "price": 58.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000096?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 15,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_097",
+    "kioskId": "kiosk_008",
+    "categoryId": "cat_027",
+    "name": "Lagosta Termidor",
+    "description": "Delicioso(a) lagosta termidor preparado(a) com ingredientes frescos e selecionados.",
+    "price": 249.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000097?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": true,
+    "preparationTime": 45,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_098",
+    "kioskId": "kiosk_008",
+    "categoryId": "cat_027",
+    "name": "Robalo ao Molho de Maracujá",
+    "description": "Delicioso(a) robalo ao molho de maracujá preparado(a) com ingredientes frescos e selecionados.",
+    "price": 128.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000098?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 35,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_099",
+    "kioskId": "kiosk_008",
+    "categoryId": "cat_027",
+    "name": "Camarão Flambado",
+    "description": "Delicioso(a) camarão flambado preparado(a) com ingredientes frescos e selecionados.",
+    "price": 148.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000099?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 30,
+    "recipeId": "rec_011",
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_100",
+    "kioskId": "kiosk_009",
+    "categoryId": "cat_028",
+    "name": "Tapioca de Coco",
+    "description": "Delicioso(a) tapioca de coco preparado(a) com ingredientes frescos e selecionados.",
+    "price": 14.9,
+    "promotionalPrice": 12.67,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000100?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 8,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_101",
+    "kioskId": "kiosk_009",
+    "categoryId": "cat_028",
+    "name": "Tapioca de Banana com Canela",
+    "description": "Delicioso(a) tapioca de banana com canela preparado(a) com ingredientes frescos e selecionados.",
+    "price": 16.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000101?w=400"
+    ],
+    "isAvailable": false,
+    "isHighlighted": true,
+    "preparationTime": 10,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_102",
+    "kioskId": "kiosk_009",
+    "categoryId": "cat_028",
+    "name": "Tapioca de Carne de Sol",
+    "description": "Delicioso(a) tapioca de carne de sol preparado(a) com ingredientes frescos e selecionados.",
+    "price": 24.9,
+    "promotionalPrice": 21.17,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000102?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 12,
+    "recipeId": "rec_012",
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_103",
+    "kioskId": "kiosk_009",
+    "categoryId": "cat_029",
+    "name": "Suco de Caju",
+    "description": "Delicioso(a) suco de caju preparado(a) com ingredientes frescos e selecionados.",
+    "price": 9.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000103?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 5,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_104",
+    "kioskId": "kiosk_009",
+    "categoryId": "cat_029",
+    "name": "Suco de Mangaba",
+    "description": "Delicioso(a) suco de mangaba preparado(a) com ingredientes frescos e selecionados.",
+    "price": 10.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000104?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 5,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_105",
+    "kioskId": "kiosk_009",
+    "categoryId": "cat_029",
+    "name": "Suco de Umbu",
+    "description": "Delicioso(a) suco de umbu preparado(a) com ingredientes frescos e selecionados.",
+    "price": 10.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000105?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 5,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_106",
+    "kioskId": "kiosk_009",
+    "categoryId": "cat_030",
+    "name": "Cuscuz Nordestino",
+    "description": "Delicioso(a) cuscuz nordestino preparado(a) com ingredientes frescos e selecionados.",
+    "price": 18.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000106?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 15,
+    "recipeId": "rec_013",
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_107",
+    "kioskId": "kiosk_009",
+    "categoryId": "cat_030",
+    "name": "Cuscuz com Carne de Sol",
+    "description": "Delicioso(a) cuscuz com carne de sol preparado(a) com ingredientes frescos e selecionados.",
+    "price": 28.9,
+    "promotionalPrice": 24.57,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000107?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 18,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_108",
+    "kioskId": "kiosk_009",
+    "categoryId": "cat_030",
+    "name": "Cuscuz com Charque",
+    "description": "Delicioso(a) cuscuz com charque preparado(a) com ingredientes frescos e selecionados.",
+    "price": 26.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000108?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 18,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_109",
+    "kioskId": "kiosk_010",
+    "categoryId": "cat_031",
+    "name": "Água de Coco Gelada",
+    "description": "Delicioso(a) água de coco gelada preparado(a) com ingredientes frescos e selecionados.",
+    "price": 7.9,
+    "promotionalPrice": 6.72,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000109?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 2,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_110",
+    "kioskId": "kiosk_010",
+    "categoryId": "cat_031",
+    "name": "Suco de Mangaba",
+    "description": "Delicioso(a) suco de mangaba preparado(a) com ingredientes frescos e selecionados.",
+    "price": 10.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000110?w=400"
+    ],
+    "isAvailable": false,
+    "isHighlighted": false,
+    "preparationTime": 5,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_111",
+    "kioskId": "kiosk_010",
+    "categoryId": "cat_031",
+    "name": "Licor de Jenipapo",
+    "description": "Delicioso(a) licor de jenipapo preparado(a) com ingredientes frescos e selecionados.",
+    "price": 12.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000111?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 2,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_112",
+    "kioskId": "kiosk_010",
+    "categoryId": "cat_033",
+    "name": "Caranguejo Completo",
+    "description": "Delicioso(a) caranguejo completo preparado(a) com ingredientes frescos e selecionados.",
+    "price": 52.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000112?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 28,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_113",
+    "kioskId": "kiosk_010",
+    "categoryId": "cat_033",
+    "name": "Aratu",
+    "description": "Delicioso(a) aratu preparado(a) com ingredientes frescos e selecionados.",
+    "price": 38.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000113?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 20,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_114",
+    "kioskId": "kiosk_010",
+    "categoryId": "cat_032",
+    "name": "Moqueca Sergipana",
+    "description": "Delicioso(a) moqueca sergipana preparado(a) com ingredientes frescos e selecionados.",
+    "price": 78.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000114?w=400"
+    ],
+    "isAvailable": false,
+    "isHighlighted": true,
+    "preparationTime": 30,
+    "recipeId": "rec_014",
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_115",
+    "kioskId": "kiosk_010",
+    "categoryId": "cat_032",
+    "name": "Baião de Dois",
+    "description": "Delicioso(a) baião de dois preparado(a) com ingredientes frescos e selecionados.",
+    "price": 38.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000115?w=400"
+    ],
+    "isAvailable": false,
+    "isHighlighted": true,
+    "preparationTime": 25,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "prod_116",
+    "kioskId": "kiosk_010",
+    "categoryId": "cat_032",
+    "name": "Fritada de Camarão",
+    "description": "Delicioso(a) fritada de camarão preparado(a) com ingredientes frescos e selecionados.",
+    "price": 62.9,
+    "promotionalPrice": null,
+    "images": [
+      "https://images.unsplash.com/photo-1500000000116?w=400"
+    ],
+    "isAvailable": true,
+    "isHighlighted": false,
+    "preparationTime": 22,
+    "recipeId": null,
+    "allergens": [],
+    "tags": [],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  }
+]

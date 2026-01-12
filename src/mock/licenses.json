@@ -1,0 +1,198 @@
+[
+  {
+    "id": "lic_001",
+    "kioskId": "kiosk_001",
+    "kioskName": "Quiosque Praia Central",
+    "plan": "premium",
+    "status": "active",
+    "startDate": "2024-01-01T00:00:00Z",
+    "expiryDate": "2025-12-31T23:59:59Z",
+    "price": 299.90,
+    "billingCycle": "monthly",
+    "features": ["unlimited_products", "unlimited_orders", "stock_management", "recipe_management", "analytics", "priority_support", "custom_domain"],
+    "maxProducts": -1,
+    "maxOrdersPerMonth": -1,
+    "paymentHistory": [
+      { "id": "pay_001", "date": "2024-11-01T10:00:00Z", "amount": 299.90, "status": "paid", "method": "credit_card" },
+      { "id": "pay_002", "date": "2024-10-01T10:00:00Z", "amount": 299.90, "status": "paid", "method": "credit_card" },
+      { "id": "pay_003", "date": "2024-09-01T10:00:00Z", "amount": 299.90, "status": "paid", "method": "pix" }
+    ],
+    "createdAt": "2024-01-01T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "lic_002",
+    "kioskId": "kiosk_002",
+    "kioskName": "Sabor do Mar",
+    "plan": "professional",
+    "status": "active",
+    "startDate": "2024-02-01T00:00:00Z",
+    "expiryDate": "2025-06-30T23:59:59Z",
+    "price": 199.90,
+    "billingCycle": "monthly",
+    "features": ["unlimited_products", "unlimited_orders", "stock_management", "recipe_management", "analytics"],
+    "maxProducts": -1,
+    "maxOrdersPerMonth": -1,
+    "paymentHistory": [
+      { "id": "pay_004", "date": "2024-11-01T10:00:00Z", "amount": 199.90, "status": "paid", "method": "pix" },
+      { "id": "pay_005", "date": "2024-10-01T10:00:00Z", "amount": 199.90, "status": "paid", "method": "pix" }
+    ],
+    "createdAt": "2024-02-01T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "lic_003",
+    "kioskId": "kiosk_003",
+    "kioskName": "Tropical Beach",
+    "plan": "professional",
+    "status": "active",
+    "startDate": "2024-02-15T00:00:00Z",
+    "expiryDate": "2025-09-30T23:59:59Z",
+    "price": 199.90,
+    "billingCycle": "monthly",
+    "features": ["unlimited_products", "unlimited_orders", "stock_management", "recipe_management", "analytics"],
+    "maxProducts": -1,
+    "maxOrdersPerMonth": -1,
+    "paymentHistory": [
+      { "id": "pay_006", "date": "2024-11-01T10:00:00Z", "amount": 199.90, "status": "paid", "method": "credit_card" }
+    ],
+    "createdAt": "2024-02-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "lic_004",
+    "kioskId": "kiosk_004",
+    "kioskName": "Sol Nascente",
+    "plan": "basic",
+    "status": "expiring_soon",
+    "startDate": "2024-03-01T00:00:00Z",
+    "expiryDate": "2025-03-31T23:59:59Z",
+    "price": 99.90,
+    "billingCycle": "monthly",
+    "features": ["stock_management", "basic_analytics"],
+    "maxProducts": 50,
+    "maxOrdersPerMonth": 500,
+    "paymentHistory": [
+      { "id": "pay_007", "date": "2024-11-01T10:00:00Z", "amount": 99.90, "status": "paid", "method": "pix" }
+    ],
+    "createdAt": "2024-03-01T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "lic_005",
+    "kioskId": "kiosk_005",
+    "kioskName": "Maresia Bar",
+    "plan": "premium",
+    "status": "active",
+    "startDate": "2024-03-15T00:00:00Z",
+    "expiryDate": "2025-11-30T23:59:59Z",
+    "price": 299.90,
+    "billingCycle": "monthly",
+    "features": ["unlimited_products", "unlimited_orders", "stock_management", "recipe_management", "analytics", "priority_support", "custom_domain"],
+    "maxProducts": -1,
+    "maxOrdersPerMonth": -1,
+    "paymentHistory": [
+      { "id": "pay_008", "date": "2024-11-01T10:00:00Z", "amount": 299.90, "status": "paid", "method": "credit_card" },
+      { "id": "pay_009", "date": "2024-10-01T10:00:00Z", "amount": 299.90, "status": "paid", "method": "credit_card" }
+    ],
+    "createdAt": "2024-03-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "lic_006",
+    "kioskId": "kiosk_006",
+    "kioskName": "Onda Azul",
+    "plan": "professional",
+    "status": "active",
+    "startDate": "2024-04-01T00:00:00Z",
+    "expiryDate": "2025-08-31T23:59:59Z",
+    "price": 199.90,
+    "billingCycle": "monthly",
+    "features": ["unlimited_products", "unlimited_orders", "stock_management", "recipe_management", "analytics"],
+    "maxProducts": -1,
+    "maxOrdersPerMonth": -1,
+    "paymentHistory": [
+      { "id": "pay_010", "date": "2024-11-01T10:00:00Z", "amount": 199.90, "status": "paid", "method": "pix" }
+    ],
+    "createdAt": "2024-04-01T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "lic_007",
+    "kioskId": "kiosk_007",
+    "kioskName": "Coqueiro Verde",
+    "plan": "basic",
+    "status": "expiring_soon",
+    "startDate": "2024-04-15T00:00:00Z",
+    "expiryDate": "2025-04-30T23:59:59Z",
+    "price": 99.90,
+    "billingCycle": "monthly",
+    "features": ["stock_management", "basic_analytics"],
+    "maxProducts": 50,
+    "maxOrdersPerMonth": 500,
+    "paymentHistory": [
+      { "id": "pay_011", "date": "2024-11-01T10:00:00Z", "amount": 99.90, "status": "paid", "method": "boleto" }
+    ],
+    "createdAt": "2024-04-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "lic_008",
+    "kioskId": "kiosk_008",
+    "kioskName": "Areia Branca",
+    "plan": "premium",
+    "status": "active",
+    "startDate": "2024-05-01T00:00:00Z",
+    "expiryDate": "2025-10-31T23:59:59Z",
+    "price": 299.90,
+    "billingCycle": "monthly",
+    "features": ["unlimited_products", "unlimited_orders", "stock_management", "recipe_management", "analytics", "priority_support", "custom_domain"],
+    "maxProducts": -1,
+    "maxOrdersPerMonth": -1,
+    "paymentHistory": [
+      { "id": "pay_012", "date": "2024-11-01T10:00:00Z", "amount": 299.90, "status": "paid", "method": "credit_card" },
+      { "id": "pay_013", "date": "2024-10-01T10:00:00Z", "amount": 299.90, "status": "paid", "method": "credit_card" }
+    ],
+    "createdAt": "2024-05-01T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "lic_009",
+    "kioskId": "kiosk_009",
+    "kioskName": "Recanto do Sol",
+    "plan": "professional",
+    "status": "active",
+    "startDate": "2024-05-15T00:00:00Z",
+    "expiryDate": "2025-07-31T23:59:59Z",
+    "price": 199.90,
+    "billingCycle": "monthly",
+    "features": ["unlimited_products", "unlimited_orders", "stock_management", "recipe_management", "analytics"],
+    "maxProducts": -1,
+    "maxOrdersPerMonth": -1,
+    "paymentHistory": [
+      { "id": "pay_014", "date": "2024-11-01T10:00:00Z", "amount": 199.90, "status": "paid", "method": "pix" }
+    ],
+    "createdAt": "2024-05-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  },
+  {
+    "id": "lic_010",
+    "kioskId": "kiosk_010",
+    "kioskName": "Paraíso Tropical",
+    "plan": "basic",
+    "status": "active",
+    "startDate": "2024-06-01T00:00:00Z",
+    "expiryDate": "2025-05-31T23:59:59Z",
+    "price": 99.90,
+    "billingCycle": "monthly",
+    "features": ["stock_management", "basic_analytics"],
+    "maxProducts": 50,
+    "maxOrdersPerMonth": 500,
+    "paymentHistory": [
+      { "id": "pay_015", "date": "2024-11-01T10:00:00Z", "amount": 99.90, "status": "paid", "method": "pix" }
+    ],
+    "createdAt": "2024-06-01T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z"
+  }
+]
+

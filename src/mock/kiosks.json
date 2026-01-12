@@ -1,0 +1,556 @@
+[
+  {
+    "id": "kiosk_001",
+    "name": "Quiosque Praia Central",
+    "slug": "praia-central",
+    "description": "O melhor quiosque da Praia Central de Santos. Especializado em frutos do mar frescos e drinks tropicais.",
+    "logo": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200",
+    "coverImage": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200",
+    "address": {
+      "street": "Av. Presidente Wilson",
+      "number": "1500",
+      "complement": "Quiosque 15",
+      "neighborhood": "Gonzaga",
+      "city": "Santos",
+      "state": "SP",
+      "zipCode": "11065-200",
+      "country": "Brasil",
+      "coordinates": {
+        "latitude": -23.9714,
+        "longitude": -46.3022
+      }
+    },
+    "contact": {
+      "phone": "(13) 3234-5678",
+      "whatsapp": "(13) 98888-0001",
+      "email": "contato@praiacentral.com.br",
+      "instagram": "@praiacentral.santos"
+    },
+    "operatingHours": [
+      { "dayOfWeek": "sunday", "isOpen": true, "openTime": "08:00", "closeTime": "22:00" },
+      { "dayOfWeek": "monday", "isOpen": true, "openTime": "10:00", "closeTime": "20:00" },
+      { "dayOfWeek": "tuesday", "isOpen": true, "openTime": "10:00", "closeTime": "20:00" },
+      { "dayOfWeek": "wednesday", "isOpen": true, "openTime": "10:00", "closeTime": "20:00" },
+      { "dayOfWeek": "thursday", "isOpen": true, "openTime": "10:00", "closeTime": "20:00" },
+      { "dayOfWeek": "friday", "isOpen": true, "openTime": "10:00", "closeTime": "23:00" },
+      { "dayOfWeek": "saturday", "isOpen": true, "openTime": "08:00", "closeTime": "23:00" }
+    ],
+    "isActive": true,
+    "isPublic": true,
+    "licenseExpiry": "2025-12-31T23:59:59Z",
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-11-01T10:00:00Z",
+    "ownerId": "usr_002",
+    "settings": {
+      "allowOnlineOrders": true,
+      "allowTableOrders": true,
+      "requirePaymentUpfront": false,
+      "estimatedPrepTime": 15,
+      "maxOrdersPerHour": 50,
+      "notificationEmail": "pedidos@praiacentral.com.br",
+      "theme": {
+        "primaryColor": "#0077B6",
+        "secondaryColor": "#00B4D8"
+      }
+    }
+  },
+  {
+    "id": "kiosk_002",
+    "name": "Sabor do Mar",
+    "slug": "sabor-do-mar",
+    "description": "Tradição e qualidade em frutos do mar na orla de Copacabana. Desde 1995 servindo o melhor da culinária praiana.",
+    "logo": "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=200",
+    "coverImage": "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=1200",
+    "address": {
+      "street": "Av. Atlântica",
+      "number": "2800",
+      "complement": "Posto 5",
+      "neighborhood": "Copacabana",
+      "city": "Rio de Janeiro",
+      "state": "RJ",
+      "zipCode": "22041-001",
+      "country": "Brasil",
+      "coordinates": {
+        "latitude": -22.9698,
+        "longitude": -43.1844
+      }
+    },
+    "contact": {
+      "phone": "(21) 2255-4567",
+      "whatsapp": "(21) 97777-0001",
+      "email": "contato@sabordomar.com.br",
+      "instagram": "@sabordomar.copa",
+      "facebook": "sabordomar.copa"
+    },
+    "operatingHours": [
+      { "dayOfWeek": "sunday", "isOpen": true, "openTime": "07:00", "closeTime": "23:00" },
+      { "dayOfWeek": "monday", "isOpen": true, "openTime": "09:00", "closeTime": "21:00" },
+      { "dayOfWeek": "tuesday", "isOpen": true, "openTime": "09:00", "closeTime": "21:00" },
+      { "dayOfWeek": "wednesday", "isOpen": true, "openTime": "09:00", "closeTime": "21:00" },
+      { "dayOfWeek": "thursday", "isOpen": true, "openTime": "09:00", "closeTime": "21:00" },
+      { "dayOfWeek": "friday", "isOpen": true, "openTime": "09:00", "closeTime": "00:00" },
+      { "dayOfWeek": "saturday", "isOpen": true, "openTime": "07:00", "closeTime": "00:00" }
+    ],
+    "isActive": true,
+    "isPublic": true,
+    "licenseExpiry": "2025-06-30T23:59:59Z",
+    "createdAt": "2024-02-01T10:00:00Z",
+    "updatedAt": "2024-10-15T10:00:00Z",
+    "ownerId": "usr_003",
+    "settings": {
+      "allowOnlineOrders": true,
+      "allowTableOrders": true,
+      "requirePaymentUpfront": false,
+      "estimatedPrepTime": 20,
+      "maxOrdersPerHour": 60,
+      "notificationEmail": "pedidos@sabordomar.com.br",
+      "theme": {
+        "primaryColor": "#2E86AB",
+        "secondaryColor": "#F18F01"
+      }
+    }
+  },
+  {
+    "id": "kiosk_003",
+    "name": "Tropical Beach",
+    "slug": "tropical-beach",
+    "description": "Paraíso tropical na costa de Salvador. Sabores autênticos da Bahia com vista para o mar.",
+    "logo": "https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=200",
+    "coverImage": "https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?w=1200",
+    "address": {
+      "street": "Av. Oceânica",
+      "number": "3500",
+      "complement": "Quiosque 28",
+      "neighborhood": "Barra",
+      "city": "Salvador",
+      "state": "BA",
+      "zipCode": "40140-130",
+      "country": "Brasil",
+      "coordinates": {
+        "latitude": -13.0089,
+        "longitude": -38.5313
+      }
+    },
+    "contact": {
+      "phone": "(71) 3345-6789",
+      "whatsapp": "(71) 96666-0001",
+      "email": "contato@tropicalbeach.com.br",
+      "instagram": "@tropicalbeach.ssa"
+    },
+    "operatingHours": [
+      { "dayOfWeek": "sunday", "isOpen": true, "openTime": "08:00", "closeTime": "22:00" },
+      { "dayOfWeek": "monday", "isOpen": true, "openTime": "10:00", "closeTime": "20:00" },
+      { "dayOfWeek": "tuesday", "isOpen": false, "openTime": "00:00", "closeTime": "00:00" },
+      { "dayOfWeek": "wednesday", "isOpen": true, "openTime": "10:00", "closeTime": "20:00" },
+      { "dayOfWeek": "thursday", "isOpen": true, "openTime": "10:00", "closeTime": "20:00" },
+      { "dayOfWeek": "friday", "isOpen": true, "openTime": "10:00", "closeTime": "23:00" },
+      { "dayOfWeek": "saturday", "isOpen": true, "openTime": "08:00", "closeTime": "23:00" }
+    ],
+    "isActive": true,
+    "isPublic": true,
+    "licenseExpiry": "2025-09-30T23:59:59Z",
+    "createdAt": "2024-02-15T10:00:00Z",
+    "updatedAt": "2024-09-20T10:00:00Z",
+    "ownerId": "usr_004",
+    "settings": {
+      "allowOnlineOrders": true,
+      "allowTableOrders": true,
+      "requirePaymentUpfront": true,
+      "estimatedPrepTime": 18,
+      "maxOrdersPerHour": 45,
+      "notificationEmail": "pedidos@tropicalbeach.com.br",
+      "theme": {
+        "primaryColor": "#FF6B35",
+        "secondaryColor": "#F7C59F"
+      }
+    }
+  },
+  {
+    "id": "kiosk_004",
+    "name": "Sol Nascente",
+    "slug": "sol-nascente",
+    "description": "Quiosque familiar em Boa Viagem. Café da manhã especial e petiscos tradicionais pernambucanos.",
+    "logo": "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=200",
+    "coverImage": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1200",
+    "address": {
+      "street": "Av. Boa Viagem",
+      "number": "4200",
+      "complement": "Quiosque 12",
+      "neighborhood": "Boa Viagem",
+      "city": "Recife",
+      "state": "PE",
+      "zipCode": "51030-000",
+      "country": "Brasil",
+      "coordinates": {
+        "latitude": -8.1207,
+        "longitude": -34.8953
+      }
+    },
+    "contact": {
+      "phone": "(81) 3456-7890",
+      "whatsapp": "(81) 95555-0001",
+      "email": "contato@solnascente.com.br",
+      "instagram": "@solnascente.recife"
+    },
+    "operatingHours": [
+      { "dayOfWeek": "sunday", "isOpen": true, "openTime": "06:00", "closeTime": "20:00" },
+      { "dayOfWeek": "monday", "isOpen": true, "openTime": "06:00", "closeTime": "18:00" },
+      { "dayOfWeek": "tuesday", "isOpen": true, "openTime": "06:00", "closeTime": "18:00" },
+      { "dayOfWeek": "wednesday", "isOpen": true, "openTime": "06:00", "closeTime": "18:00" },
+      { "dayOfWeek": "thursday", "isOpen": true, "openTime": "06:00", "closeTime": "18:00" },
+      { "dayOfWeek": "friday", "isOpen": true, "openTime": "06:00", "closeTime": "21:00" },
+      { "dayOfWeek": "saturday", "isOpen": true, "openTime": "06:00", "closeTime": "21:00" }
+    ],
+    "isActive": true,
+    "isPublic": true,
+    "licenseExpiry": "2025-03-31T23:59:59Z",
+    "createdAt": "2024-03-01T10:00:00Z",
+    "updatedAt": "2024-08-10T10:00:00Z",
+    "ownerId": "usr_005",
+    "settings": {
+      "allowOnlineOrders": true,
+      "allowTableOrders": false,
+      "requirePaymentUpfront": false,
+      "estimatedPrepTime": 12,
+      "maxOrdersPerHour": 40,
+      "notificationEmail": "pedidos@solnascente.com.br",
+      "theme": {
+        "primaryColor": "#FFB627",
+        "secondaryColor": "#FF8427"
+      }
+    }
+  },
+  {
+    "id": "kiosk_005",
+    "name": "Maresia Bar",
+    "slug": "maresia-bar",
+    "description": "Bar e quiosque na Praia do Futuro. Drinks autorais e o melhor caranguejo de Fortaleza.",
+    "logo": "https://images.unsplash.com/photo-1571950524554-a6c78e41d3d6?w=200",
+    "coverImage": "https://images.unsplash.com/photo-1596392927852-2a18c336643e?w=1200",
+    "address": {
+      "street": "Av. Zezé Diogo",
+      "number": "6500",
+      "complement": "Barraca 45",
+      "neighborhood": "Praia do Futuro",
+      "city": "Fortaleza",
+      "state": "CE",
+      "zipCode": "60182-025",
+      "country": "Brasil",
+      "coordinates": {
+        "latitude": -3.7559,
+        "longitude": -38.4472
+      }
+    },
+    "contact": {
+      "phone": "(85) 3567-8901",
+      "whatsapp": "(85) 94444-0001",
+      "email": "contato@maresiabar.com.br",
+      "instagram": "@maresiabar.for",
+      "facebook": "maresiabar.fortaleza"
+    },
+    "operatingHours": [
+      { "dayOfWeek": "sunday", "isOpen": true, "openTime": "10:00", "closeTime": "02:00" },
+      { "dayOfWeek": "monday", "isOpen": false, "openTime": "00:00", "closeTime": "00:00" },
+      { "dayOfWeek": "tuesday", "isOpen": true, "openTime": "16:00", "closeTime": "23:00" },
+      { "dayOfWeek": "wednesday", "isOpen": true, "openTime": "16:00", "closeTime": "23:00" },
+      { "dayOfWeek": "thursday", "isOpen": true, "openTime": "16:00", "closeTime": "00:00" },
+      { "dayOfWeek": "friday", "isOpen": true, "openTime": "16:00", "closeTime": "02:00" },
+      { "dayOfWeek": "saturday", "isOpen": true, "openTime": "10:00", "closeTime": "02:00" }
+    ],
+    "isActive": true,
+    "isPublic": true,
+    "licenseExpiry": "2025-11-30T23:59:59Z",
+    "createdAt": "2024-03-15T10:00:00Z",
+    "updatedAt": "2024-10-05T10:00:00Z",
+    "ownerId": "usr_006",
+    "settings": {
+      "allowOnlineOrders": true,
+      "allowTableOrders": true,
+      "requirePaymentUpfront": true,
+      "estimatedPrepTime": 25,
+      "maxOrdersPerHour": 35,
+      "notificationEmail": "pedidos@maresiabar.com.br",
+      "theme": {
+        "primaryColor": "#004E64",
+        "secondaryColor": "#25A18E"
+      }
+    }
+  },
+  {
+    "id": "kiosk_006",
+    "name": "Onda Azul",
+    "slug": "onda-azul",
+    "description": "Quiosque moderno em Balneário Camboriú. Gastronomia contemporânea com vista para o pôr do sol.",
+    "logo": "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=200",
+    "coverImage": "https://images.unsplash.com/photo-1520454974749-611b7248ffdb?w=1200",
+    "address": {
+      "street": "Av. Atlântica",
+      "number": "5000",
+      "complement": "Quiosque 32",
+      "neighborhood": "Centro",
+      "city": "Balneário Camboriú",
+      "state": "SC",
+      "zipCode": "88330-027",
+      "country": "Brasil",
+      "coordinates": {
+        "latitude": -26.9934,
+        "longitude": -48.6370
+      }
+    },
+    "contact": {
+      "phone": "(47) 3367-8901",
+      "whatsapp": "(47) 93333-0001",
+      "email": "contato@ondaazul.com.br",
+      "instagram": "@ondaazul.bc"
+    },
+    "operatingHours": [
+      { "dayOfWeek": "sunday", "isOpen": true, "openTime": "09:00", "closeTime": "23:00" },
+      { "dayOfWeek": "monday", "isOpen": true, "openTime": "11:00", "closeTime": "21:00" },
+      { "dayOfWeek": "tuesday", "isOpen": true, "openTime": "11:00", "closeTime": "21:00" },
+      { "dayOfWeek": "wednesday", "isOpen": true, "openTime": "11:00", "closeTime": "21:00" },
+      { "dayOfWeek": "thursday", "isOpen": true, "openTime": "11:00", "closeTime": "22:00" },
+      { "dayOfWeek": "friday", "isOpen": true, "openTime": "11:00", "closeTime": "00:00" },
+      { "dayOfWeek": "saturday", "isOpen": true, "openTime": "09:00", "closeTime": "00:00" }
+    ],
+    "isActive": true,
+    "isPublic": true,
+    "licenseExpiry": "2025-08-31T23:59:59Z",
+    "createdAt": "2024-04-01T10:00:00Z",
+    "updatedAt": "2024-09-15T10:00:00Z",
+    "ownerId": "usr_007",
+    "settings": {
+      "allowOnlineOrders": true,
+      "allowTableOrders": true,
+      "requirePaymentUpfront": false,
+      "estimatedPrepTime": 20,
+      "maxOrdersPerHour": 55,
+      "notificationEmail": "pedidos@ondaazul.com.br",
+      "theme": {
+        "primaryColor": "#1A759F",
+        "secondaryColor": "#76C893"
+      }
+    }
+  },
+  {
+    "id": "kiosk_007",
+    "name": "Coqueiro Verde",
+    "slug": "coqueiro-verde",
+    "description": "Sabores capixabas na Praia de Camburi. Moqueca tradicional e água de coco gelada.",
+    "logo": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=200",
+    "coverImage": "https://images.unsplash.com/photo-1527004013197-933c4bb611b3?w=1200",
+    "address": {
+      "street": "Av. Dante Michelini",
+      "number": "1200",
+      "complement": "Quiosque 8",
+      "neighborhood": "Jardim Camburi",
+      "city": "Vitória",
+      "state": "ES",
+      "zipCode": "29090-360",
+      "country": "Brasil",
+      "coordinates": {
+        "latitude": -20.2689,
+        "longitude": -40.2871
+      }
+    },
+    "contact": {
+      "phone": "(27) 3278-9012",
+      "whatsapp": "(27) 92222-0001",
+      "email": "contato@coqueiroverde.com.br",
+      "instagram": "@coqueiroverde.vix"
+    },
+    "operatingHours": [
+      { "dayOfWeek": "sunday", "isOpen": true, "openTime": "08:00", "closeTime": "20:00" },
+      { "dayOfWeek": "monday", "isOpen": true, "openTime": "10:00", "closeTime": "18:00" },
+      { "dayOfWeek": "tuesday", "isOpen": true, "openTime": "10:00", "closeTime": "18:00" },
+      { "dayOfWeek": "wednesday", "isOpen": true, "openTime": "10:00", "closeTime": "18:00" },
+      { "dayOfWeek": "thursday", "isOpen": true, "openTime": "10:00", "closeTime": "18:00" },
+      { "dayOfWeek": "friday", "isOpen": true, "openTime": "10:00", "closeTime": "21:00" },
+      { "dayOfWeek": "saturday", "isOpen": true, "openTime": "08:00", "closeTime": "21:00" }
+    ],
+    "isActive": true,
+    "isPublic": true,
+    "licenseExpiry": "2025-04-30T23:59:59Z",
+    "createdAt": "2024-04-15T10:00:00Z",
+    "updatedAt": "2024-08-20T10:00:00Z",
+    "ownerId": "usr_008",
+    "settings": {
+      "allowOnlineOrders": true,
+      "allowTableOrders": false,
+      "requirePaymentUpfront": false,
+      "estimatedPrepTime": 22,
+      "maxOrdersPerHour": 30,
+      "notificationEmail": "pedidos@coqueiroverde.com.br",
+      "theme": {
+        "primaryColor": "#2D6A4F",
+        "secondaryColor": "#95D5B2"
+      }
+    }
+  },
+  {
+    "id": "kiosk_008",
+    "name": "Areia Branca",
+    "slug": "areia-branca",
+    "description": "O point de Jurerê Internacional. Gastronomia premium e ambiente sofisticado à beira-mar.",
+    "logo": "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=200",
+    "coverImage": "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=1200",
+    "address": {
+      "street": "Av. dos Búzios",
+      "number": "800",
+      "complement": "Deck 5",
+      "neighborhood": "Jurerê Internacional",
+      "city": "Florianópolis",
+      "state": "SC",
+      "zipCode": "88053-300",
+      "country": "Brasil",
+      "coordinates": {
+        "latitude": -27.4389,
+        "longitude": -48.4965
+      }
+    },
+    "contact": {
+      "phone": "(48) 3389-0123",
+      "whatsapp": "(48) 91111-0001",
+      "email": "contato@areiabranca.com.br",
+      "instagram": "@areiabranca.jurere",
+      "facebook": "areiabranca.floripa"
+    },
+    "operatingHours": [
+      { "dayOfWeek": "sunday", "isOpen": true, "openTime": "11:00", "closeTime": "00:00" },
+      { "dayOfWeek": "monday", "isOpen": false, "openTime": "00:00", "closeTime": "00:00" },
+      { "dayOfWeek": "tuesday", "isOpen": false, "openTime": "00:00", "closeTime": "00:00" },
+      { "dayOfWeek": "wednesday", "isOpen": true, "openTime": "18:00", "closeTime": "00:00" },
+      { "dayOfWeek": "thursday", "isOpen": true, "openTime": "18:00", "closeTime": "00:00" },
+      { "dayOfWeek": "friday", "isOpen": true, "openTime": "12:00", "closeTime": "02:00" },
+      { "dayOfWeek": "saturday", "isOpen": true, "openTime": "11:00", "closeTime": "02:00" }
+    ],
+    "isActive": true,
+    "isPublic": true,
+    "licenseExpiry": "2025-10-31T23:59:59Z",
+    "createdAt": "2024-05-01T10:00:00Z",
+    "updatedAt": "2024-10-01T10:00:00Z",
+    "ownerId": "usr_009",
+    "settings": {
+      "allowOnlineOrders": true,
+      "allowTableOrders": true,
+      "requirePaymentUpfront": true,
+      "estimatedPrepTime": 30,
+      "maxOrdersPerHour": 40,
+      "notificationEmail": "pedidos@areiabranca.com.br",
+      "theme": {
+        "primaryColor": "#9B2335",
+        "secondaryColor": "#F5E6E8"
+      }
+    }
+  },
+  {
+    "id": "kiosk_009",
+    "name": "Recanto do Sol",
+    "slug": "recanto-do-sol",
+    "description": "Quiosque acolhedor na Praia de Ponta Negra. Tapiocas artesanais e sucos naturais.",
+    "logo": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=200",
+    "coverImage": "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=1200",
+    "address": {
+      "street": "Av. Erivan França",
+      "number": "2200",
+      "complement": "Quiosque 19",
+      "neighborhood": "Ponta Negra",
+      "city": "Natal",
+      "state": "RN",
+      "zipCode": "59090-100",
+      "country": "Brasil",
+      "coordinates": {
+        "latitude": -5.8787,
+        "longitude": -35.1751
+      }
+    },
+    "contact": {
+      "phone": "(84) 3290-1234",
+      "whatsapp": "(84) 90000-0001",
+      "email": "contato@recantodosol.com.br",
+      "instagram": "@recantodosol.natal"
+    },
+    "operatingHours": [
+      { "dayOfWeek": "sunday", "isOpen": true, "openTime": "07:00", "closeTime": "19:00" },
+      { "dayOfWeek": "monday", "isOpen": true, "openTime": "07:00", "closeTime": "17:00" },
+      { "dayOfWeek": "tuesday", "isOpen": true, "openTime": "07:00", "closeTime": "17:00" },
+      { "dayOfWeek": "wednesday", "isOpen": true, "openTime": "07:00", "closeTime": "17:00" },
+      { "dayOfWeek": "thursday", "isOpen": true, "openTime": "07:00", "closeTime": "17:00" },
+      { "dayOfWeek": "friday", "isOpen": true, "openTime": "07:00", "closeTime": "19:00" },
+      { "dayOfWeek": "saturday", "isOpen": true, "openTime": "07:00", "closeTime": "19:00" }
+    ],
+    "isActive": true,
+    "isPublic": true,
+    "licenseExpiry": "2025-07-31T23:59:59Z",
+    "createdAt": "2024-05-15T10:00:00Z",
+    "updatedAt": "2024-09-10T10:00:00Z",
+    "ownerId": "usr_010",
+    "settings": {
+      "allowOnlineOrders": true,
+      "allowTableOrders": false,
+      "requirePaymentUpfront": false,
+      "estimatedPrepTime": 10,
+      "maxOrdersPerHour": 50,
+      "notificationEmail": "pedidos@recantodosol.com.br",
+      "theme": {
+        "primaryColor": "#E07A5F",
+        "secondaryColor": "#F4D35E"
+      }
+    }
+  },
+  {
+    "id": "kiosk_010",
+    "name": "Paraíso Tropical",
+    "slug": "paraiso-tropical",
+    "description": "Experiência única na costa de Aracaju. Culinária sergipana autêntica com ingredientes locais.",
+    "logo": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=200",
+    "coverImage": "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=1200",
+    "address": {
+      "street": "Av. Santos Dumont",
+      "number": "3000",
+      "complement": "Quiosque 22",
+      "neighborhood": "Atalaia",
+      "city": "Aracaju",
+      "state": "SE",
+      "zipCode": "49037-470",
+      "country": "Brasil",
+      "coordinates": {
+        "latitude": -10.9873,
+        "longitude": -37.0404
+      }
+    },
+    "contact": {
+      "phone": "(79) 3301-2345",
+      "whatsapp": "(79) 98899-0001",
+      "email": "contato@paraisotropical.com.br",
+      "instagram": "@paraisotropical.aju"
+    },
+    "operatingHours": [
+      { "dayOfWeek": "sunday", "isOpen": true, "openTime": "08:00", "closeTime": "21:00" },
+      { "dayOfWeek": "monday", "isOpen": true, "openTime": "09:00", "closeTime": "18:00" },
+      { "dayOfWeek": "tuesday", "isOpen": true, "openTime": "09:00", "closeTime": "18:00" },
+      { "dayOfWeek": "wednesday", "isOpen": true, "openTime": "09:00", "closeTime": "18:00" },
+      { "dayOfWeek": "thursday", "isOpen": true, "openTime": "09:00", "closeTime": "18:00" },
+      { "dayOfWeek": "friday", "isOpen": true, "openTime": "09:00", "closeTime": "22:00" },
+      { "dayOfWeek": "saturday", "isOpen": true, "openTime": "08:00", "closeTime": "22:00" }
+    ],
+    "isActive": true,
+    "isPublic": true,
+    "licenseExpiry": "2025-05-31T23:59:59Z",
+    "createdAt": "2024-06-01T10:00:00Z",
+    "updatedAt": "2024-08-25T10:00:00Z",
+    "ownerId": "usr_011",
+    "settings": {
+      "allowOnlineOrders": true,
+      "allowTableOrders": true,
+      "requirePaymentUpfront": false,
+      "estimatedPrepTime": 15,
+      "maxOrdersPerHour": 35,
+      "notificationEmail": "pedidos@paraisotropical.com.br",
+      "theme": {
+        "primaryColor": "#52796F",
+        "secondaryColor": "#CAD2C5"
+      }
+    }
+  }
+]
+
