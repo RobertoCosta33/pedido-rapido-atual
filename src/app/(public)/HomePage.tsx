@@ -15,6 +15,8 @@ import SecurityIcon from '@mui/icons-material/Security';
 import DevicesIcon from '@mui/icons-material/Devices';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import ReceiptIcon from '@mui/icons-material/Receipt';
 import { Button } from '@/components';
 import { useTheme } from '@/contexts';
 
@@ -88,6 +90,26 @@ const HeaderNav = styled.nav`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.md};
+`;
+
+const NavLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.xs};
+  padding: ${({ theme }) => theme.spacing.sm} ${({ theme }) => theme.spacing.md};
+  color: ${({ theme }) => theme.colors.text.secondary};
+  font-weight: 500;
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  transition: all 0.2s ease;
+  
+  &:hover {
+    color: ${({ theme }) => theme.colors.primary.main};
+    background: ${({ theme }) => theme.colors.background.subtle};
+  }
+  
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const ThemeToggle = styled.button`
@@ -325,6 +347,21 @@ export const HomePage: React.FC = () => {
           </Logo>
           
           <HeaderNav>
+            <NavLink href="/menu">
+              <RestaurantMenuIcon fontSize="small" />
+              Cardápios
+            </NavLink>
+            
+            <NavLink href="/ranking">
+              <EmojiEventsIcon fontSize="small" />
+              Ranking
+            </NavLink>
+            
+            <NavLink href="/meus-pedidos">
+              <ReceiptIcon fontSize="small" />
+              Meus Pedidos
+            </NavLink>
+            
             <ThemeToggle onClick={toggleTheme} aria-label="Alternar tema">
               {isDarkMode ? <LightModeIcon /> : <DarkModeIcon />}
             </ThemeToggle>
