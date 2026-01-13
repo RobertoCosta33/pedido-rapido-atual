@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PedidoRapido.Application.DTOs;
 using PedidoRapido.Application.Interfaces;
@@ -7,10 +8,12 @@ namespace PedidoRapido.API.Controllers;
 /// <summary>
 /// Controller de Quiosques.
 /// Gerencia operações CRUD e consultas de quiosques.
+/// Requer autenticação exceto para consultas públicas.
 /// </summary>
 [ApiController]
 [Route("api/[controller]")]
 [Produces("application/json")]
+[Authorize] // Requer autenticação por padrão
 public class KiosksController : ControllerBase
 {
     private readonly IKioskService _kioskService;
@@ -34,9 +37,10 @@ public class KiosksController : ControllerBase
     }
 
     /// <summary>
-    /// Lista quiosques ativos
+    /// Lista quiosques ativos (público)
     /// </summary>
     [HttpGet("active")]
+    [AllowAnonymous] // Endpoint público
     [ProducesResponseType(typeof(IEnumerable<KioskDto>), StatusCodes.Status200OK)]
     public async Task<ActionResult<IEnumerable<KioskDto>>> GetActive()
     {
@@ -60,9 +64,10 @@ public class KiosksController : ControllerBase
     }
 
     /// <summary>
-    /// Obtém um quiosque por slug
+    /// Obtém um quiosque por slug (público)
     /// </summary>
     [HttpGet("slug/{slug}")]
+    [AllowAnonymous] // Endpoint público para cardápio
     [ProducesResponseType(typeof(KioskDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<KioskDto>> GetBySlug(string slug)
@@ -75,11 +80,14 @@ public class KiosksController : ControllerBase
     }
 
     /// <summary>
-    /// Cria um novo quiosque
+    /// Cria um novo quiosque (Super Admin)
     /// </summary>
     [HttpPost]
+    [Authorize(Policy = "SuperAdmin")]
     [ProducesResponseType(typeof(KioskDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public async Task<ActionResult<KioskDto>> Create([FromBody] CreateKioskDto dto)
     {
         try
@@ -95,11 +103,14 @@ public class KiosksController : ControllerBase
     }
 
     /// <summary>
-    /// Atualiza um quiosque
+    /// Atualiza um quiosque (Admin ou Super Admin)
     /// </summary>
     [HttpPut("{id:guid}")]
+    [Authorize(Policy = "Admin")]
     [ProducesResponseType(typeof(KioskDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public async Task<ActionResult<KioskDto>> Update(Guid id, [FromBody] UpdateKioskDto dto)
     {
         try
@@ -114,11 +125,14 @@ public class KiosksController : ControllerBase
     }
 
     /// <summary>
-    /// Remove um quiosque
+    /// Remove um quiosque (Super Admin)
     /// </summary>
     [HttpDelete("{id:guid}")]
+    [Authorize(Policy = "SuperAdmin")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public async Task<IActionResult> Delete(Guid id)
     {
         var deleted = await _kioskService.DeleteAsync(id);
@@ -129,9 +143,10 @@ public class KiosksController : ControllerBase
     }
 
     /// <summary>
-    /// Obtém ranking dos quiosques mais bem avaliados
+    /// Obtém ranking dos quiosques mais bem avaliados (público)
     /// </summary>
     [HttpGet("ranking")]
+    [AllowAnonymous] // Endpoint público
     [ProducesResponseType(typeof(IEnumerable<KioskRankingDto>), StatusCodes.Status200OK)]
     public async Task<ActionResult<IEnumerable<KioskRankingDto>>> GetRanking([FromQuery] int limit = 10)
     {

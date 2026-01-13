@@ -2,6 +2,7 @@
 
 /**
  * Layout do painel Admin do Quiosque
+ * Protegido por autenticação - requer role Admin ou SuperAdmin
  */
 
 import React, { useState } from 'react';
@@ -26,6 +27,7 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { useRouter } from 'next/navigation';
 import { Sidebar, NavSectionData } from '@/components';
+import { AdminGuard } from '@/components/Auth';
 import { useAuth, useTheme } from '@/contexts';
 
 const Container = styled.div`
@@ -154,43 +156,48 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
     logout();
     router.push('/login');
   };
+
+  // Nome do quiosque do usuário
+  const kioskName = user?.kioskName || 'Meu Quiosque';
   
   return (
-    <Container>
-      <Sidebar
-        sections={navSections}
-        userName={user?.name || 'Admin'}
-        userRole="Administrador"
-        isMobileOpen={mobileMenuOpen}
-        onMobileClose={() => setMobileMenuOpen(false)}
-        onLogout={handleLogout}
-      />
-      
-      <Main>
-        <Header>
-          <HeaderLeft>
-            <MobileMenuButton onClick={() => setMobileMenuOpen(true)}>
-              <MenuIcon />
-            </MobileMenuButton>
-            <KioskName>Quiosque Praia Central</KioskName>
-          </HeaderLeft>
-          
-          <HeaderRight>
-            <IconButton onClick={toggleTheme}>
-              {isDarkMode ? <LightModeIcon /> : <DarkModeIcon />}
-            </IconButton>
-            
-            <IconButton>
-              <Badge badgeContent={3} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-          </HeaderRight>
-        </Header>
+    <AdminGuard>
+      <Container>
+        <Sidebar
+          sections={navSections}
+          userName={user?.name || 'Admin'}
+          userRole="Administrador"
+          isMobileOpen={mobileMenuOpen}
+          onMobileClose={() => setMobileMenuOpen(false)}
+          onLogout={handleLogout}
+        />
         
-        <Content>{children}</Content>
-      </Main>
-    </Container>
+        <Main>
+          <Header>
+            <HeaderLeft>
+              <MobileMenuButton onClick={() => setMobileMenuOpen(true)}>
+                <MenuIcon />
+              </MobileMenuButton>
+              <KioskName>{kioskName}</KioskName>
+            </HeaderLeft>
+            
+            <HeaderRight>
+              <IconButton onClick={toggleTheme}>
+                {isDarkMode ? <LightModeIcon /> : <DarkModeIcon />}
+              </IconButton>
+              
+              <IconButton>
+                <Badge badgeContent={3} color="error">
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
+            </HeaderRight>
+          </Header>
+          
+          <Content>{children}</Content>
+        </Main>
+      </Container>
+    </AdminGuard>
   );
 };
 

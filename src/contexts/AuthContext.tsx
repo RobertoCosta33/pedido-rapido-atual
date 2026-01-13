@@ -3,6 +3,7 @@
 /**
  * Context para gerenciamento de autenticação
  * Implementa RBAC (Role-Based Access Control) com 3 níveis
+ * Conecta com backend real via JWT
  */
 
 import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
@@ -26,6 +27,7 @@ interface AuthContextData extends AuthState {
   isSuperAdmin: boolean;
   isAdmin: boolean;
   isCustomer: boolean;
+  token: string | null;
 }
 
 const AuthContext = createContext<AuthContextData | undefined>(undefined);
@@ -45,6 +47,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     isLoading: true,
     error: null,
   });
+  const [token, setToken] = useState<string | null>(null);
 
   // Carrega usuário do localStorage na inicialização
   useEffect(() => {
@@ -61,6 +64,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           const isValid = await authService.validateToken(tokens.accessToken);
 
           if (isValid) {
+            setToken(tokens.accessToken);
             setState({
               user,
               isAuthenticated: true,
@@ -68,34 +72,20 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
               error: null,
             });
           } else {
-            // Tenta renovar o token
-            try {
-              const newTokens = await authService.refreshToken(tokens.refreshToken);
-              localStorage.setItem(TOKEN_STORAGE_KEY, JSON.stringify(newTokens));
-              setState({
-                user,
-                isAuthenticated: true,
-                isLoading: false,
-                error: null,
-              });
-            } catch {
-              // Token inválido, limpa dados
-              localStorage.removeItem(AUTH_STORAGE_KEY);
-              localStorage.removeItem(TOKEN_STORAGE_KEY);
-              setState({
-                user: null,
-                isAuthenticated: false,
-                isLoading: false,
-                error: null,
-              });
-            }
+            // Token inválido, limpa dados
+            clearAuthData();
+            setState({
+              user: null,
+              isAuthenticated: false,
+              isLoading: false,
+              error: null,
+            });
           }
         } else {
           setState((prev) => ({ ...prev, isLoading: false }));
         }
       } catch {
-        localStorage.removeItem(AUTH_STORAGE_KEY);
-        localStorage.removeItem(TOKEN_STORAGE_KEY);
+        clearAuthData();
         setState({
           user: null,
           isAuthenticated: false,
@@ -108,14 +98,28 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     loadStoredAuth();
   }, []);
 
+  /**
+   * Limpa dados de autenticação do localStorage
+   */
+  const clearAuthData = () => {
+    localStorage.removeItem(AUTH_STORAGE_KEY);
+    localStorage.removeItem(TOKEN_STORAGE_KEY);
+    setToken(null);
+  };
+
+  /**
+   * Realiza login com credenciais
+   */
   const login = useCallback(async (credentials: LoginCredentials) => {
     setState((prev) => ({ ...prev, isLoading: true, error: null }));
 
     try {
       const { user, tokens } = await authService.login(credentials);
 
+      // Salva no localStorage
       localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
       localStorage.setItem(TOKEN_STORAGE_KEY, JSON.stringify(tokens));
+      setToken(tokens.accessToken);
 
       setState({
         user,
@@ -149,6 +153,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   }, [router]);
 
+  /**
+   * Registra novo usuário
+   */
   const register = useCallback(async (data: RegisterData) => {
     setState((prev) => ({ ...prev, isLoading: true, error: null }));
 
@@ -157,6 +164,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
       localStorage.setItem(TOKEN_STORAGE_KEY, JSON.stringify(tokens));
+      setToken(tokens.accessToken);
 
       setState({
         user,
@@ -177,10 +185,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   }, [router]);
 
+  /**
+   * Realiza logout
+   */
   const logout = useCallback(() => {
-    localStorage.removeItem(AUTH_STORAGE_KEY);
-    localStorage.removeItem(TOKEN_STORAGE_KEY);
+    // Limpa dados do localStorage
+    clearAuthData();
+    authService.logout();
 
+    // Atualiza estado
     setState({
       user: null,
       isAuthenticated: false,
@@ -188,9 +201,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       error: null,
     });
 
-    router.push('/');
+    // Redireciona para login
+    router.push('/login');
   }, [router]);
 
+  /**
+   * Atualiza dados do usuário
+   */
   const updateUser = useCallback((userData: Partial<User>) => {
     setState((prev) => {
       if (!prev.user) return prev;
@@ -205,6 +222,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     });
   }, []);
 
+  /**
+   * Verifica se o usuário tem permissão baseado nas roles
+   */
   const hasPermission = useCallback(
     (requiredRoles: UserRole[]): boolean => {
       if (!state.user) return false;
@@ -213,6 +233,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     [state.user]
   );
 
+  // Computed properties para verificação rápida de role
   const isSuperAdmin = useMemo(() => state.user?.role === 'super_admin', [state.user]);
   const isAdmin = useMemo(() => state.user?.role === 'admin', [state.user]);
   const isCustomer = useMemo(() => state.user?.role === 'customer', [state.user]);
@@ -228,8 +249,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       isSuperAdmin,
       isAdmin,
       isCustomer,
+      token,
     }),
-    [state, login, register, logout, updateUser, hasPermission, isSuperAdmin, isAdmin, isCustomer]
+    [state, login, register, logout, updateUser, hasPermission, isSuperAdmin, isAdmin, isCustomer, token]
   );
 
   return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
@@ -284,4 +306,3 @@ export const withAuth = <P extends object>(
 };
 
 export default AuthContext;
-

@@ -58,12 +58,22 @@ axiosInstance.interceptors.response.use(
 
     // Tratar erros específicos
     if (error.response?.status === 401) {
-      // Token expirado ou inválido - futuro: redirecionar para login
       console.warn('Não autorizado - token pode estar expirado');
+      
+      // Limpa tokens e redireciona para login
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('pedido-rapido-auth');
+        localStorage.removeItem('pedido-rapido-tokens');
+        
+        // Só redireciona se não estiver já na página de login
+        if (!window.location.pathname.includes('/login')) {
+          window.location.href = '/login';
+        }
+      }
     }
 
     if (error.response?.status === 403) {
-      console.warn('Acesso negado');
+      console.warn('Acesso negado - permissão insuficiente');
     }
 
     // Propagar erro com mensagem amigável
