@@ -3,9 +3,9 @@
  * Gerencia CRUD e operações de pedidos
  */
 
-import { api } from './api';
-import { Order, OrderStatus, CreateOrderRequest, OrderSummary } from '@/types';
-import { mockDataService, simulateDelay, MockOrder } from './mock.service';
+import { api } from "./api";
+import { Order, OrderStatus, CreateOrderRequest, OrderSummary } from "@/types";
+import { mockDataService, simulateDelay, MockOrder } from "./mock.service";
 
 /**
  * Converte MockOrder para Order
@@ -13,27 +13,25 @@ import { mockDataService, simulateDelay, MockOrder } from './mock.service';
 const toOrder = (mock: MockOrder): Order => ({
   id: mock.id,
   kioskId: mock.kioskId,
-  customerId: mock.customerId || undefined,
-  customerName: mock.customerName,
-  customerPhone: mock.customerPhone,
-  tableNumber: mock.tableNumber || undefined,
+  customerId: mock.customerId || "guest",
   status: mock.status as OrderStatus,
   items: mock.items.map((item) => ({
-    ...item,
+    id: item.id,
+    productId: item.productId,
+    productName: item.productName,
+    quantity: item.quantity,
+    price: item.unitPrice,
+    total: item.totalPrice,
+    unitPrice: item.unitPrice,
+    totalPrice: item.totalPrice,
     addons: [],
     notes: item.notes || undefined,
   })),
-  subtotal: mock.subtotal,
-  discount: mock.discount,
-  tax: mock.tax,
   total: mock.total,
-  paymentMethod: mock.paymentMethod as Order['paymentMethod'],
-  paymentStatus: mock.paymentStatus as Order['paymentStatus'],
-  notes: mock.notes || undefined,
-  estimatedTime: mock.estimatedTime,
-  createdAt: new Date(mock.createdAt),
-  updatedAt: new Date(mock.updatedAt),
-  completedAt: mock.completedAt ? new Date(mock.completedAt) : undefined,
+  paymentMethod: mock.paymentMethod,
+  paymentStatus: mock.paymentStatus,
+  createdAt: mock.createdAt,
+  updatedAt: mock.updatedAt,
 });
 
 export const orderService = {
@@ -49,92 +47,104 @@ export const orderService = {
       limit?: number;
     }
   ): Promise<Order[]> => {
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === "development") {
       await simulateDelay();
-      
+
       let orders = mockDataService.getOrdersByKiosk(kioskId);
-      
+
       if (params?.status) {
         orders = orders.filter((o) => o.status === params.status);
       }
-      
+
       if (params?.startDate) {
-        orders = orders.filter((o) => new Date(o.createdAt) >= params.startDate!);
+        orders = orders.filter(
+          (o) => new Date(o.createdAt) >= params.startDate!
+        );
       }
-      
+
       if (params?.endDate) {
         orders = orders.filter((o) => new Date(o.createdAt) <= params.endDate!);
       }
-      
+
       // Ordena por data de criação (mais recentes primeiro)
-      orders.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-      
+      orders.sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
+
       if (params?.limit) {
         orders = orders.slice(0, params.limit);
       }
-      
+
       return orders.map(toOrder);
     }
-    
-    const response = await api.get<Order[]>(`/kiosks/${kioskId}/orders`, { params });
-    return response.data;
+
+    const response = await api.get<Order[]>(`/kiosks/${kioskId}/orders`, {
+      params,
+    });
+    return response;
   },
 
   /**
    * Obtém pedido por ID
    */
   getById: async (id: string): Promise<Order> => {
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === "development") {
       await simulateDelay();
       const order = mockDataService.getOrderById(id);
-      if (!order) throw new Error('Pedido não encontrado');
+      if (!order) throw new Error("Pedido não encontrado");
       return toOrder(order);
     }
-    
+
     const response = await api.get<Order>(`/orders/${id}`);
-    return response.data;
+    return response;
   },
 
   /**
    * Lista pedidos de um cliente
    */
   getByCustomer: async (customerId: string): Promise<Order[]> => {
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === "development") {
       await simulateDelay();
       return mockDataService.getOrdersByCustomer(customerId).map(toOrder);
     }
-    
+
     const response = await api.get<Order[]>(`/customers/${customerId}/orders`);
-    return response.data;
+    return response;
   },
 
   /**
    * Lista pedidos pendentes (para cozinha)
    */
   getPending: async (kioskId: string): Promise<Order[]> => {
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === "development") {
       await simulateDelay();
-      
-      const pendingStatuses = ['pending', 'confirmed', 'preparing'];
+
+      const pendingStatuses = ["pending", "confirmed", "preparing"];
       const orders = mockDataService
         .getOrdersByKiosk(kioskId)
         .filter((o) => pendingStatuses.includes(o.status))
-        .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
-      
+        .sort(
+          (a, b) =>
+            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+        );
+
       return orders.map(toOrder);
     }
-    
-    const response = await api.get<Order[]>(`/kiosks/${kioskId}/orders/pending`);
-    return response.data;
+
+    const response = await api.get<Order[]>(
+      `/kiosks/${kioskId}/orders/pending`
+    );
+    return response;
   },
 
   /**
    * Cria novo pedido
    */
   create: async (data: CreateOrderRequest): Promise<Order> => {
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === "development") {
       await simulateDelay();
-      
+
       // Busca produtos para calcular preços
       const items = data.items.map((item, index) => {
         const product = mockDataService.getProductById(item.productId);
@@ -142,7 +152,7 @@ export const orderService = {
         return {
           id: `item_${Date.now()}_${index}`,
           productId: item.productId,
-          productName: product?.name || 'Produto',
+          productName: product?.name || "Produto",
           quantity: item.quantity,
           unitPrice: price,
           totalPrice: price * item.quantity,
@@ -150,31 +160,34 @@ export const orderService = {
           notes: item.notes || null,
         };
       });
-      
+
       const subtotal = items.reduce((sum, item) => sum + item.totalPrice, 0);
-      
+
       const newOrder: MockOrder = {
-        id: `ord_${String(mockDataService.getOrders().length + 1).padStart(3, '0')}`,
+        id: `ord_${String(mockDataService.getOrders().length + 1).padStart(
+          3,
+          "0"
+        )}`,
         kioskId: data.kioskId,
         customerId: null,
         customerName: data.customerName,
-        customerPhone: data.customerPhone || '',
+        customerPhone: data.customerPhone || "",
         tableNumber: data.tableNumber || null,
-        status: 'pending',
+        status: "pending",
         items,
         subtotal,
         discount: 0,
         tax: 0,
         total: subtotal,
         paymentMethod: null,
-        paymentStatus: 'pending',
+        paymentStatus: "pending",
         notes: data.notes || null,
         estimatedTime: 15,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         completedAt: null,
       };
-      
+
       // Debita estoque (se houver receitas associadas)
       for (const item of data.items) {
         const product = mockDataService.getProductById(item.productId);
@@ -188,79 +201,86 @@ export const orderService = {
           }
         }
       }
-      
+
       mockDataService.addOrder(newOrder);
       return toOrder(newOrder);
     }
-    
-    const response = await api.post<Order>('/orders', data);
-    return response.data;
+
+    const response = await api.post<Order>("/orders", data);
+    return response;
   },
 
   /**
    * Atualiza status do pedido
    */
-  updateStatus: async (id: string, status: OrderStatus, notes?: string): Promise<Order> => {
-    if (process.env.NODE_ENV === 'development') {
+  updateStatus: async (
+    id: string,
+    status: OrderStatus,
+    notes?: string
+  ): Promise<Order> => {
+    if (process.env.NODE_ENV === "development") {
       await simulateDelay();
-      
+
       const updateData: Partial<MockOrder> = {
         status,
         notes: notes || undefined,
         updatedAt: new Date().toISOString(),
       };
-      
-      if (status === 'delivered') {
+
+      if (status === "delivered") {
         updateData.completedAt = new Date().toISOString();
-        updateData.paymentStatus = 'paid';
+        updateData.paymentStatus = "paid";
       }
-      
-      if (status === 'cancelled') {
-        updateData.paymentStatus = 'refunded';
+
+      if (status === "cancelled") {
+        updateData.paymentStatus = "refunded";
       }
-      
+
       const updated = mockDataService.updateOrder(id, updateData);
-      if (!updated) throw new Error('Pedido não encontrado');
+      if (!updated) throw new Error("Pedido não encontrado");
       return toOrder(updated);
     }
-    
-    const response = await api.patch<Order>(`/orders/${id}/status`, { status, notes });
-    return response.data;
+
+    const response = await api.patch<Order>(`/orders/${id}/status`, {
+      status,
+      notes,
+    });
+    return response;
   },
 
   /**
    * Confirma pedido
    */
   confirm: async (id: string): Promise<Order> => {
-    return orderService.updateStatus(id, 'confirmed');
+    return orderService.updateStatus(id, "confirmed");
   },
 
   /**
    * Marca pedido como preparando
    */
   startPreparing: async (id: string): Promise<Order> => {
-    return orderService.updateStatus(id, 'preparing');
+    return orderService.updateStatus(id, "preparing");
   },
 
   /**
    * Marca pedido como pronto
    */
   markReady: async (id: string): Promise<Order> => {
-    return orderService.updateStatus(id, 'ready');
+    return orderService.updateStatus(id, "ready");
   },
 
   /**
    * Marca pedido como entregue
    */
   deliver: async (id: string): Promise<Order> => {
-    return orderService.updateStatus(id, 'delivered');
+    return orderService.updateStatus(id, "delivered");
   },
 
   /**
    * Cancela pedido
    */
   cancel: async (id: string, reason?: string): Promise<Order> => {
-    return orderService.updateStatus(id, 'cancelled', reason);
+    return orderService.updateStatus(id, "cancelled", reason);
   },
 
   /**
@@ -271,30 +291,33 @@ export const orderService = {
     startDate?: Date,
     endDate?: Date
   ): Promise<OrderSummary> => {
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === "development") {
       await simulateDelay();
-      
+
       let orders = mockDataService.getOrdersByKiosk(kioskId);
-      
+
       if (startDate) {
         orders = orders.filter((o) => new Date(o.createdAt) >= startDate);
       }
-      
+
       if (endDate) {
         orders = orders.filter((o) => new Date(o.createdAt) <= endDate);
       }
-      
-      const deliveredOrders = orders.filter((o) => o.status === 'delivered');
+
+      const deliveredOrders = orders.filter((o) => o.status === "delivered");
       const totalRevenue = deliveredOrders.reduce((sum, o) => sum + o.total, 0);
-      
+
       // Conta pedidos por status
       const ordersByStatus = orders.reduce((acc, o) => {
         acc[o.status as OrderStatus] = (acc[o.status as OrderStatus] || 0) + 1;
         return acc;
       }, {} as Record<OrderStatus, number>);
-      
+
       // Produtos mais vendidos
-      const productCounts: Record<string, { name: string; quantity: number; revenue: number }> = {};
+      const productCounts: Record<
+        string,
+        { name: string; quantity: number; revenue: number }
+      > = {};
       for (const order of deliveredOrders) {
         for (const item of order.items) {
           if (!productCounts[item.productId]) {
@@ -308,7 +331,7 @@ export const orderService = {
           productCounts[item.productId].revenue += item.totalPrice;
         }
       }
-      
+
       const topProducts = Object.entries(productCounts)
         .map(([productId, data]) => ({
           productId,
@@ -318,20 +341,29 @@ export const orderService = {
         }))
         .sort((a, b) => b.quantity - a.quantity)
         .slice(0, 10);
-      
+
       return {
         totalOrders: orders.length,
         totalRevenue,
-        averageTicket: deliveredOrders.length > 0 ? totalRevenue / deliveredOrders.length : 0,
+        averageTicket:
+          deliveredOrders.length > 0
+            ? totalRevenue / deliveredOrders.length
+            : 0,
         ordersByStatus,
         topProducts,
       };
     }
-    
-    const response = await api.get<OrderSummary>(`/kiosks/${kioskId}/orders/summary`, {
-      params: { startDate: startDate?.toISOString(), endDate: endDate?.toISOString() },
-    });
-    return response.data;
+
+    const response = await api.get<OrderSummary>(
+      `/kiosks/${kioskId}/orders/summary`,
+      {
+        params: {
+          startDate: startDate?.toISOString(),
+          endDate: endDate?.toISOString(),
+        },
+      }
+    );
+    return response;
   },
 
   /**
@@ -340,10 +372,10 @@ export const orderService = {
   getToday: async (kioskId: string): Promise<Order[]> => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    
+
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
-    
+
     return orderService.getByKiosk(kioskId, {
       startDate: today,
       endDate: tomorrow,
@@ -352,4 +384,3 @@ export const orderService = {
 };
 
 export default orderService;
-

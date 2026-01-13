@@ -1,120 +1,154 @@
-'use client';
+"use client";
 
 /**
- * Context para gerenciamento de tema (Dark/Light)
- * Persiste preferência do usuário no localStorage
+ * Context para gerenciamento de tema (dark/light mode)
  */
 
-import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
-import { ThemeProvider as StyledThemeProvider } from 'styled-components';
-import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import { lightTheme, darkTheme, muiLightTheme, muiDarkTheme, AppTheme } from '@/styles/theme';
-import { GlobalStyles } from '@/styles/GlobalStyles';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useMemo,
+} from "react";
+import {
+  ThemeProvider as MuiThemeProvider,
+  createTheme,
+  Theme,
+} from "@mui/material/styles";
+import { CssBaseline } from "@mui/material";
+import { ThemeMode, ThemeState } from "@/types";
+import { STORAGE_KEYS } from "@/utils/constants";
 
-type ThemeMode = 'light' | 'dark';
-
-interface ThemeContextData {
-  theme: AppTheme;
-  themeMode: ThemeMode;
-  toggleTheme: () => void;
-  setThemeMode: (mode: ThemeMode) => void;
-  isDarkMode: boolean;
-}
-
-const ThemeContext = createContext<ThemeContextData | undefined>(undefined);
-
-const THEME_STORAGE_KEY = 'pedido-rapido-theme';
+const ThemeContext = createContext<ThemeState | undefined>(undefined);
 
 interface ThemeProviderProps {
   children: React.ReactNode;
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  const [themeMode, setThemeModeState] = useState<ThemeMode>('light');
-  const [mounted, setMounted] = useState(false);
+  const [mode, setMode] = useState<ThemeMode>("light");
 
   // Carrega tema do localStorage na inicialização
   useEffect(() => {
-    const storedTheme = localStorage.getItem(THEME_STORAGE_KEY) as ThemeMode | null;
-    
-    if (storedTheme) {
-      setThemeModeState(storedTheme);
+    const savedTheme = localStorage.getItem(STORAGE_KEYS.THEME) as ThemeMode;
+    if (savedTheme && (savedTheme === "light" || savedTheme === "dark")) {
+      setMode(savedTheme);
     } else {
       // Detecta preferência do sistema
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setThemeModeState(prefersDark ? 'dark' : 'light');
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      ).matches;
+      setMode(prefersDark ? "dark" : "light");
     }
-    
-    setMounted(true);
   }, []);
 
-  // Persiste mudanças de tema no localStorage
+  // Salva tema no localStorage quando muda
   useEffect(() => {
-    if (mounted) {
-      localStorage.setItem(THEME_STORAGE_KEY, themeMode);
-      
-      // Atualiza meta tag de cor do tema
-      const metaThemeColor = document.querySelector('meta[name="theme-color"]');
-      const color = themeMode === 'dark' ? '#0F172A' : '#F8FAFC';
-      
-      if (metaThemeColor) {
-        metaThemeColor.setAttribute('content', color);
-      }
-    }
-  }, [themeMode, mounted]);
+    localStorage.setItem(STORAGE_KEYS.THEME, mode);
+  }, [mode]);
 
-  // Escuta mudanças na preferência do sistema
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    
-    const handleChange = (e: MediaQueryListEvent) => {
-      const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
-      if (!storedTheme) {
-        setThemeModeState(e.matches ? 'dark' : 'light');
-      }
-    };
-    
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
-  }, []);
+  const toggleMode = () => {
+    setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+  };
 
-  const toggleTheme = useCallback(() => {
-    setThemeModeState((prev) => (prev === 'light' ? 'dark' : 'light'));
-  }, []);
-
-  const setThemeMode = useCallback((mode: ThemeMode) => {
-    setThemeModeState(mode);
-  }, []);
-
-  const theme = useMemo(() => (themeMode === 'dark' ? darkTheme : lightTheme), [themeMode]);
-  const muiTheme = useMemo(() => (themeMode === 'dark' ? muiDarkTheme : muiLightTheme), [themeMode]);
-  const isDarkMode = themeMode === 'dark';
+  // Cria tema do Material-UI
+  const theme: Theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode,
+          primary: {
+            main: mode === "light" ? "#1976d2" : "#90caf9",
+            light: mode === "light" ? "#42a5f5" : "#e3f2fd",
+            dark: mode === "light" ? "#1565c0" : "#42a5f5",
+          },
+          secondary: {
+            main: mode === "light" ? "#dc004e" : "#f48fb1",
+          },
+          background: {
+            default: mode === "light" ? "#f5f5f5" : "#121212",
+            paper: mode === "light" ? "#ffffff" : "#1e1e1e",
+          },
+          text: {
+            primary: mode === "light" ? "#212121" : "#ffffff",
+            secondary: mode === "light" ? "#757575" : "#b0b0b0",
+          },
+        },
+        typography: {
+          fontFamily: '"Outfit", "Roboto", "Helvetica", "Arial", sans-serif',
+          h1: {
+            fontWeight: 700,
+          },
+          h2: {
+            fontWeight: 600,
+          },
+          h3: {
+            fontWeight: 600,
+          },
+          h4: {
+            fontWeight: 500,
+          },
+          h5: {
+            fontWeight: 500,
+          },
+          h6: {
+            fontWeight: 500,
+          },
+          button: {
+            textTransform: "none",
+            fontWeight: 500,
+          },
+        },
+        shape: {
+          borderRadius: 8,
+        },
+        components: {
+          MuiButton: {
+            styleOverrides: {
+              root: {
+                borderRadius: 8,
+                padding: "8px 16px",
+              },
+            },
+          },
+          MuiCard: {
+            styleOverrides: {
+              root: {
+                borderRadius: 12,
+                boxShadow:
+                  mode === "light"
+                    ? "0 2px 8px rgba(0,0,0,0.1)"
+                    : "0 2px 8px rgba(0,0,0,0.3)",
+              },
+            },
+          },
+          MuiAppBar: {
+            styleOverrides: {
+              root: {
+                backgroundColor: mode === "light" ? "#1976d2" : "#1e1e1e",
+                boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+              },
+            },
+          },
+        },
+      }),
+    [mode]
+  );
 
   const contextValue = useMemo(
     () => ({
-      theme,
-      themeMode,
-      toggleTheme,
-      setThemeMode,
-      isDarkMode,
+      mode,
+      toggleMode,
     }),
-    [theme, themeMode, toggleTheme, setThemeMode, isDarkMode]
+    [mode]
   );
-
-  // Evita flash de tema incorreto
-  if (!mounted) {
-    return null;
-  }
 
   return (
     <ThemeContext.Provider value={contextValue}>
-      <MuiThemeProvider theme={muiTheme}>
-        <StyledThemeProvider theme={theme}>
-          <CssBaseline />
-          <GlobalStyles />
-          {children}
-        </StyledThemeProvider>
+      <MuiThemeProvider theme={theme}>
+        <CssBaseline />
+        {children}
       </MuiThemeProvider>
     </ThemeContext.Provider>
   );
@@ -123,15 +157,14 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 /**
  * Hook para acessar o contexto de tema
  */
-export const useTheme = (): ThemeContextData => {
+export const useTheme = (): ThemeState => {
   const context = useContext(ThemeContext);
-  
+
   if (!context) {
-    throw new Error('useTheme deve ser usado dentro de um ThemeProvider');
+    throw new Error("useTheme deve ser usado dentro de um ThemeProvider");
   }
-  
+
   return context;
 };
 
 export default ThemeContext;
-

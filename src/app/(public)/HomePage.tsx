@@ -1,24 +1,24 @@
-'use client';
+"use client";
 
 /**
  * Componente da página inicial
  */
 
-import React from 'react';
-import Link from 'next/link';
-import styled, { keyframes } from 'styled-components';
-import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
-import QrCode2Icon from '@mui/icons-material/QrCode2';
-import InventoryIcon from '@mui/icons-material/Inventory';
-import SpeedIcon from '@mui/icons-material/Speed';
-import SecurityIcon from '@mui/icons-material/Security';
-import DevicesIcon from '@mui/icons-material/Devices';
-import LightModeIcon from '@mui/icons-material/LightMode';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-import ReceiptIcon from '@mui/icons-material/Receipt';
-import { Button } from '@/components';
-import { useTheme } from '@/contexts';
+import React from "react";
+import Link from "next/link";
+import styled, { keyframes } from "styled-components";
+import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
+import QrCode2Icon from "@mui/icons-material/QrCode2";
+import InventoryIcon from "@mui/icons-material/Inventory";
+import SpeedIcon from "@mui/icons-material/Speed";
+import SecurityIcon from "@mui/icons-material/Security";
+import DevicesIcon from "@mui/icons-material/Devices";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
+import ReceiptIcon from "@mui/icons-material/Receipt";
+import { Button } from "@/components";
+import { useTheme } from "@/contexts";
 
 const fadeInUp = keyframes`
   from {
@@ -77,7 +77,11 @@ const Logo = styled.div`
 const LogoIcon = styled.div`
   width: 40px;
   height: 40px;
-  background: linear-gradient(135deg, ${({ theme }) => theme.colors.primary.main} 0%, ${({ theme }) => theme.colors.primary.dark} 100%);
+  background: linear-gradient(
+    135deg,
+    ${({ theme }) => theme.colors.primary.main} 0%,
+    ${({ theme }) => theme.colors.primary.dark} 100%
+  );
   border-radius: ${({ theme }) => theme.borderRadius.md};
   display: flex;
   align-items: center;
@@ -101,12 +105,12 @@ const NavLink = styled(Link)`
   font-weight: 500;
   border-radius: ${({ theme }) => theme.borderRadius.md};
   transition: all 0.2s ease;
-  
+
   &:hover {
     color: ${({ theme }) => theme.colors.primary.main};
     background: ${({ theme }) => theme.colors.background.subtle};
   }
-  
+
   @media (max-width: 768px) {
     display: none;
   }
@@ -122,7 +126,7 @@ const ThemeToggle = styled.button`
   background: ${({ theme }) => theme.colors.background.subtle};
   color: ${({ theme }) => theme.colors.text.secondary};
   transition: all ${({ theme }) => theme.transitions.fast};
-  
+
   &:hover {
     background: ${({ theme }) => theme.colors.primary.main}20;
     color: ${({ theme }) => theme.colors.primary.main};
@@ -134,27 +138,28 @@ const Hero = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 120px ${({ theme }) => theme.spacing.lg} ${({ theme }) => theme.spacing.xxl};
+  padding: 120px ${({ theme }) => theme.spacing.lg}
+    ${({ theme }) => theme.spacing.xxl};
   position: relative;
   overflow: hidden;
-  
+
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     background: radial-gradient(
-      circle at 30% 20%,
-      ${({ theme }) => theme.colors.primary.main}15 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 70% 80%,
-      ${({ theme }) => theme.colors.secondary.main}10 0%,
-      transparent 50%
-    );
+        circle at 30% 20%,
+        ${({ theme }) => theme.colors.primary.main}15 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 70% 80%,
+        ${({ theme }) => theme.colors.secondary.main}10 0%,
+        transparent 50%
+      );
     pointer-events: none;
   }
 `;
@@ -173,9 +178,13 @@ const HeroTitle = styled.h1`
   color: ${({ theme }) => theme.colors.text.primary};
   margin-bottom: ${({ theme }) => theme.spacing.md};
   line-height: 1.1;
-  
+
   span {
-    background: linear-gradient(135deg, ${({ theme }) => theme.colors.primary.main} 0%, ${({ theme }) => theme.colors.secondary.main} 100%);
+    background: linear-gradient(
+      135deg,
+      ${({ theme }) => theme.colors.primary.main} 0%,
+      ${({ theme }) => theme.colors.secondary.main} 100%
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -199,7 +208,8 @@ const HeroButtons = styled.div`
 `;
 
 const Features = styled.section`
-  padding: ${({ theme }) => theme.spacing.xxl} ${({ theme }) => theme.spacing.lg};
+  padding: ${({ theme }) => theme.spacing.xxl}
+    ${({ theme }) => theme.spacing.lg};
   background: ${({ theme }) => theme.colors.background.subtle};
 `;
 
@@ -229,7 +239,7 @@ const FeatureCard = styled.div`
   box-shadow: ${({ theme }) => theme.shadows.md};
   transition: all ${({ theme }) => theme.transitions.normal};
   animation: ${fadeInUp} 0.6s ease-out;
-  
+
   &:hover {
     transform: translateY(-8px);
     box-shadow: ${({ theme }) => theme.shadows.xl};
@@ -240,13 +250,17 @@ const FeatureIcon = styled.div`
   width: 64px;
   height: 64px;
   border-radius: ${({ theme }) => theme.borderRadius.lg};
-  background: linear-gradient(135deg, ${({ theme }) => theme.colors.primary.main}20 0%, ${({ theme }) => theme.colors.secondary.main}20 100%);
+  background: linear-gradient(
+    135deg,
+    ${({ theme }) => theme.colors.primary.main}20 0%,
+    ${({ theme }) => theme.colors.secondary.main}20 100%
+  );
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: ${({ theme }) => theme.spacing.md};
   animation: ${float} 3s ease-in-out infinite;
-  
+
   svg {
     width: 32px;
     height: 32px;
@@ -268,8 +282,13 @@ const FeatureDescription = styled.p`
 `;
 
 const CTA = styled.section`
-  padding: ${({ theme }) => theme.spacing.xxl} ${({ theme }) => theme.spacing.lg};
-  background: linear-gradient(135deg, ${({ theme }) => theme.colors.primary.main} 0%, ${({ theme }) => theme.colors.primary.dark} 100%);
+  padding: ${({ theme }) => theme.spacing.xxl}
+    ${({ theme }) => theme.spacing.lg};
+  background: linear-gradient(
+    135deg,
+    ${({ theme }) => theme.colors.primary.main} 0%,
+    ${({ theme }) => theme.colors.primary.dark} 100%
+  );
   text-align: center;
 `;
 
@@ -304,39 +323,45 @@ const FooterText = styled.p`
 const features = [
   {
     icon: <RestaurantMenuIcon />,
-    title: 'Cardápio Digital',
-    description: 'Crie cardápios personalizados e atraentes. Atualize preços e produtos em tempo real.',
+    title: "Cardápio Digital",
+    description:
+      "Crie cardápios personalizados e atraentes. Atualize preços e produtos em tempo real.",
   },
   {
     icon: <QrCode2Icon />,
-    title: 'QR Code',
-    description: 'Seus clientes acessam o cardápio escaneando um QR Code. Prático e moderno.',
+    title: "QR Code",
+    description:
+      "Seus clientes acessam o cardápio escaneando um QR Code. Prático e moderno.",
   },
   {
     icon: <InventoryIcon />,
-    title: 'Controle de Estoque',
-    description: 'Gerencie insumos, receitas e receba alertas de estoque baixo automaticamente.',
+    title: "Controle de Estoque",
+    description:
+      "Gerencie insumos, receitas e receba alertas de estoque baixo automaticamente.",
   },
   {
     icon: <SpeedIcon />,
-    title: 'Alta Performance',
-    description: 'Sistema rápido e responsivo. Otimizado para funcionar em qualquer dispositivo.',
+    title: "Alta Performance",
+    description:
+      "Sistema rápido e responsivo. Otimizado para funcionar em qualquer dispositivo.",
   },
   {
     icon: <SecurityIcon />,
-    title: 'Seguro',
-    description: 'Controle de acesso por níveis. Seus dados protegidos com as melhores práticas.',
+    title: "Seguro",
+    description:
+      "Controle de acesso por níveis. Seus dados protegidos com as melhores práticas.",
   },
   {
     icon: <DevicesIcon />,
-    title: 'Multiplataforma',
-    description: 'Acesse de qualquer lugar: computador, tablet ou celular.',
+    title: "Multiplataforma",
+    description: "Acesse de qualquer lugar: computador, tablet ou celular.",
   },
 ];
 
 export const HomePage: React.FC = () => {
-  const { toggleTheme, isDarkMode } = useTheme();
-  
+  const { toggleMode, mode } = useTheme();
+  const isDarkMode = mode === "dark";
+
   return (
     <Container>
       <Header>
@@ -345,40 +370,40 @@ export const HomePage: React.FC = () => {
             <LogoIcon>PR</LogoIcon>
             Pedido Rápido
           </Logo>
-          
+
           <HeaderNav>
             <NavLink href="/menu">
               <RestaurantMenuIcon fontSize="small" />
               Cardápios
             </NavLink>
-            
+
             <NavLink href="/ranking">
               <EmojiEventsIcon fontSize="small" />
               Ranking
             </NavLink>
-            
+
             <NavLink href="/meus-pedidos">
               <ReceiptIcon fontSize="small" />
               Meus Pedidos
             </NavLink>
-            
-            <ThemeToggle onClick={toggleTheme} aria-label="Alternar tema">
+
+            <ThemeToggle onClick={toggleMode} aria-label="Alternar tema">
               {isDarkMode ? <LightModeIcon /> : <DarkModeIcon />}
             </ThemeToggle>
-            
+
             <Link href="/login">
               <Button variant="outline" size="small">
                 Entrar
               </Button>
             </Link>
-            
+
             <Link href="/register">
               <Button size="small">Criar conta</Button>
             </Link>
           </HeaderNav>
         </HeaderContent>
       </Header>
-      
+
       <Hero>
         <HeroContent>
           <HeroTitle>
@@ -386,30 +411,35 @@ export const HomePage: React.FC = () => {
             <br />
             <span>na palma da mão</span>
           </HeroTitle>
-          
+
           <HeroSubtitle>
-            Sistema completo para gestão de quiosques, cardápio digital, 
+            Sistema completo para gestão de quiosques, cardápio digital,
             controle de estoque e pedidos via QR Code.
           </HeroSubtitle>
-          
+
           <HeroButtons>
             <Link href="/register">
               <Button size="large">Começar gratuitamente</Button>
             </Link>
             <Link href="/menu/praia-central">
-              <Button variant="outline" size="large">Ver demonstração</Button>
+              <Button variant="outline" size="large">
+                Ver demonstração
+              </Button>
             </Link>
           </HeroButtons>
         </HeroContent>
       </Hero>
-      
+
       <Features>
         <FeaturesContent>
           <SectionTitle>Tudo que você precisa</SectionTitle>
-          
+
           <FeaturesGrid>
             {features.map((feature, index) => (
-              <FeatureCard key={index} style={{ animationDelay: `${index * 0.1}s` }}>
+              <FeatureCard
+                key={index}
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
                 <FeatureIcon>{feature.icon}</FeatureIcon>
                 <FeatureTitle>{feature.title}</FeatureTitle>
                 <FeatureDescription>{feature.description}</FeatureDescription>
@@ -418,12 +448,12 @@ export const HomePage: React.FC = () => {
           </FeaturesGrid>
         </FeaturesContent>
       </Features>
-      
+
       <CTA>
         <CTATitle>Pronto para revolucionar seu negócio?</CTATitle>
         <CTADescription>
-          Junte-se a centenas de quiosques que já utilizam o Pedido Rápido 
-          para aumentar suas vendas e melhorar a experiência dos clientes.
+          Junte-se a centenas de quiosques que já utilizam o Pedido Rápido para
+          aumentar suas vendas e melhorar a experiência dos clientes.
         </CTADescription>
         <Link href="/register">
           <Button variant="secondary" size="large">
@@ -431,13 +461,13 @@ export const HomePage: React.FC = () => {
           </Button>
         </Link>
       </CTA>
-      
+
       <Footer>
         <FooterText>
-          © {new Date().getFullYear()} Pedido Rápido. Todos os direitos reservados.
+          © {new Date().getFullYear()} Pedido Rápido. Todos os direitos
+          reservados.
         </FooterText>
       </Footer>
     </Container>
   );
 };
-

@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
 /**
  * Página de Planos do Quiosque
  * Exibe o plano atual e opções de upgrade
  */
 
-import { useState, useEffect, useCallback } from 'react';
-import styled from 'styled-components';
+import { useState, useEffect, useCallback } from "react";
+import styled from "styled-components";
 import {
   Box,
   Typography,
@@ -24,7 +24,7 @@ import {
   ToggleButton,
   ToggleButtonGroup,
   LinearProgress,
-} from '@mui/material';
+} from "@mui/material";
 import {
   Check as CheckIcon,
   Close as CloseIcon,
@@ -33,11 +33,11 @@ import {
   TrendingUp as UpgradeIcon,
   CalendarToday as CalendarIcon,
   CreditCard as PaymentIcon,
-} from '@mui/icons-material';
-import { useAuth } from '@/contexts/AuthContext';
-import { useNotification } from '@/contexts/NotificationContext';
-import { planService, licenseService, Plan, License } from '@/services';
-import { formatCurrency } from '@/utils';
+} from "@mui/icons-material";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNotification } from "@/contexts/NotificationContext";
+import { planService, licenseService, Plan, License } from "@/services";
+import { formatCurrency } from "@/utils";
 
 // Styled Components
 const PageContainer = styled.div`
@@ -50,8 +50,9 @@ const Header = styled.div`
 
 const CurrentPlanCard = styled(Card)`
   margin-bottom: ${({ theme }) => theme.spacing.xl};
-  background: linear-gradient(135deg, 
-    ${({ theme }) => theme.colors.primary.main}15 0%, 
+  background: linear-gradient(
+    135deg,
+    ${({ theme }) => theme.colors.primary.main}15 0%,
     ${({ theme }) => theme.colors.secondary.main}15 100%
   );
   border: 2px solid ${({ theme }) => theme.colors.primary.main};
@@ -61,13 +62,17 @@ const PlanCard = styled(Card)<{ $isPopular?: boolean; $isCurrent?: boolean }>`
   height: 100%;
   position: relative;
   transition: transform 0.2s, box-shadow 0.2s;
-  
-  ${({ $isPopular, theme }) => $isPopular && `
+
+  ${({ $isPopular, theme }) =>
+    $isPopular &&
+    `
     border: 2px solid ${theme.colors.primary.main};
     transform: scale(1.02);
   `}
-  
-  ${({ $isCurrent, theme }) => $isCurrent && `
+
+  ${({ $isCurrent, theme }) =>
+    $isCurrent &&
+    `
     border: 2px solid ${theme.colors.success.main};
     background: ${theme.colors.success.main}10;
   `}
@@ -111,16 +116,16 @@ const UsageItem = styled.div`
   margin-bottom: ${({ theme }) => theme.spacing.md};
 `;
 
-type BillingCycle = 'monthly' | 'semiannual' | 'annual';
+type BillingCycle = "monthly" | "semiannual" | "annual";
 
 const PlansPage = () => {
   const { user } = useAuth();
-  const { showNotification } = useNotification();
+  const { showSuccess, showError } = useNotification();
   const [loading, setLoading] = useState(true);
   const [plans, setPlans] = useState<Plan[]>([]);
   const [currentLicense, setCurrentLicense] = useState<License | null>(null);
-  const [billingCycle, setBillingCycle] = useState<BillingCycle>('monthly');
-  
+  const [billingCycle, setBillingCycle] = useState<BillingCycle>("monthly");
+
   // Dados simulados de uso (em produção viria do backend)
   const usage = {
     products: { current: 35, limit: 50 },
@@ -138,16 +143,18 @@ const PlansPage = () => {
         planService.getAll(),
         user?.kioskId ? licenseService.getByKiosk(user.kioskId) : null,
       ]);
-      
-      setPlans(plansData.filter(p => p.isActive).sort((a, b) => a.order - b.order));
+
+      setPlans(
+        plansData.filter((p) => p.isActive).sort((a, b) => a.order - b.order)
+      );
       setCurrentLicense(licenseData);
     } catch (error) {
-      console.error('Erro ao carregar planos:', error);
-      showNotification('Erro ao carregar planos', 'error');
+      console.error("Erro ao carregar planos:", error);
+      showError("Erro ao carregar planos");
     } finally {
       setLoading(false);
     }
-  }, [user?.kioskId, showNotification]);
+  }, [user?.kioskId, showError]);
 
   useEffect(() => {
     loadData();
@@ -157,9 +164,9 @@ const PlansPage = () => {
    * Simula upgrade de plano
    */
   const handleUpgrade = (planId: string) => {
-    showNotification('Redirecionando para pagamento...', 'info');
+    showSuccess("Redirecionando para pagamento...");
     // Em produção: redirecionar para checkout
-    console.log('Upgrade para:', planId, 'Ciclo:', billingCycle);
+    console.log("Upgrade para:", planId, "Ciclo:", billingCycle);
   };
 
   /**
@@ -168,9 +175,9 @@ const PlansPage = () => {
   const getPrice = (plan: Plan) => {
     const pricing = plan.pricing;
     switch (billingCycle) {
-      case 'semiannual':
+      case "semiannual":
         return pricing.semiannual / 6;
-      case 'annual':
+      case "annual":
         return pricing.annual / 12;
       default:
         return pricing.monthly;
@@ -188,7 +195,12 @@ const PlansPage = () => {
   if (loading) {
     return (
       <PageContainer>
-        <Box display="flex" justifyContent="center" alignItems="center" minHeight="400px">
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          minHeight="400px"
+        >
           <CircularProgress />
         </Box>
       </PageContainer>
@@ -210,29 +222,47 @@ const PlansPage = () => {
       {currentLicense && (
         <CurrentPlanCard>
           <CardContent>
-            <Box display="flex" justifyContent="space-between" alignItems="flex-start" flexWrap="wrap" gap={2}>
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              alignItems="flex-start"
+              flexWrap="wrap"
+              gap={2}
+            >
               <Box>
                 <Typography variant="overline" color="textSecondary">
                   Seu plano atual
                 </Typography>
                 <Box display="flex" alignItems="center" gap={1}>
                   <Typography variant="h4" fontWeight={700}>
-                    {currentLicense.plan?.toUpperCase() || 'BASIC'}
+                    {currentLicense.plan?.toUpperCase() || "BASIC"}
                   </Typography>
-                  {currentLicense.plan === 'premium' && (
-                    <Chip icon={<VerifiedIcon />} label="Premium" color="primary" size="small" />
+                  {currentLicense.plan === "premium" && (
+                    <Chip
+                      icon={<VerifiedIcon />}
+                      label="Premium"
+                      color="primary"
+                      size="small"
+                    />
                   )}
                 </Box>
                 <Box display="flex" alignItems="center" gap={2} mt={1}>
                   <Box display="flex" alignItems="center" gap={0.5}>
                     <CalendarIcon fontSize="small" color="action" />
                     <Typography variant="body2" color="textSecondary">
-                      Válido até: {new Date(currentLicense.expiryDate).toLocaleDateString('pt-BR')}
+                      Válido até:{" "}
+                      {new Date(currentLicense.expiryDate).toLocaleDateString(
+                        "pt-BR"
+                      )}
                     </Typography>
                   </Box>
                   <Chip
-                    label={currentLicense.status === 'active' ? 'Ativo' : 'Expirando'}
-                    color={currentLicense.status === 'active' ? 'success' : 'warning'}
+                    label={
+                      currentLicense.status === "active" ? "Ativo" : "Expirando"
+                    }
+                    color={
+                      currentLicense.status === "active" ? "success" : "warning"
+                    }
                     size="small"
                   />
                 </Box>
@@ -242,8 +272,12 @@ const PlansPage = () => {
                   {formatCurrency(currentLicense.price)}/mês
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
-                  Ciclo: {currentLicense.billingCycle === 'monthly' ? 'Mensal' : 
-                         currentLicense.billingCycle === 'semiannual' ? 'Semestral' : 'Anual'}
+                  Ciclo:{" "}
+                  {currentLicense.billingCycle === "monthly"
+                    ? "Mensal"
+                    : currentLicense.billingCycle === "semiannual"
+                    ? "Semestral"
+                    : "Anual"}
                 </Typography>
               </Box>
             </Box>
@@ -259,13 +293,26 @@ const PlansPage = () => {
                     <Box display="flex" justifyContent="space-between" mb={0.5}>
                       <Typography variant="body2">Produtos</Typography>
                       <Typography variant="body2" fontWeight={500}>
-                        {usage.products.current} / {currentLicense.limits.products === -1 ? '∞' : currentLicense.limits.products}
+                        {usage.products.current} /{" "}
+                        {currentLicense.limits.products === -1
+                          ? "∞"
+                          : currentLicense.limits.products}
                       </Typography>
                     </Box>
                     <LinearProgress
                       variant="determinate"
-                      value={getUsagePercent(usage.products.current, currentLicense.limits.products)}
-                      color={getUsagePercent(usage.products.current, currentLicense.limits.products) > 80 ? 'warning' : 'primary'}
+                      value={getUsagePercent(
+                        usage.products.current,
+                        currentLicense.limits.products
+                      )}
+                      color={
+                        getUsagePercent(
+                          usage.products.current,
+                          currentLicense.limits.products
+                        ) > 80
+                          ? "warning"
+                          : "primary"
+                      }
                     />
                   </UsageItem>
                 </Grid>
@@ -274,13 +321,26 @@ const PlansPage = () => {
                     <Box display="flex" justifyContent="space-between" mb={0.5}>
                       <Typography variant="body2">Pedidos/mês</Typography>
                       <Typography variant="body2" fontWeight={500}>
-                        {usage.ordersThisMonth.current} / {currentLicense.limits.ordersPerMonth === -1 ? '∞' : currentLicense.limits.ordersPerMonth}
+                        {usage.ordersThisMonth.current} /{" "}
+                        {currentLicense.limits.ordersPerMonth === -1
+                          ? "∞"
+                          : currentLicense.limits.ordersPerMonth}
                       </Typography>
                     </Box>
                     <LinearProgress
                       variant="determinate"
-                      value={getUsagePercent(usage.ordersThisMonth.current, currentLicense.limits.ordersPerMonth)}
-                      color={getUsagePercent(usage.ordersThisMonth.current, currentLicense.limits.ordersPerMonth) > 80 ? 'warning' : 'primary'}
+                      value={getUsagePercent(
+                        usage.ordersThisMonth.current,
+                        currentLicense.limits.ordersPerMonth
+                      )}
+                      color={
+                        getUsagePercent(
+                          usage.ordersThisMonth.current,
+                          currentLicense.limits.ordersPerMonth
+                        ) > 80
+                          ? "warning"
+                          : "primary"
+                      }
                     />
                   </UsageItem>
                 </Grid>
@@ -289,13 +349,26 @@ const PlansPage = () => {
                     <Box display="flex" justifyContent="space-between" mb={0.5}>
                       <Typography variant="body2">Funcionários</Typography>
                       <Typography variant="body2" fontWeight={500}>
-                        {usage.employees.current} / {currentLicense.limits.employees === -1 ? '∞' : currentLicense.limits.employees}
+                        {usage.employees.current} /{" "}
+                        {currentLicense.limits.employees === -1
+                          ? "∞"
+                          : currentLicense.limits.employees}
                       </Typography>
                     </Box>
                     <LinearProgress
                       variant="determinate"
-                      value={getUsagePercent(usage.employees.current, currentLicense.limits.employees)}
-                      color={getUsagePercent(usage.employees.current, currentLicense.limits.employees) > 80 ? 'warning' : 'primary'}
+                      value={getUsagePercent(
+                        usage.employees.current,
+                        currentLicense.limits.employees
+                      )}
+                      color={
+                        getUsagePercent(
+                          usage.employees.current,
+                          currentLicense.limits.employees
+                        ) > 80
+                          ? "warning"
+                          : "primary"
+                      }
                     />
                   </UsageItem>
                 </Grid>
@@ -315,10 +388,12 @@ const PlansPage = () => {
         >
           <ToggleButton value="monthly">Mensal</ToggleButton>
           <ToggleButton value="semiannual">
-            Semestral <Chip label="-10%" size="small" color="success" sx={{ ml: 1 }} />
+            Semestral{" "}
+            <Chip label="-10%" size="small" color="success" sx={{ ml: 1 }} />
           </ToggleButton>
           <ToggleButton value="annual">
-            Anual <Chip label="-20%" size="small" color="success" sx={{ ml: 1 }} />
+            Anual{" "}
+            <Chip label="-20%" size="small" color="success" sx={{ ml: 1 }} />
           </ToggleButton>
         </ToggleButtonGroup>
       </Box>
@@ -328,12 +403,12 @@ const PlansPage = () => {
         {plans.map((plan) => {
           const isCurrent = currentLicense?.planId === plan.id;
           const price = getPrice(plan);
-          
+
           return (
             <Grid item xs={12} sm={6} md={3} key={plan.id}>
               <PlanCard $isPopular={plan.isPopular} $isCurrent={isCurrent}>
                 {plan.isPopular && <PopularBadge>Mais Popular</PopularBadge>}
-                
+
                 <CardContent>
                   <Box textAlign="center" mb={2}>
                     <Typography variant="h5" fontWeight={700}>
@@ -346,7 +421,11 @@ const PlansPage = () => {
 
                   <PriceContainer>
                     {price === 0 ? (
-                      <Typography variant="h3" fontWeight={700} color="success.main">
+                      <Typography
+                        variant="h3"
+                        fontWeight={700}
+                        color="success.main"
+                      >
                         Grátis
                       </Typography>
                     ) : (
@@ -357,26 +436,47 @@ const PlansPage = () => {
                         <Typography color="textSecondary">/mês</Typography>
                       </Price>
                     )}
-                    {billingCycle !== 'monthly' && price > 0 && (
+                    {billingCycle !== "monthly" && price > 0 && (
                       <Typography variant="caption" color="textSecondary">
-                        cobrado {billingCycle === 'semiannual' ? 'a cada 6 meses' : 'anualmente'}
+                        cobrado{" "}
+                        {billingCycle === "semiannual"
+                          ? "a cada 6 meses"
+                          : "anualmente"}
                       </Typography>
                     )}
                   </PriceContainer>
 
                   {/* Limites */}
                   <Box mb={2}>
-                    <Typography variant="subtitle2" fontWeight={600} gutterBottom>
+                    <Typography
+                      variant="subtitle2"
+                      fontWeight={600}
+                      gutterBottom
+                    >
                       Limites
                     </Typography>
                     <Typography variant="body2">
-                      • {plan.limits.products === -1 ? 'Ilimitado' : plan.limits.products} produtos
+                      •{" "}
+                      {plan.limits.products === -1
+                        ? "Ilimitado"
+                        : plan.limits.products}{" "}
+                      produtos
                     </Typography>
                     <Typography variant="body2">
-                      • {plan.limits.ordersPerMonth === -1 ? 'Ilimitado' : plan.limits.ordersPerMonth} pedidos/mês
+                      •{" "}
+                      {plan.limits.ordersPerMonth === -1
+                        ? "Ilimitado"
+                        : plan.limits.ordersPerMonth}{" "}
+                      pedidos/mês
                     </Typography>
                     <Typography variant="body2">
-                      • {plan.limits.employees === -1 ? 'Ilimitado' : plan.limits.employees === 0 ? 'Sem' : plan.limits.employees} funcionários
+                      •{" "}
+                      {plan.limits.employees === -1
+                        ? "Ilimitado"
+                        : plan.limits.employees === 0
+                        ? "Sem"
+                        : plan.limits.employees}{" "}
+                      funcionários
                     </Typography>
                   </Box>
 
@@ -446,24 +546,23 @@ const PlansPage = () => {
                         Plano Atual
                       </Button>
                     ) : plan.pricing.monthly === 0 ? (
-                      <Button
-                        fullWidth
-                        variant="outlined"
-                        disabled
-                      >
+                      <Button fullWidth variant="outlined" disabled>
                         Período de teste
                       </Button>
                     ) : (
                       <Button
                         fullWidth
-                        variant={plan.isPopular ? 'contained' : 'outlined'}
+                        variant={plan.isPopular ? "contained" : "outlined"}
                         color="primary"
                         startIcon={<UpgradeIcon />}
                         onClick={() => handleUpgrade(plan.id)}
                       >
-                        {currentLicense && plan.order > (plans.find(p => p.id === currentLicense.planId)?.order || 0)
-                          ? 'Fazer Upgrade'
-                          : 'Escolher Plano'}
+                        {currentLicense &&
+                        plan.order >
+                          (plans.find((p) => p.id === currentLicense.planId)
+                            ?.order || 0)
+                          ? "Fazer Upgrade"
+                          : "Escolher Plano"}
                       </Button>
                     )}
                   </Box>
@@ -481,7 +580,8 @@ const PlansPage = () => {
             Pagamento seguro
           </Typography>
           <Typography variant="body2">
-            Aceitamos cartão de crédito, PIX e boleto. Cancele quando quiser, sem taxas.
+            Aceitamos cartão de crédito, PIX e boleto. Cancele quando quiser,
+            sem taxas.
           </Typography>
         </Alert>
       </Box>
@@ -490,4 +590,3 @@ const PlansPage = () => {
 };
 
 export default PlansPage;
-

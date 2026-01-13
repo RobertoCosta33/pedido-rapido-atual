@@ -1,97 +1,70 @@
 /**
  * Service de Rankings
- * Consome endpoints de ranking público do backend
+ * Consome endpoints de ranking público do backend (FASE F)
  */
 
-import { apiClient } from './api';
+import { apiClient } from "./api";
 
 // ============================================================================
-// Types
+// Types - Atualizados para FASE F
 // ============================================================================
 
-export interface KioskRankingDto {
+export interface RankingItemDto {
   id: string;
   name: string;
-  slug: string;
-  logo: string | null;
-  city: string;
-  state: string;
   averageRating: number;
   totalRatings: number;
-  isPremium: boolean;
-  position: number;
-}
-
-export interface MenuItemRankingDto {
-  id: string;
-  name: string;
-  category: string;
-  kioskName: string;
-  price: number;
-  image: string | null;
-  averageRating: number;
-  totalRatings: number;
-  position: number;
-}
-
-export interface EmployeeRankingDto {
-  id: string;
-  name: string;
-  role: string;
-  kioskName: string;
-  photo: string | null;
-  averageRating: number;
-  totalRatings: number;
-  position: number;
-}
-
-export interface FullRankingDto {
-  kiosks: KioskRankingDto[];
-  dishes: MenuItemRankingDto[];
-  drinks: MenuItemRankingDto[];
-  employees: EmployeeRankingDto[];
+  description?: string | null;
+  image?: string | null;
 }
 
 // ============================================================================
-// Service
+// Service - Endpoints da FASE F
 // ============================================================================
 
 export const rankingService = {
   /**
-   * Obtém ranking completo (todos os tipos)
-   */
-  getAll: async (limit: number = 10): Promise<FullRankingDto> => {
-    return apiClient.get<FullRankingDto>('/ranking', { limit });
-  },
-
-  /**
    * Obtém ranking dos melhores quiosques
+   * Endpoint: GET /api/rankings/kiosks
    */
-  getTopKiosks: async (limit: number = 10): Promise<KioskRankingDto[]> => {
-    return apiClient.get<KioskRankingDto[]>('/ranking/kiosks', { limit });
+  getTopKiosks: async (limit: number = 10): Promise<RankingItemDto[]> => {
+    return apiClient.get<RankingItemDto[]>("/rankings/kiosks", { limit });
   },
 
   /**
-   * Obtém ranking dos melhores pratos
+   * Obtém ranking dos melhores produtos
+   * Endpoint: GET /api/rankings/products
    */
-  getTopDishes: async (limit: number = 10): Promise<MenuItemRankingDto[]> => {
-    return apiClient.get<MenuItemRankingDto[]>('/ranking/dishes', { limit });
-  },
-
-  /**
-   * Obtém ranking das melhores bebidas
-   */
-  getTopDrinks: async (limit: number = 10): Promise<MenuItemRankingDto[]> => {
-    return apiClient.get<MenuItemRankingDto[]>('/ranking/drinks', { limit });
+  getTopProducts: async (limit: number = 10): Promise<RankingItemDto[]> => {
+    return apiClient.get<RankingItemDto[]>("/rankings/products", { limit });
   },
 
   /**
    * Obtém ranking dos melhores funcionários
+   * Endpoint: GET /api/rankings/staff
    */
-  getTopEmployees: async (limit: number = 10): Promise<EmployeeRankingDto[]> => {
-    return apiClient.get<EmployeeRankingDto[]>('/ranking/employees', { limit });
+  getTopStaff: async (limit: number = 10): Promise<RankingItemDto[]> => {
+    return apiClient.get<RankingItemDto[]>("/rankings/staff", { limit });
+  },
+
+  /**
+   * Obtém todos os rankings de uma vez
+   */
+  getAll: async (
+    limit: number = 10
+  ): Promise<{
+    kiosks: RankingItemDto[];
+    products: RankingItemDto[];
+    staff: RankingItemDto[];
+  }> => {
+    const [kiosks, products, staff] = await Promise.all([
+      rankingService.getTopKiosks(limit),
+      rankingService.getTopProducts(limit),
+      rankingService.getTopStaff(limit),
+    ]);
+
+    return { kiosks, products, staff };
   },
 };
 
 export default rankingService;
-

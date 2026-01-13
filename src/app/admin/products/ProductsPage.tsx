@@ -1,21 +1,21 @@
-'use client';
+"use client";
 
 /**
  * Página de gerenciamento de produtos
  */
 
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import AddIcon from '@mui/icons-material/Add';
-import SearchIcon from '@mui/icons-material/Search';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import IconButton from '@mui/material/IconButton';
-import { Button, Input, DataTable, Modal } from '@/components';
-import { productService } from '@/services';
-import { useNotification } from '@/contexts';
-import { formatCurrency } from '@/utils/formatters';
-import { Product, Category, TableColumn } from '@/types';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import AddIcon from "@mui/icons-material/Add";
+import SearchIcon from "@mui/icons-material/Search";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import IconButton from "@mui/material/IconButton";
+import { Button, Input, DataTable, Modal } from "@/components";
+import { productService } from "@/services";
+import { useNotification } from "@/contexts";
+import { formatCurrency } from "@/utils/formatters";
+import { Product, Category, TableColumn } from "@/types";
 
 const Container = styled.div``;
 
@@ -44,7 +44,7 @@ const Toolbar = styled.div`
 
 const SearchWrapper = styled.div`
   width: 300px;
-  
+
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
     width: 100%;
   }
@@ -56,7 +56,9 @@ const StatusBadge = styled.span<{ $available: boolean }>`
   font-size: 0.75rem;
   font-weight: 600;
   background: ${({ theme, $available }) =>
-    $available ? `${theme.colors.success.main}20` : `${theme.colors.error.main}20`};
+    $available
+      ? `${theme.colors.success.main}20`
+      : `${theme.colors.error.main}20`};
   color: ${({ theme, $available }) =>
     $available ? theme.colors.success.main : theme.colors.error.main};
 `;
@@ -85,7 +87,7 @@ const FormGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: ${({ theme }) => theme.spacing.md};
-  
+
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
     grid-template-columns: 1fr;
   }
@@ -113,7 +115,7 @@ const CategorySelect = styled.select`
   color: ${({ theme }) => theme.colors.text.primary};
   font-size: 1rem;
   cursor: pointer;
-  
+
   &:focus {
     outline: none;
     border-color: ${({ theme }) => theme.colors.primary.main};
@@ -133,142 +135,141 @@ export const ProductsPage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  
+
   useEffect(() => {
     loadData();
   }, []);
-  
+
   const loadData = async () => {
     try {
       setIsLoading(true);
       const [productsData, categoriesData] = await Promise.all([
-        productService.getProducts('1'),
-        productService.getCategories('1'),
+        productService.getProducts("1"),
+        productService.getCategories("1"),
       ]);
-      setProducts(productsData.items);
+      setProducts(productsData.data);
       setCategories(categoriesData);
     } catch (error) {
-      showError('Erro ao carregar dados');
+      showError("Erro ao carregar dados");
     } finally {
       setIsLoading(false);
     }
   };
-  
+
   const handleEdit = (product: Product) => {
     setSelectedProduct(product);
     setModalOpen(true);
   };
-  
+
   const handleDelete = async (product: Product) => {
     if (confirm(`Deseja realmente excluir "${product.name}"?`)) {
       try {
         await productService.deleteProduct(product.id);
         setProducts((prev) => prev.filter((p) => p.id !== product.id));
-        showSuccess('Produto removido com sucesso');
+        showSuccess("Produto removido com sucesso");
       } catch (error) {
-        showError('Erro ao remover produto');
+        showError("Erro ao remover produto");
       }
     }
   };
-  
+
   const handleSave = () => {
     setModalOpen(false);
     setSelectedProduct(null);
-    showSuccess('Produto salvo com sucesso');
+    showSuccess("Produto salvo com sucesso");
     loadData();
   };
-  
+
   const getCategoryName = (categoryId: string) => {
-    return categories.find((c) => c.id === categoryId)?.name || '-';
+    return categories.find((c) => c.id === categoryId)?.name || "-";
   };
-  
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    product.description.toLowerCase().includes(searchTerm.toLowerCase())
+
+  const filteredProducts = products.filter(
+    (product) =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (product.description &&
+        product.description.toLowerCase().includes(searchTerm.toLowerCase()))
   );
-  
+
   const columns: TableColumn<Product>[] = [
-    { 
-      key: 'name', 
-      label: 'Produto', 
+    {
+      key: "name",
+      label: "Produto",
       sortable: true,
       render: (_, item) => (
         <ProductName>
-          {item.images[0] && <ProductImage src={item.images[0]} alt={item.name} />}
+          {item.imageUrl && (
+            <ProductImage src={item.imageUrl} alt={item.name} />
+          )}
           <div>
             <span>{item.name}</span>
-            {item.isHighlighted && <HighlightBadge style={{ marginLeft: 8 }}>Destaque</HighlightBadge>}
+            {item.isHighlighted && (
+              <HighlightBadge style={{ marginLeft: 8 }}>
+                Destaque
+              </HighlightBadge>
+            )}
           </div>
         </ProductName>
       ),
     },
-    { 
-      key: 'categoryId', 
-      label: 'Categoria', 
+    {
+      key: "categoryId",
+      label: "Categoria",
       render: (value) => getCategoryName(value as string),
     },
-    { 
-      key: 'price', 
-      label: 'Preço', 
+    {
+      key: "price",
+      label: "Preço",
       sortable: true,
-      render: (value, item) => (
-        <div>
-          {item.promotionalPrice ? (
-            <>
-              <span style={{ textDecoration: 'line-through', color: '#888', marginRight: 8 }}>
-                {formatCurrency(value as number)}
-              </span>
-              <strong style={{ color: '#00C851' }}>
-                {formatCurrency(item.promotionalPrice)}
-              </strong>
-            </>
-          ) : (
-            formatCurrency(value as number)
-          )}
-        </div>
-      ),
+      render: (value, item) => <div>{formatCurrency(value as number)}</div>,
     },
-    { 
-      key: 'isAvailable', 
-      label: 'Status', 
-      align: 'center',
+    {
+      key: "isAvailable",
+      label: "Status",
       render: (value) => (
         <StatusBadge $available={value as boolean}>
-          {value ? 'Disponível' : 'Indisponível'}
+          {value ? "Disponível" : "Indisponível"}
         </StatusBadge>
       ),
     },
-    { 
-      key: 'preparationTime', 
-      label: 'Preparo',
+    {
+      key: "preparationTime",
+      label: "Preparo",
       render: (value) => `${value} min`,
     },
     {
-      key: 'actions',
-      label: 'Ações',
-      align: 'center',
+      key: "actions",
+      label: "Ações",
       sortable: false,
       render: (_, item) => (
         <Actions>
-          <IconButton size="small" title="Editar" onClick={() => handleEdit(item)}>
+          <IconButton
+            size="small"
+            title="Editar"
+            onClick={() => handleEdit(item)}
+          >
             <EditIcon fontSize="small" />
           </IconButton>
-          <IconButton size="small" title="Excluir" onClick={() => handleDelete(item)}>
+          <IconButton
+            size="small"
+            title="Excluir"
+            onClick={() => handleDelete(item)}
+          >
             <DeleteIcon fontSize="small" />
           </IconButton>
         </Actions>
       ),
     },
   ];
-  
+
   return (
     <Container>
       <Header>
         <Title>Produtos</Title>
-        
+
         <Toolbar>
           <SearchWrapper>
             <Input
@@ -278,7 +279,7 @@ export const ProductsPage: React.FC = () => {
               leftIcon={<SearchIcon />}
             />
           </SearchWrapper>
-          
+
           <Button
             leftIcon={<AddIcon />}
             onClick={() => {
@@ -290,7 +291,7 @@ export const ProductsPage: React.FC = () => {
           </Button>
         </Toolbar>
       </Header>
-      
+
       <DataTable
         columns={columns}
         data={filteredProducts}
@@ -298,11 +299,11 @@ export const ProductsPage: React.FC = () => {
         isLoading={isLoading}
         emptyMessage="Nenhum produto encontrado"
       />
-      
+
       <Modal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
-        title={selectedProduct ? 'Editar Produto' : 'Novo Produto'}
+        title={selectedProduct ? "Editar Produto" : "Novo Produto"}
         size="large"
         footer={
           <>
@@ -323,21 +324,23 @@ export const ProductsPage: React.FC = () => {
             />
             <div>
               <Label>Categoria</Label>
-              <CategorySelect defaultValue={selectedProduct?.categoryId}>
+              <CategorySelect defaultValue={selectedProduct?.category}>
                 <option value="">Selecione...</option>
                 {categories.map((cat) => (
-                  <option key={cat.id} value={cat.id}>{cat.name}</option>
+                  <option key={cat.id} value={cat.id}>
+                    {cat.name}
+                  </option>
                 ))}
               </CategorySelect>
             </div>
           </FormGrid>
-          
+
           <Input
             label="Descrição"
             placeholder="Descrição do produto"
             defaultValue={selectedProduct?.description}
           />
-          
+
           <FormGrid>
             <Input
               type="number"
@@ -350,21 +353,19 @@ export const ProductsPage: React.FC = () => {
               type="number"
               label="Preço Promocional (R$)"
               placeholder="0,00"
-              defaultValue={selectedProduct?.promotionalPrice}
             />
           </FormGrid>
-          
+
           <FormGrid>
             <Input
               type="number"
               label="Tempo de Preparo (min)"
               placeholder="15"
-              defaultValue={selectedProduct?.preparationTime}
             />
             <Input
               label="URL da Imagem"
               placeholder="https://..."
-              defaultValue={selectedProduct?.images[0]}
+              defaultValue={selectedProduct?.imageUrl}
             />
           </FormGrid>
         </ModalContent>
@@ -372,4 +373,3 @@ export const ProductsPage: React.FC = () => {
     </Container>
   );
 };
-

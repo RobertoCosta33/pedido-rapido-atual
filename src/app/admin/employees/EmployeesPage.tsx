@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
 /**
  * Página de Gerenciamento de Funcionários
  * CRUD completo de funcionários do quiosque
  */
 
-import { useState, useEffect, useCallback } from 'react';
-import styled from 'styled-components';
+import { useState, useEffect, useCallback } from "react";
+import styled from "styled-components";
 import {
   Box,
   Paper,
@@ -34,7 +34,7 @@ import {
   CircularProgress,
   Alert,
   Tooltip,
-} from '@mui/material';
+} from "@mui/material";
 import {
   Add as AddIcon,
   Edit as EditIcon,
@@ -42,12 +42,17 @@ import {
   PersonOff as PersonOffIcon,
   PersonAdd as PersonAddIcon,
   Star as StarIcon,
-} from '@mui/icons-material';
-import { useAuth } from '@/contexts/AuthContext';
-import { useNotification } from '@/contexts/NotificationContext';
-import { PlanGate } from '@/components';
-import { employeeService, Employee, CreateEmployeeData, EMPLOYEE_ROLES } from '@/services';
-import { formatCurrency, formatPhone } from '@/utils/formatters';
+} from "@mui/icons-material";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNotification } from "@/contexts/NotificationContext";
+import { PlanGate } from "@/components";
+import {
+  employeeService,
+  Employee,
+  CreateEmployeeData,
+  EMPLOYEE_ROLES,
+} from "@/services";
+import { formatCurrency, formatPhone } from "@/utils/formatters";
 
 // Styled Components
 const PageContainer = styled.div`
@@ -77,14 +82,16 @@ const StatCard = styled(Paper)`
 
 const EmployeesPage = () => {
   const { user } = useAuth();
-  const { showNotification } = useNotification();
-  
+  const { showSuccess, showError } = useNotification();
+
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [editingEmployee, setEditingEmployee] = useState<Employee | null>(null);
-  const [employeeToDelete, setEmployeeToDelete] = useState<Employee | null>(null);
+  const [employeeToDelete, setEmployeeToDelete] = useState<Employee | null>(
+    null
+  );
   const [stats, setStats] = useState({
     total: 0,
     active: 0,
@@ -92,18 +99,18 @@ const EmployeesPage = () => {
     averageRating: 0,
     totalSalary: 0,
   });
-  
+
   // Form state
   const [formData, setFormData] = useState<CreateEmployeeData>({
-    kioskId: '',
-    name: '',
-    role: 'waiter',
-    phone: '',
-    email: '',
-    document: '',
-    hireDate: new Date().toISOString().split('T')[0],
+    kioskId: "",
+    name: "",
+    role: "waiter",
+    phone: "",
+    email: "",
+    document: "",
+    hireDate: new Date().toISOString().split("T")[0],
     salary: 0,
-    workSchedule: '',
+    workSchedule: "",
   });
 
   /**
@@ -111,23 +118,23 @@ const EmployeesPage = () => {
    */
   const loadData = useCallback(async () => {
     if (!user?.kioskId) return;
-    
+
     setLoading(true);
     try {
       const [employeesList, employeeStats] = await Promise.all([
         employeeService.getByKiosk(user.kioskId),
         employeeService.getStats(user.kioskId),
       ]);
-      
+
       setEmployees(employeesList);
       setStats(employeeStats);
     } catch (error) {
-      console.error('Erro ao carregar funcionários:', error);
-      showNotification('Erro ao carregar funcionários', 'error');
+      console.error("Erro ao carregar funcionários:", error);
+      showError("Erro ao carregar funcionários");
     } finally {
       setLoading(false);
     }
-  }, [user?.kioskId, showNotification]);
+  }, [user?.kioskId, showError]);
 
   useEffect(() => {
     loadData();
@@ -146,22 +153,22 @@ const EmployeesPage = () => {
         phone: employee.phone,
         email: employee.email,
         document: employee.document,
-        hireDate: employee.hireDate.toISOString().split('T')[0],
+        hireDate: employee.hireDate.toISOString().split("T")[0],
         salary: employee.salary,
         workSchedule: employee.workSchedule,
       });
     } else {
       setEditingEmployee(null);
       setFormData({
-        kioskId: user?.kioskId || '',
-        name: '',
-        role: 'waiter',
-        phone: '',
-        email: '',
-        document: '',
-        hireDate: new Date().toISOString().split('T')[0],
+        kioskId: user?.kioskId || "",
+        name: "",
+        role: "waiter",
+        phone: "",
+        email: "",
+        document: "",
+        hireDate: new Date().toISOString().split("T")[0],
         salary: 0,
-        workSchedule: '',
+        workSchedule: "",
       });
     }
     setDialogOpen(true);
@@ -182,16 +189,16 @@ const EmployeesPage = () => {
     try {
       if (editingEmployee) {
         await employeeService.update(editingEmployee.id, formData);
-        showNotification('Funcionário atualizado com sucesso!', 'success');
+        showSuccess("Funcionário atualizado com sucesso!");
       } else {
         await employeeService.create(formData);
-        showNotification('Funcionário cadastrado com sucesso!', 'success');
+        showSuccess("Funcionário cadastrado com sucesso!");
       }
       handleCloseDialog();
       loadData();
     } catch (error) {
-      console.error('Erro ao salvar funcionário:', error);
-      showNotification('Erro ao salvar funcionário', 'error');
+      console.error("Erro ao salvar funcionário:", error);
+      showError("Erro ao salvar funcionário");
     }
   };
 
@@ -200,16 +207,16 @@ const EmployeesPage = () => {
    */
   const handleConfirmDelete = async () => {
     if (!employeeToDelete) return;
-    
+
     try {
       await employeeService.delete(employeeToDelete.id);
-      showNotification('Funcionário removido com sucesso!', 'success');
+      showSuccess("Funcionário removido com sucesso!");
       setDeleteDialogOpen(false);
       setEmployeeToDelete(null);
       loadData();
     } catch (error) {
-      console.error('Erro ao remover funcionário:', error);
-      showNotification('Erro ao remover funcionário', 'error');
+      console.error("Erro ao remover funcionário:", error);
+      showError("Erro ao remover funcionário");
     }
   };
 
@@ -220,15 +227,15 @@ const EmployeesPage = () => {
     try {
       if (employee.isActive) {
         await employeeService.deactivate(employee.id);
-        showNotification('Funcionário desativado', 'info');
+        showSuccess("Funcionário desativado");
       } else {
         await employeeService.activate(employee.id);
-        showNotification('Funcionário ativado', 'success');
+        showSuccess("Funcionário ativado");
       }
       loadData();
     } catch (error) {
-      console.error('Erro ao alterar status:', error);
-      showNotification('Erro ao alterar status', 'error');
+      console.error("Erro ao alterar status:", error);
+      showError("Erro ao alterar status");
     }
   };
 
@@ -236,7 +243,12 @@ const EmployeesPage = () => {
   if (loading) {
     return (
       <PageContainer>
-        <Box display="flex" justifyContent="center" alignItems="center" minHeight="400px">
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          minHeight="400px"
+        >
           <CircularProgress />
         </Box>
       </PageContainer>
@@ -248,250 +260,329 @@ const EmployeesPage = () => {
       feature="employeesEnabled"
       title="Gerenciamento de Funcionários"
       description="Cadastre e gerencie os funcionários do seu quiosque. Acompanhe desempenho, avaliações e folha de pagamento."
-      requiredPlans={['professional', 'premium']}
-      onUpgradeClick={() => window.location.href = '/admin/upgrade'}
+      requiredPlans={["professional", "premium"]}
+      onUpgradeClick={() => (window.location.href = "/admin/upgrade")}
     >
-    <PageContainer>
-      <PageHeader>
-        <Typography variant="h4" fontWeight={600}>
-          Funcionários
-        </Typography>
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={() => handleOpenDialog()}
-        >
-          Novo Funcionário
-        </Button>
-      </PageHeader>
+      <PageContainer>
+        <PageHeader>
+          <Typography variant="h4" fontWeight={600}>
+            Funcionários
+          </Typography>
+          <Button
+            variant="contained"
+            startIcon={<AddIcon />}
+            onClick={() => handleOpenDialog()}
+          >
+            Novo Funcionário
+          </Button>
+        </PageHeader>
 
-      {/* Stats Cards */}
-      <StatsContainer>
-        <StatCard elevation={2}>
-          <Typography variant="h4" color="primary">{stats.total}</Typography>
-          <Typography variant="body2" color="textSecondary">Total</Typography>
-        </StatCard>
-        <StatCard elevation={2}>
-          <Typography variant="h4" color="success.main">{stats.active}</Typography>
-          <Typography variant="body2" color="textSecondary">Ativos</Typography>
-        </StatCard>
-        <StatCard elevation={2}>
-          <Typography variant="h4" color="text.secondary">{stats.inactive}</Typography>
-          <Typography variant="body2" color="textSecondary">Inativos</Typography>
-        </StatCard>
-        <StatCard elevation={2}>
-          <Box display="flex" alignItems="center" justifyContent="center" gap={0.5}>
-            <Typography variant="h4">{stats.averageRating.toFixed(1)}</Typography>
-            <StarIcon color="warning" />
-          </Box>
-          <Typography variant="body2" color="textSecondary">Avaliação Média</Typography>
-        </StatCard>
-        <StatCard elevation={2}>
-          <Typography variant="h4" color="info.main">{formatCurrency(stats.totalSalary)}</Typography>
-          <Typography variant="body2" color="textSecondary">Folha Mensal</Typography>
-        </StatCard>
-      </StatsContainer>
+        {/* Stats Cards */}
+        <StatsContainer>
+          <StatCard elevation={2}>
+            <Typography variant="h4" color="primary">
+              {stats.total}
+            </Typography>
+            <Typography variant="body2" color="textSecondary">
+              Total
+            </Typography>
+          </StatCard>
+          <StatCard elevation={2}>
+            <Typography variant="h4" color="success.main">
+              {stats.active}
+            </Typography>
+            <Typography variant="body2" color="textSecondary">
+              Ativos
+            </Typography>
+          </StatCard>
+          <StatCard elevation={2}>
+            <Typography variant="h4" color="text.secondary">
+              {stats.inactive}
+            </Typography>
+            <Typography variant="body2" color="textSecondary">
+              Inativos
+            </Typography>
+          </StatCard>
+          <StatCard elevation={2}>
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              gap={0.5}
+            >
+              <Typography variant="h4">
+                {stats.averageRating.toFixed(1)}
+              </Typography>
+              <StarIcon color="warning" />
+            </Box>
+            <Typography variant="body2" color="textSecondary">
+              Avaliação Média
+            </Typography>
+          </StatCard>
+          <StatCard elevation={2}>
+            <Typography variant="h4" color="info.main">
+              {formatCurrency(stats.totalSalary)}
+            </Typography>
+            <Typography variant="body2" color="textSecondary">
+              Folha Mensal
+            </Typography>
+          </StatCard>
+        </StatsContainer>
 
-      {/* Tabela de Funcionários */}
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Funcionário</TableCell>
-              <TableCell>Cargo</TableCell>
-              <TableCell>Contato</TableCell>
-              <TableCell>Salário</TableCell>
-              <TableCell>Avaliação</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell align="right">Ações</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {employees.length === 0 ? (
+        {/* Tabela de Funcionários */}
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
               <TableRow>
-                <TableCell colSpan={7} align="center">
-                  <Typography color="textSecondary" py={4}>
-                    Nenhum funcionário cadastrado
-                  </Typography>
-                </TableCell>
+                <TableCell>Funcionário</TableCell>
+                <TableCell>Cargo</TableCell>
+                <TableCell>Contato</TableCell>
+                <TableCell>Salário</TableCell>
+                <TableCell>Avaliação</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell align="right">Ações</TableCell>
               </TableRow>
-            ) : (
-              employees.map((employee) => (
-                <TableRow key={employee.id}>
-                  <TableCell>
-                    <Box display="flex" alignItems="center" gap={1.5}>
-                      <Avatar src={employee.photo} alt={employee.name}>
-                        {employee.name.charAt(0)}
-                      </Avatar>
-                      <Box>
-                        <Typography fontWeight={500}>{employee.name}</Typography>
-                        <Typography variant="caption" color="textSecondary">
-                          Desde {employee.hireDate.toLocaleDateString('pt-BR')}
-                        </Typography>
-                      </Box>
-                    </Box>
-                  </TableCell>
-                  <TableCell>
-                    <Chip 
-                      label={EMPLOYEE_ROLES[employee.role] || employee.role} 
-                      size="small" 
-                      variant="outlined"
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="body2">{formatPhone(employee.phone)}</Typography>
-                    <Typography variant="caption" color="textSecondary">{employee.email}</Typography>
-                  </TableCell>
-                  <TableCell>{formatCurrency(employee.salary)}</TableCell>
-                  <TableCell>
-                    <Box display="flex" alignItems="center" gap={0.5}>
-                      <Rating value={employee.rating} precision={0.1} size="small" readOnly />
-                      <Typography variant="caption" color="textSecondary">
-                        ({employee.totalRatings})
-                      </Typography>
-                    </Box>
-                  </TableCell>
-                  <TableCell>
-                    <Chip
-                      label={employee.isActive ? 'Ativo' : 'Inativo'}
-                      color={employee.isActive ? 'success' : 'default'}
-                      size="small"
-                    />
-                  </TableCell>
-                  <TableCell align="right">
-                    <Tooltip title="Editar">
-                      <IconButton size="small" onClick={() => handleOpenDialog(employee)}>
-                        <EditIcon fontSize="small" />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title={employee.isActive ? 'Desativar' : 'Ativar'}>
-                      <IconButton size="small" onClick={() => handleToggleActive(employee)}>
-                        {employee.isActive ? <PersonOffIcon fontSize="small" /> : <PersonAddIcon fontSize="small" />}
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Excluir">
-                      <IconButton 
-                        size="small" 
-                        color="error"
-                        onClick={() => {
-                          setEmployeeToDelete(employee);
-                          setDeleteDialogOpen(true);
-                        }}
-                      >
-                        <DeleteIcon fontSize="small" />
-                      </IconButton>
-                    </Tooltip>
+            </TableHead>
+            <TableBody>
+              {employees.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={7} align="center">
+                    <Typography color="textSecondary" py={4}>
+                      Nenhum funcionário cadastrado
+                    </Typography>
                   </TableCell>
                 </TableRow>
-              ))
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
+              ) : (
+                employees.map((employee) => (
+                  <TableRow key={employee.id}>
+                    <TableCell>
+                      <Box display="flex" alignItems="center" gap={1.5}>
+                        <Avatar src={employee.photo} alt={employee.name}>
+                          {employee.name.charAt(0)}
+                        </Avatar>
+                        <Box>
+                          <Typography fontWeight={500}>
+                            {employee.name}
+                          </Typography>
+                          <Typography variant="caption" color="textSecondary">
+                            Desde{" "}
+                            {employee.hireDate.toLocaleDateString("pt-BR")}
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </TableCell>
+                    <TableCell>
+                      <Chip
+                        label={EMPLOYEE_ROLES[employee.role] || employee.role}
+                        size="small"
+                        variant="outlined"
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="body2">
+                        {formatPhone(employee.phone)}
+                      </Typography>
+                      <Typography variant="caption" color="textSecondary">
+                        {employee.email}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>{formatCurrency(employee.salary)}</TableCell>
+                    <TableCell>
+                      <Box display="flex" alignItems="center" gap={0.5}>
+                        <Rating
+                          value={employee.rating}
+                          precision={0.1}
+                          size="small"
+                          readOnly
+                        />
+                        <Typography variant="caption" color="textSecondary">
+                          ({employee.totalRatings})
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                    <TableCell>
+                      <Chip
+                        label={employee.isActive ? "Ativo" : "Inativo"}
+                        color={employee.isActive ? "success" : "default"}
+                        size="small"
+                      />
+                    </TableCell>
+                    <TableCell align="right">
+                      <Tooltip title="Editar">
+                        <IconButton
+                          size="small"
+                          onClick={() => handleOpenDialog(employee)}
+                        >
+                          <EditIcon fontSize="small" />
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip
+                        title={employee.isActive ? "Desativar" : "Ativar"}
+                      >
+                        <IconButton
+                          size="small"
+                          onClick={() => handleToggleActive(employee)}
+                        >
+                          {employee.isActive ? (
+                            <PersonOffIcon fontSize="small" />
+                          ) : (
+                            <PersonAddIcon fontSize="small" />
+                          )}
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip title="Excluir">
+                        <IconButton
+                          size="small"
+                          color="error"
+                          onClick={() => {
+                            setEmployeeToDelete(employee);
+                            setDeleteDialogOpen(true);
+                          }}
+                        >
+                          <DeleteIcon fontSize="small" />
+                        </IconButton>
+                      </Tooltip>
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
 
-      {/* Dialog de Adicionar/Editar */}
-      <Dialog open={dialogOpen} onClose={handleCloseDialog} maxWidth="sm" fullWidth>
-        <DialogTitle>
-          {editingEmployee ? 'Editar Funcionário' : 'Novo Funcionário'}
-        </DialogTitle>
-        <DialogContent>
-          <Box display="flex" flexDirection="column" gap={2} pt={1}>
-            <TextField
-              label="Nome Completo"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              fullWidth
-              required
-            />
-            <FormControl fullWidth>
-              <InputLabel>Cargo</InputLabel>
-              <Select
-                value={formData.role}
-                label="Cargo"
-                onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-              >
-                {Object.entries(EMPLOYEE_ROLES).map(([key, label]) => (
-                  <MenuItem key={key} value={key}>{label}</MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <TextField
-              label="Telefone"
-              value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              fullWidth
-              required
-            />
-            <TextField
-              label="E-mail"
-              type="email"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              fullWidth
-              required
-            />
-            <TextField
-              label="CPF"
-              value={formData.document}
-              onChange={(e) => setFormData({ ...formData, document: e.target.value })}
-              fullWidth
-              required
-            />
-            <TextField
-              label="Data de Admissão"
-              type="date"
-              value={formData.hireDate}
-              onChange={(e) => setFormData({ ...formData, hireDate: e.target.value })}
-              fullWidth
-              InputLabelProps={{ shrink: true }}
-            />
-            <TextField
-              label="Salário"
-              type="number"
-              value={formData.salary}
-              onChange={(e) => setFormData({ ...formData, salary: Number(e.target.value) })}
-              fullWidth
-              InputProps={{ inputProps: { min: 0, step: 0.01 } }}
-            />
-            <TextField
-              label="Horário de Trabalho"
-              value={formData.workSchedule}
-              onChange={(e) => setFormData({ ...formData, workSchedule: e.target.value })}
-              fullWidth
-              placeholder="Ex: Segunda a Sexta, 08h às 16h"
-            />
-          </Box>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialog}>Cancelar</Button>
-          <Button variant="contained" onClick={handleSave}>
-            {editingEmployee ? 'Salvar' : 'Cadastrar'}
-          </Button>
-        </DialogActions>
-      </Dialog>
+        {/* Dialog de Adicionar/Editar */}
+        <Dialog
+          open={dialogOpen}
+          onClose={handleCloseDialog}
+          maxWidth="sm"
+          fullWidth
+        >
+          <DialogTitle>
+            {editingEmployee ? "Editar Funcionário" : "Novo Funcionário"}
+          </DialogTitle>
+          <DialogContent>
+            <Box display="flex" flexDirection="column" gap={2} pt={1}>
+              <TextField
+                label="Nome Completo"
+                value={formData.name}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
+                fullWidth
+                required
+              />
+              <FormControl fullWidth>
+                <InputLabel>Cargo</InputLabel>
+                <Select
+                  value={formData.role}
+                  label="Cargo"
+                  onChange={(e) =>
+                    setFormData({ ...formData, role: e.target.value })
+                  }
+                >
+                  {Object.entries(EMPLOYEE_ROLES).map(([key, label]) => (
+                    <MenuItem key={key} value={key}>
+                      {label}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <TextField
+                label="Telefone"
+                value={formData.phone}
+                onChange={(e) =>
+                  setFormData({ ...formData, phone: e.target.value })
+                }
+                fullWidth
+                required
+              />
+              <TextField
+                label="E-mail"
+                type="email"
+                value={formData.email}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
+                fullWidth
+                required
+              />
+              <TextField
+                label="CPF"
+                value={formData.document}
+                onChange={(e) =>
+                  setFormData({ ...formData, document: e.target.value })
+                }
+                fullWidth
+                required
+              />
+              <TextField
+                label="Data de Admissão"
+                type="date"
+                value={formData.hireDate}
+                onChange={(e) =>
+                  setFormData({ ...formData, hireDate: e.target.value })
+                }
+                fullWidth
+                InputLabelProps={{ shrink: true }}
+              />
+              <TextField
+                label="Salário"
+                type="number"
+                value={formData.salary}
+                onChange={(e) =>
+                  setFormData({ ...formData, salary: Number(e.target.value) })
+                }
+                fullWidth
+                InputProps={{ inputProps: { min: 0, step: 0.01 } }}
+              />
+              <TextField
+                label="Horário de Trabalho"
+                value={formData.workSchedule}
+                onChange={(e) =>
+                  setFormData({ ...formData, workSchedule: e.target.value })
+                }
+                fullWidth
+                placeholder="Ex: Segunda a Sexta, 08h às 16h"
+              />
+            </Box>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseDialog}>Cancelar</Button>
+            <Button variant="contained" onClick={handleSave}>
+              {editingEmployee ? "Salvar" : "Cadastrar"}
+            </Button>
+          </DialogActions>
+        </Dialog>
 
-      {/* Dialog de Confirmação de Exclusão */}
-      <Dialog open={deleteDialogOpen} onClose={() => setDeleteDialogOpen(false)}>
-        <DialogTitle>Confirmar Exclusão</DialogTitle>
-        <DialogContent>
-          <Typography>
-            Tem certeza que deseja excluir o funcionário <strong>{employeeToDelete?.name}</strong>?
-          </Typography>
-          <Typography variant="body2" color="textSecondary" mt={1}>
-            Esta ação não pode ser desfeita.
-          </Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setDeleteDialogOpen(false)}>Cancelar</Button>
-          <Button variant="contained" color="error" onClick={handleConfirmDelete}>
-            Excluir
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </PageContainer>
+        {/* Dialog de Confirmação de Exclusão */}
+        <Dialog
+          open={deleteDialogOpen}
+          onClose={() => setDeleteDialogOpen(false)}
+        >
+          <DialogTitle>Confirmar Exclusão</DialogTitle>
+          <DialogContent>
+            <Typography>
+              Tem certeza que deseja excluir o funcionário{" "}
+              <strong>{employeeToDelete?.name}</strong>?
+            </Typography>
+            <Typography variant="body2" color="textSecondary" mt={1}>
+              Esta ação não pode ser desfeita.
+            </Typography>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setDeleteDialogOpen(false)}>Cancelar</Button>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={handleConfirmDelete}
+            >
+              Excluir
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </PageContainer>
     </PlanGate>
   );
 };
 
 export default EmployeesPage;
-

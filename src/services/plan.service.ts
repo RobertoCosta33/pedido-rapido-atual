@@ -72,7 +72,7 @@ export const planService = {
     }
     
     const response = await api.get<Plan[]>('/plans');
-    return response.data;
+    return response;
   },
 
   /**
@@ -87,7 +87,7 @@ export const planService = {
     }
     
     const response = await api.get<Plan>(`/plans/${id}`);
-    return response.data;
+    return response;
   },
 
   /**
@@ -102,7 +102,7 @@ export const planService = {
     }
     
     const response = await api.get<Plan>(`/plans/slug/${slug}`);
-    return response.data;
+    return response;
   },
 
   /**
@@ -240,7 +240,7 @@ export const planService = {
         premium: string;
       }>;
     }>('/plans/compare');
-    return response.data;
+    return response;
   },
 };
 

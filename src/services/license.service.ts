@@ -92,7 +92,7 @@ export const licenseService = {
     }
     
     const response = await api.get<License[]>('/licenses');
-    return response.data;
+    return response;
   },
 
   /**
@@ -107,7 +107,7 @@ export const licenseService = {
     }
     
     const response = await api.get<License>(`/licenses/${id}`);
-    return response.data;
+    return response;
   },
 
   /**
@@ -121,7 +121,7 @@ export const licenseService = {
     }
     
     const response = await api.get<License>(`/kiosks/${kioskId}/license`);
-    return response.data;
+    return response;
   },
 
   /**
@@ -137,7 +137,7 @@ export const licenseService = {
     }
     
     const response = await api.get<License[]>(`/licenses?status=${status}`);
-    return response.data;
+    return response;
   },
 
   /**
@@ -160,7 +160,7 @@ export const licenseService = {
     }
     
     const response = await api.get<License[]>(`/licenses/expiring-soon?days=${days}`);
-    return response.data;
+    return response;
   },
 
   /**
@@ -207,7 +207,7 @@ export const licenseService = {
       totalRevenue: number;
       byPlan: Record<string, number>;
     }>('/licenses/stats');
-    return response.data;
+    return response;
   },
 
   /**
@@ -248,7 +248,7 @@ export const licenseService = {
     }
     
     const response = await api.post<License>(`/licenses/${id}/renew`, { months });
-    return response.data;
+    return response;
   },
 
   /**
@@ -327,7 +327,7 @@ export const licenseService = {
     }
     
     const response = await api.patch<License>(`/licenses/${id}/plan`, { plan: newPlan });
-    return response.data;
+    return response;
   },
 
 };

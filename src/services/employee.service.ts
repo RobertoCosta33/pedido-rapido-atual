@@ -89,7 +89,7 @@ export const employeeService = {
     }
     
     const response = await api.get<Employee[]>('/employees');
-    return response.data;
+    return response;
   },
 
   /**
@@ -102,7 +102,7 @@ export const employeeService = {
     }
     
     const response = await api.get<Employee[]>(`/kiosks/${kioskId}/employees`);
-    return response.data;
+    return response;
   },
 
   /**
@@ -117,7 +117,7 @@ export const employeeService = {
     }
     
     const response = await api.get<Employee>(`/employees/${id}`);
-    return response.data;
+    return response;
   },
 
   /**
@@ -151,7 +151,7 @@ export const employeeService = {
     }
     
     const response = await api.post<Employee>('/employees', data);
-    return response.data;
+    return response;
   },
 
   /**
@@ -171,7 +171,7 @@ export const employeeService = {
     }
     
     const response = await api.patch<Employee>(`/employees/${id}`, data);
-    return response.data;
+    return response;
   },
 
   /**
@@ -212,7 +212,7 @@ export const employeeService = {
     }
     
     const response = await api.get<Employee[]>(`/employees/top-rated?limit=${limit}`);
-    return response.data;
+    return response;
   },
 
   /**
@@ -259,7 +259,7 @@ export const employeeService = {
       totalSalary: number;
       byRole: Record<string, number>;
     }>(`/kiosks/${kioskId}/employees/stats`);
-    return response.data;
+    return response;
   },
 
   /**

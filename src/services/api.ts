@@ -3,10 +3,15 @@
  * Usa Axios com interceptors preparados para JWT futuro
  */
 
-import axios, { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
+import axios, {
+  AxiosError,
+  AxiosInstance,
+  InternalAxiosRequestConfig,
+} from "axios";
 
 // URL base da API (variável de ambiente)
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
 
 /**
  * Instância do Axios configurada
@@ -15,7 +20,7 @@ const axiosInstance: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,
   timeout: 15000,
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 
@@ -26,8 +31,8 @@ const axiosInstance: AxiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     // Obter token do localStorage (quando implementar autenticação)
-    if (typeof window !== 'undefined') {
-      const tokens = localStorage.getItem('pedido-rapido-tokens');
+    if (typeof window !== "undefined") {
+      const tokens = localStorage.getItem("pedido-rapido-tokens");
       if (tokens) {
         try {
           const parsed = JSON.parse(tokens);
@@ -54,30 +59,31 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   (error: AxiosError<{ message?: string }>) => {
     // Log do erro para debug
-    console.error('[API Error]', error.response?.status, error.message);
+    console.error("[API Error]", error.response?.status, error.message);
 
     // Tratar erros específicos
     if (error.response?.status === 401) {
-      console.warn('Não autorizado - token pode estar expirado');
-      
+      console.warn("Não autorizado - token pode estar expirado");
+
       // Limpa tokens e redireciona para login
-      if (typeof window !== 'undefined') {
-        localStorage.removeItem('pedido-rapido-auth');
-        localStorage.removeItem('pedido-rapido-tokens');
-        
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("pedido-rapido-auth");
+        localStorage.removeItem("pedido-rapido-tokens");
+
         // Só redireciona se não estiver já na página de login
-        if (!window.location.pathname.includes('/login')) {
-          window.location.href = '/login';
+        if (!window.location.pathname.includes("/login")) {
+          window.location.href = "/login";
         }
       }
     }
 
     if (error.response?.status === 403) {
-      console.warn('Acesso negado - permissão insuficiente');
+      console.warn("Acesso negado - permissão insuficiente");
     }
 
     // Propagar erro com mensagem amigável
-    const message = error.response?.data?.message || error.message || 'Erro na requisição';
+    const message =
+      error.response?.data?.message || error.message || "Erro na requisição";
     return Promise.reject(new Error(message));
   }
 );

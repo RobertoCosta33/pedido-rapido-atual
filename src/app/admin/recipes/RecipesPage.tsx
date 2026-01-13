@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
 /**
  * Componente de gestão de receitas
  * Lista e gerencia receitas com seus ingredientes
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect, useCallback } from "react";
+import styled from "styled-components";
 import {
   Box,
   Typography,
@@ -21,7 +21,7 @@ import {
   ListItemText,
   Collapse,
   Divider,
-} from '@mui/material';
+} from "@mui/material";
 import {
   Search as SearchIcon,
   ExpandMore as ExpandIcon,
@@ -29,11 +29,11 @@ import {
   Restaurant as RecipeIcon,
   Timer as TimerIcon,
   AttachMoney as CostIcon,
-} from '@mui/icons-material';
-import { Card } from '@/components';
-import { recipeService } from '@/services';
-import { Recipe } from '@/types';
-import { formatCurrency } from '@/utils';
+} from "@mui/icons-material";
+import { Card } from "@/components";
+import { recipeService } from "@/services";
+import { Recipe } from "@/types";
+import { formatCurrency } from "@/utils";
 
 // Styled Components
 const PageContainer = styled.div`
@@ -81,7 +81,8 @@ const RecipeIcon_ = styled.div`
   width: 48px;
   height: 48px;
   border-radius: ${({ theme }) => theme.borderRadius.md};
-  background: ${({ theme }) => `linear-gradient(135deg, ${theme.colors.primary}, ${theme.colors.secondary})`};
+  background: ${({ theme }) =>
+    `linear-gradient(135deg, ${theme.colors.primary}, ${theme.colors.secondary})`};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -98,7 +99,7 @@ const StatItem = styled.div`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.xs};
-  color: ${({ theme }) => theme.colors.textSecondary};
+  color: ${({ theme }) => theme.colors.text.secondary};
 `;
 
 const IngredientsContainer = styled.div`
@@ -129,7 +130,7 @@ const TotalCost = styled.div`
 const EmptyState = styled.div`
   text-align: center;
   padding: ${({ theme }) => theme.spacing.xxl};
-  color: ${({ theme }) => theme.colors.textSecondary};
+  color: ${({ theme }) => theme.colors.text.secondary};
 `;
 
 const RecipesPage: React.FC = () => {
@@ -137,11 +138,13 @@ const RecipesPage: React.FC = () => {
   const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [expandedRecipes, setExpandedRecipes] = useState<Set<string>>(new Set());
+  const [searchTerm, setSearchTerm] = useState("");
+  const [expandedRecipes, setExpandedRecipes] = useState<Set<string>>(
+    new Set()
+  );
 
   // Simula kioskId do usuário logado
-  const kioskId = 'kiosk_001';
+  const kioskId = "kiosk_001";
 
   // Carrega receitas
   const loadData = useCallback(async () => {
@@ -152,7 +155,7 @@ const RecipesPage: React.FC = () => {
       setFilteredRecipes(data);
       setError(null);
     } catch (err) {
-      setError('Erro ao carregar receitas');
+      setError("Erro ao carregar receitas");
       console.error(err);
     } finally {
       setLoading(false);
@@ -191,7 +194,12 @@ const RecipesPage: React.FC = () => {
   if (loading) {
     return (
       <PageContainer>
-        <Box display="flex" justifyContent="center" alignItems="center" minHeight="400px">
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          minHeight="400px"
+        >
           <CircularProgress />
         </Box>
       </PageContainer>
@@ -239,8 +247,8 @@ const RecipesPage: React.FC = () => {
           <Typography variant="h6">Nenhuma receita encontrada</Typography>
           <Typography variant="body2">
             {searchTerm
-              ? 'Tente buscar por outro termo'
-              : 'Crie sua primeira receita para começar'}
+              ? "Tente buscar por outro termo"
+              : "Crie sua primeira receita para começar"}
           </Typography>
         </EmptyState>
       ) : (
@@ -256,7 +264,7 @@ const RecipesPage: React.FC = () => {
                     {recipe.name}
                   </Typography>
                   <Typography variant="body2" color="textSecondary">
-                    {recipe.description || 'Sem descrição'}
+                    {recipe.description || "Sem descrição"}
                   </Typography>
                 </Box>
               </RecipeInfo>
@@ -280,7 +288,11 @@ const RecipesPage: React.FC = () => {
                   variant="outlined"
                 />
                 <IconButton size="small">
-                  {expandedRecipes.has(recipe.id) ? <CollapseIcon /> : <ExpandIcon />}
+                  {expandedRecipes.has(recipe.id) ? (
+                    <CollapseIcon />
+                  ) : (
+                    <ExpandIcon />
+                  )}
                 </IconButton>
               </RecipeStats>
             </RecipeHeader>
@@ -294,7 +306,9 @@ const RecipesPage: React.FC = () => {
                 {recipe.ingredients.map((ing, index) => (
                   <IngredientItem key={index}>
                     <Box>
-                      <Typography variant="body2">{ing.ingredientName}</Typography>
+                      <Typography variant="body2">
+                        {ing.ingredientName}
+                      </Typography>
                       <Typography variant="caption" color="textSecondary">
                         {ing.quantity} {ing.unit}
                       </Typography>
@@ -310,7 +324,11 @@ const RecipesPage: React.FC = () => {
                 <>
                   <Divider />
                   <Box p={2}>
-                    <Typography variant="subtitle2" gutterBottom fontWeight={600}>
+                    <Typography
+                      variant="subtitle2"
+                      gutterBottom
+                      fontWeight={600}
+                    >
                       Modo de Preparo
                     </Typography>
                     <List dense>
@@ -318,7 +336,7 @@ const RecipesPage: React.FC = () => {
                         <ListItem key={index}>
                           <ListItemText
                             primary={`${index + 1}. ${step}`}
-                            primaryTypographyProps={{ variant: 'body2' }}
+                            primaryTypographyProps={{ variant: "body2" }}
                           />
                         </ListItem>
                       ))}
@@ -342,4 +360,3 @@ const RecipesPage: React.FC = () => {
 };
 
 export default RecipesPage;
-

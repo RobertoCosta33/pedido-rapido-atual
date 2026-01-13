@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
 /**
  * Componente de gestão do cardápio
  * Organiza categorias e produtos do cardápio
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect, useCallback } from "react";
+import styled from "styled-components";
 import {
   Box,
   Typography,
@@ -20,18 +20,18 @@ import {
   TextField,
   InputAdornment,
   IconButton,
-} from '@mui/material';
+} from "@mui/material";
 import {
   Search as SearchIcon,
   Star as StarIcon,
   Visibility as VisibleIcon,
   VisibilityOff as HiddenIcon,
   QrCode as QrIcon,
-} from '@mui/icons-material';
-import { Card, ProductCard } from '@/components';
-import { productService, mockDataService } from '@/services';
-import { Product, Category } from '@/types';
-import { formatCurrency } from '@/utils';
+} from "@mui/icons-material";
+import { Card, ProductCard } from "@/components";
+import { productService, mockDataService } from "@/services";
+import { Product, Category } from "@/types";
+import { formatCurrency } from "@/utils";
 
 // Styled Components
 const PageContainer = styled.div`
@@ -66,7 +66,7 @@ const FiltersContainer = styled.div`
 
 const CategoryTabs = styled(Tabs)`
   margin-bottom: ${({ theme }) => theme.spacing.lg};
-  
+
   .MuiTab-root {
     text-transform: none;
     font-weight: 500;
@@ -99,7 +99,7 @@ const StatItem = styled.div`
 const EmptyState = styled.div`
   text-align: center;
   padding: ${({ theme }) => theme.spacing.xxl};
-  color: ${({ theme }) => theme.colors.textSecondary};
+  color: ${({ theme }) => theme.colors.text.secondary};
 `;
 
 const MenuPage: React.FC = () => {
@@ -108,12 +108,12 @@ const MenuPage: React.FC = () => {
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [showOnlyAvailable, setShowOnlyAvailable] = useState(false);
 
   // Simula kioskId do usuário logado
-  const kioskId = 'kiosk_001';
+  const kioskId = "kiosk_001";
 
   // Carrega produtos e categorias
   const loadData = useCallback(async () => {
@@ -122,21 +122,26 @@ const MenuPage: React.FC = () => {
 
       // Carrega categorias do mock
       const categoriesData = mockDataService.getCategoriesByKiosk(kioskId);
-      setCategories(categoriesData.map(c => ({
-        id: c.id,
-        kioskId: c.kioskId,
-        name: c.name,
-        order: c.order,
-        isActive: c.isActive,
-      })));
+      setCategories(
+        categoriesData.map((c) => ({
+          id: c.id,
+          name: c.name,
+          description: undefined,
+          isActive: c.isActive,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        }))
+      );
 
       // Carrega produtos
-      const productsData = await productService.getProducts(kioskId, { pageSize: 100 });
-      setProducts(productsData.items);
-      setFilteredProducts(productsData.items);
+      const productsData = await productService.getProducts(kioskId, {
+        pageSize: 100,
+      });
+      setProducts(productsData.data);
+      setFilteredProducts(productsData.data);
       setError(null);
     } catch (err) {
-      setError('Erro ao carregar cardápio');
+      setError("Erro ao carregar cardápio");
       console.error(err);
     } finally {
       setLoading(false);
@@ -156,12 +161,12 @@ const MenuPage: React.FC = () => {
       result = result.filter(
         (p) =>
           p.name.toLowerCase().includes(term) ||
-          p.description.toLowerCase().includes(term)
+          (p.description && p.description.toLowerCase().includes(term))
       );
     }
 
-    if (selectedCategory !== 'all') {
-      result = result.filter((p) => p.categoryId === selectedCategory);
+    if (selectedCategory !== "all") {
+      result = result.filter((p) => p.category === selectedCategory);
     }
 
     if (showOnlyAvailable) {
@@ -187,7 +192,7 @@ const MenuPage: React.FC = () => {
         )
       );
     } catch (err) {
-      console.error('Erro ao atualizar produto:', err);
+      console.error("Erro ao atualizar produto:", err);
     }
   };
 
@@ -207,7 +212,7 @@ const MenuPage: React.FC = () => {
         )
       );
     } catch (err) {
-      console.error('Erro ao atualizar produto:', err);
+      console.error("Erro ao atualizar produto:", err);
     }
   };
 
@@ -215,14 +220,20 @@ const MenuPage: React.FC = () => {
   const totalProducts = products.length;
   const availableProducts = products.filter((p) => p.isAvailable).length;
   const highlightedProducts = products.filter((p) => p.isHighlighted).length;
-  const avgPrice = products.length > 0
-    ? products.reduce((sum, p) => sum + p.price, 0) / products.length
-    : 0;
+  const avgPrice =
+    products.length > 0
+      ? products.reduce((sum, p) => sum + p.price, 0) / products.length
+      : 0;
 
   if (loading) {
     return (
       <PageContainer>
-        <Box display="flex" justifyContent="center" alignItems="center" minHeight="400px">
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          minHeight="400px"
+        >
           <CircularProgress />
         </Box>
       </PageContainer>
@@ -327,7 +338,9 @@ const MenuPage: React.FC = () => {
           <Tab
             key={cat.id}
             value={cat.id}
-            label={`${cat.name} (${products.filter((p) => p.categoryId === cat.id).length})`}
+            label={`${cat.name} (${
+              products.filter((p) => p.category === cat.id).length
+            })`}
           />
         ))}
       </CategoryTabs>
@@ -338,20 +351,19 @@ const MenuPage: React.FC = () => {
           <Typography variant="h6">Nenhum produto encontrado</Typography>
           <Typography variant="body2">
             {searchTerm
-              ? 'Tente buscar por outro termo'
-              : 'Adicione produtos ao seu cardápio'}
+              ? "Tente buscar por outro termo"
+              : "Adicione produtos ao seu cardápio"}
           </Typography>
         </EmptyState>
       ) : (
         <ProductsGrid>
           {filteredProducts.map((product) => (
-            <ProductCardWrapper key={product.id} $isHidden={!product.isAvailable}>
+            <ProductCardWrapper
+              key={product.id}
+              $isHidden={!product.isAvailable}
+            >
               <Card>
-                <ProductCard
-                  product={product}
-                  showPrice
-                  onClick={() => {}}
-                />
+                <ProductCard product={product} onClick={() => {}} />
                 <Box
                   display="flex"
                   justifyContent="space-between"
@@ -362,10 +374,12 @@ const MenuPage: React.FC = () => {
                 >
                   <Box display="flex" gap={1}>
                     <Chip
-                      icon={product.isAvailable ? <VisibleIcon /> : <HiddenIcon />}
-                      label={product.isAvailable ? 'Visível' : 'Oculto'}
+                      icon={
+                        product.isAvailable ? <VisibleIcon /> : <HiddenIcon />
+                      }
+                      label={product.isAvailable ? "Visível" : "Oculto"}
                       size="small"
-                      color={product.isAvailable ? 'success' : 'default'}
+                      color={product.isAvailable ? "success" : "default"}
                       onClick={() => handleToggleAvailable(product.id)}
                       clickable
                     />
@@ -381,7 +395,7 @@ const MenuPage: React.FC = () => {
                   <IconButton
                     size="small"
                     onClick={() => handleToggleHighlighted(product.id)}
-                    color={product.isHighlighted ? 'warning' : 'default'}
+                    color={product.isHighlighted ? "warning" : "default"}
                   >
                     <StarIcon />
                   </IconButton>
@@ -396,4 +410,3 @@ const MenuPage: React.FC = () => {
 };
 
 export default MenuPage;
-

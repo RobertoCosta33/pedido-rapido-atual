@@ -30,8 +30,8 @@ const mockIngredients: Ingredient[] = [
     costPerUnit: 2.50,
     supplier: 'Padaria Central',
     isActive: true,
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   },
   {
     id: '2',
@@ -45,8 +45,8 @@ const mockIngredients: Ingredient[] = [
     costPerUnit: 8.00,
     supplier: 'Frigorífico Premium',
     isActive: true,
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   },
   {
     id: '3',
@@ -60,8 +60,8 @@ const mockIngredients: Ingredient[] = [
     costPerUnit: 1.50,
     supplier: 'Laticínios Sul',
     isActive: true,
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   },
   {
     id: '4',
@@ -75,8 +75,8 @@ const mockIngredients: Ingredient[] = [
     costPerUnit: 0.08,
     supplier: 'Frigorífico Premium',
     isActive: true,
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   },
   {
     id: '5',
@@ -90,8 +90,8 @@ const mockIngredients: Ingredient[] = [
     costPerUnit: 12.00,
     supplier: 'Distribuidora Frios',
     isActive: true,
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   },
   {
     id: '6',
@@ -105,8 +105,8 @@ const mockIngredients: Ingredient[] = [
     costPerUnit: 3.50,
     supplier: 'Distribuidora Bebidas',
     isActive: true,
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   },
 ];
 
@@ -132,8 +132,8 @@ const mockRecipes: Recipe[] = [
     ],
     totalCost: 13.50,
     isActive: true,
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   },
   {
     id: '2',
@@ -159,8 +159,8 @@ const mockRecipes: Recipe[] = [
     ],
     totalCost: 17.50,
     isActive: true,
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   },
 ];
 
@@ -175,7 +175,7 @@ const mockAlerts: StockAlert[] = [
     minimumStock: 50,
     isRead: false,
     isResolved: false,
-    createdAt: new Date(),
+    createdAt: new Date().toISOString(),
   },
 ];
 
@@ -195,7 +195,7 @@ export const stockService = {
     }
     
     const response = await api.get<Ingredient[]>(`/kiosks/${kioskId}/ingredients`);
-    return response.data;
+    return response;
   },
 
   /**
@@ -210,7 +210,7 @@ export const stockService = {
     }
     
     const response = await api.get<Ingredient>(`/ingredients/${ingredientId}`);
-    return response.data;
+    return response;
   },
 
   /**
@@ -231,15 +231,15 @@ export const stockService = {
         costPerUnit: data.costPerUnit || 0,
         supplier: data.supplier,
         isActive: true,
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
       };
       mockIngredients.push(newIngredient);
       return newIngredient;
     }
     
     const response = await api.post<Ingredient>(`/kiosks/${kioskId}/ingredients`, data);
-    return response.data;
+    return response;
   },
 
   /**
@@ -250,14 +250,14 @@ export const stockService = {
       await simulateDelay();
       const index = mockIngredients.findIndex((i) => i.id === ingredientId);
       if (index !== -1) {
-        mockIngredients[index] = { ...mockIngredients[index], ...data, updatedAt: new Date() };
+        mockIngredients[index] = { ...mockIngredients[index], ...data, updatedAt: new Date().toISOString() };
         return mockIngredients[index];
       }
       throw new Error('Insumo não encontrado');
     }
     
     const response = await api.put<Ingredient>(`/ingredients/${ingredientId}`, data);
-    return response.data;
+    return response;
   },
 
   /**
@@ -286,7 +286,7 @@ export const stockService = {
     }
     
     const response = await api.get<Recipe[]>(`/kiosks/${kioskId}/recipes`);
-    return response.data;
+    return response;
   },
 
   /**
@@ -301,7 +301,7 @@ export const stockService = {
     }
     
     const response = await api.get<Recipe>(`/recipes/${recipeId}`);
-    return response.data;
+    return response;
   },
 
   /**
@@ -328,15 +328,15 @@ export const stockService = {
         ingredients: data.ingredients || [],
         totalCost,
         isActive: true,
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
       };
       mockRecipes.push(newRecipe);
       return newRecipe;
     }
     
     const response = await api.post<Recipe>(`/kiosks/${kioskId}/recipes`, data);
-    return response.data;
+    return response;
   },
 
   /**
@@ -347,14 +347,14 @@ export const stockService = {
       await simulateDelay();
       const index = mockRecipes.findIndex((r) => r.id === recipeId);
       if (index !== -1) {
-        mockRecipes[index] = { ...mockRecipes[index], ...data, updatedAt: new Date() };
+        mockRecipes[index] = { ...mockRecipes[index], ...data, updatedAt: new Date().toISOString() };
         return mockRecipes[index];
       }
       throw new Error('Receita não encontrada');
     }
     
     const response = await api.put<Recipe>(`/recipes/${recipeId}`, data);
-    return response.data;
+    return response;
   },
 
   /**
@@ -391,7 +391,7 @@ export const stockService = {
         newStock: ingredient.currentStock,
         reason,
         userId,
-        createdAt: new Date(),
+        createdAt: new Date().toISOString(),
       };
       
       mockMovements.push(movement);
@@ -413,7 +413,7 @@ export const stockService = {
             minimumStock: ingredient.minimumStock,
             isRead: false,
             isResolved: false,
-            createdAt: new Date(),
+            createdAt: new Date().toISOString(),
           });
         }
       }
@@ -427,7 +427,7 @@ export const stockService = {
       quantity,
       reason,
     });
-    return response.data;
+    return response;
   },
 
   /**
@@ -494,7 +494,7 @@ export const stockService = {
           reason: `Pedido #${orderId}`,
           orderId,
           userId,
-          createdAt: new Date(),
+          createdAt: new Date().toISOString(),
         });
         
         // Verifica alertas
@@ -509,7 +509,7 @@ export const stockService = {
             minimumStock: ingredient.minimumStock,
             isRead: false,
             isResolved: false,
-            createdAt: new Date(),
+            createdAt: new Date().toISOString(),
           };
           mockAlerts.push(alert);
           result.alerts.push(alert);
@@ -524,7 +524,7 @@ export const stockService = {
       quantity,
       orderId,
     });
-    return response.data;
+    return response;
   },
 
   /**
@@ -543,7 +543,7 @@ export const stockService = {
     const response = await api.get<StockAlert[]>(`/kiosks/${kioskId}/stock/alerts`, {
       unreadOnly,
     });
-    return response.data;
+    return response;
   },
 
   /**
@@ -614,7 +614,7 @@ export const stockService = {
       startDate: startDate?.toISOString(),
       endDate: endDate?.toISOString(),
     });
-    return response.data;
+    return response;
   },
 
   /**

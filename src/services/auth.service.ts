@@ -1,207 +1,219 @@
 /**
  * Serviço de autenticação
- * Conecta com o backend real usando JWT
+ * Conecta com backend ASP.NET Core via JWT
  */
 
-import { apiClient } from './api';
+import { apiClient } from "./api";
 import {
   User,
+  AuthTokens,
   LoginCredentials,
   RegisterData,
-  AuthTokens,
-  UserRole,
-} from '@/types';
+  AuthResponse,
+} from "@/types";
 
-// ============================================================================
-// Tipos da API de Autenticação
-// ============================================================================
+class AuthService {
+  private readonly baseUrl = "/auth";
 
-/**
- * Resposta do endpoint de login do backend
- */
-interface LoginApiResponse {
-  token: string;
-  expiresAt: string;
-  user: {
-    id: string;
-    name: string;
-    email: string;
-    role: string;
-    kioskId?: string;
-    kioskName?: string;
-  };
-}
-
-/**
- * Resposta padrão de autenticação para o frontend
- */
-interface AuthResponse {
-  user: User;
-  tokens: AuthTokens;
-}
-
-/**
- * Dados do usuário autenticado
- */
-interface UserApiResponse {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-  kioskId?: string;
-  kioskName?: string;
-}
-
-// ============================================================================
-// Helpers
-// ============================================================================
-
-/**
- * Converte role da API para o formato do frontend
- */
-const convertRole = (apiRole: string): UserRole => {
-  switch (apiRole.toLowerCase()) {
-    case 'superadmin':
-      return 'super_admin';
-    case 'admin':
-      return 'admin';
-    case 'customer':
-    default:
-      return 'customer';
+  /**
+   * Realiza login com email e senha
+   */
+  async login(credentials: LoginCredentials): Promise<AuthResponse> {
+    try {
+      const response = await apiClient.post<AuthResponse>(
+        `${this.baseUrl}/login`,
+        credentials
+      );
+      return response;
+    } catch (error) {
+      throw new Error(
+        error instanceof Error ? error.message : "Erro ao fazer login"
+      );
+    }
   }
-};
-
-/**
- * Converte resposta da API para User do frontend
- */
-const toUser = (apiUser: UserApiResponse): User => ({
-  id: apiUser.id,
-  email: apiUser.email,
-  name: apiUser.name,
-  role: convertRole(apiUser.role),
-  phone: '',
-  createdAt: new Date(),
-  updatedAt: new Date(),
-  isActive: true,
-  kioskId: apiUser.kioskId,
-  kioskName: apiUser.kioskName,
-});
-
-/**
- * Calcula expiresIn em segundos a partir de expiresAt
- */
-const calculateExpiresIn = (expiresAt: string): number => {
-  const expiry = new Date(expiresAt).getTime();
-  const now = Date.now();
-  return Math.floor((expiry - now) / 1000);
-};
-
-// ============================================================================
-// Serviço de Autenticação
-// ============================================================================
-
-export const authService = {
-  /**
-   * Realiza login do usuário via API real
-   */
-  login: async (credentials: LoginCredentials): Promise<AuthResponse> => {
-    const response = await apiClient.post<LoginApiResponse>('/auth/login', {
-      email: credentials.email,
-      password: credentials.password,
-    });
-
-    return {
-      user: toUser(response.user),
-      tokens: {
-        accessToken: response.token,
-        refreshToken: '', // Backend não implementa refresh token ainda
-        expiresIn: calculateExpiresIn(response.expiresAt),
-      },
-    };
-  },
 
   /**
-   * Registra novo usuário (não implementado no backend ainda)
+   * Registra novo usuário
    */
-  register: async (data: RegisterData): Promise<AuthResponse> => {
-    // Backend não implementa cadastro ainda
-    // Quando implementar, será algo como:
-    // const response = await apiClient.post<LoginApiResponse>('/auth/register', data);
-    
-    throw new Error('Cadastro de novos usuários ainda não está disponível');
-  },
-
-  /**
-   * Valida token de acesso via API
-   */
-  validateToken: async (_token: string): Promise<boolean> => {
+  async register(data: RegisterData): Promise<AuthResponse> {
     try {
-      await apiClient.get('/auth/validate');
-      return true;
+      const response = await apiClient.post<AuthResponse>(
+        `${this.baseUrl}/register`,
+        data
+      );
+      return response;
+    } catch (error) {
+      throw new Error(
+        error instanceof Error ? error.message : "Erro ao criar conta"
+      );
+    }
+  }
+
+  /**
+   * Valida token JWT
+   */
+  async validateToken(token: string): Promise<boolean> {
+    try {
+      // Cria uma instância temporária do axios para não usar interceptors
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"}${
+          this.baseUrl
+        }/validate`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return response.ok;
     } catch {
       return false;
     }
-  },
+  }
 
   /**
-   * Renova token de acesso (não implementado no backend ainda)
+   * Refresh do token JWT
    */
-  refreshToken: async (_refreshToken: string): Promise<AuthTokens> => {
-    // Backend não implementa refresh token ainda
-    throw new Error('Refresh token não disponível');
-  },
-
-  /**
-   * Obtém dados do usuário autenticado
-   */
-  getCurrentUser: async (): Promise<User> => {
-    const response = await apiClient.get<UserApiResponse>('/auth/me');
-    return toUser(response);
-  },
-
-  /**
-   * Verifica se usuário está autenticado
-   */
-  isAuthenticated: (): boolean => {
-    if (typeof window === 'undefined') return false;
-    
-    const tokens = localStorage.getItem('pedido-rapido-tokens');
-    if (!tokens) return false;
-    
+  async refreshToken(refreshToken: string): Promise<AuthTokens> {
     try {
-      const parsed = JSON.parse(tokens);
-      return !!parsed.accessToken;
-    } catch {
-      return false;
+      const response = await apiClient.post<AuthTokens>(
+        `${this.baseUrl}/refresh`,
+        {
+          refreshToken,
+        }
+      );
+      return response;
+    } catch (error) {
+      throw new Error(
+        error instanceof Error ? error.message : "Erro ao renovar token"
+      );
     }
-  },
+  }
 
   /**
-   * Obtém o token atual
+   * Obtém dados do usuário atual
    */
-  getToken: (): string | null => {
-    if (typeof window === 'undefined') return null;
-    
-    const tokens = localStorage.getItem('pedido-rapido-tokens');
-    if (!tokens) return null;
-    
+  async getCurrentUser(): Promise<User> {
     try {
-      const parsed = JSON.parse(tokens);
-      return parsed.accessToken || null;
-    } catch {
-      return null;
+      const response = await apiClient.get<User>(`${this.baseUrl}/me`);
+      return response;
+    } catch (error) {
+      throw new Error(
+        error instanceof Error
+          ? error.message
+          : "Erro ao obter dados do usuário"
+      );
     }
-  },
+  }
 
   /**
-   * Faz logout (limpa tokens locais)
+   * Atualiza dados do usuário
    */
-  logout: (): void => {
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('pedido-rapido-auth');
-      localStorage.removeItem('pedido-rapido-tokens');
+  async updateProfile(data: Partial<User>): Promise<User> {
+    try {
+      const response = await apiClient.put<User>(
+        `${this.baseUrl}/profile`,
+        data
+      );
+      return response;
+    } catch (error) {
+      throw new Error(
+        error instanceof Error ? error.message : "Erro ao atualizar perfil"
+      );
     }
-  },
-};
+  }
 
+  /**
+   * Altera senha do usuário
+   */
+  async changePassword(data: {
+    currentPassword: string;
+    newPassword: string;
+    confirmPassword: string;
+  }): Promise<void> {
+    try {
+      await apiClient.post(`${this.baseUrl}/change-password`, data);
+    } catch (error) {
+      throw new Error(
+        error instanceof Error ? error.message : "Erro ao alterar senha"
+      );
+    }
+  }
+
+  /**
+   * Solicita reset de senha
+   */
+  async requestPasswordReset(email: string): Promise<void> {
+    try {
+      await apiClient.post(`${this.baseUrl}/forgot-password`, { email });
+    } catch (error) {
+      throw new Error(
+        error instanceof Error
+          ? error.message
+          : "Erro ao solicitar reset de senha"
+      );
+    }
+  }
+
+  /**
+   * Confirma reset de senha
+   */
+  async resetPassword(data: {
+    token: string;
+    newPassword: string;
+    confirmPassword: string;
+  }): Promise<void> {
+    try {
+      await apiClient.post(`${this.baseUrl}/reset-password`, data);
+    } catch (error) {
+      throw new Error(
+        error instanceof Error ? error.message : "Erro ao redefinir senha"
+      );
+    }
+  }
+
+  /**
+   * Logout (limpa dados locais)
+   */
+  logout(): void {
+    // Remove dados do localStorage
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("pedido-rapido-auth");
+      localStorage.removeItem("pedido-rapido-tokens");
+    }
+  }
+
+  /**
+   * Verifica se o usuário está autenticado
+   */
+  isAuthenticated(): boolean {
+    if (typeof window === "undefined") return false;
+
+    const tokens = localStorage.getItem("pedido-rapido-tokens");
+    return !!tokens;
+  }
+
+  /**
+   * Obtém token atual do localStorage
+   */
+  getToken(): string | null {
+    if (typeof window === "undefined") return null;
+
+    try {
+      const tokens = localStorage.getItem("pedido-rapido-tokens");
+      if (tokens) {
+        const parsed = JSON.parse(tokens);
+        return parsed.accessToken || null;
+      }
+    } catch {
+      // Token inválido
+    }
+
+    return null;
+  }
+}
+
+export const authService = new AuthService();
 export default authService;

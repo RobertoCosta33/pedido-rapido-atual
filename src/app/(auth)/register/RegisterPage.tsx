@@ -1,22 +1,22 @@
-'use client';
+"use client";
 
 /**
  * Componente da página de registro
  */
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import styled, { keyframes } from 'styled-components';
-import PersonIcon from '@mui/icons-material/Person';
-import EmailIcon from '@mui/icons-material/Email';
-import LockIcon from '@mui/icons-material/Lock';
-import PhoneIcon from '@mui/icons-material/Phone';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { Button, Input } from '@/components';
-import { useAuth, useNotification } from '@/contexts';
-import { validateRegisterForm, getPasswordStrength } from '@/utils/validators';
+import React, { useState } from "react";
+import Link from "next/link";
+import styled, { keyframes } from "styled-components";
+import PersonIcon from "@mui/icons-material/Person";
+import EmailIcon from "@mui/icons-material/Email";
+import LockIcon from "@mui/icons-material/Lock";
+import PhoneIcon from "@mui/icons-material/Phone";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { Button, Input } from "@/components";
+import { useAuth, useNotification } from "@/contexts";
+import { validateRegisterForm, getPasswordStrength } from "@/utils/validators";
 
 const fadeIn = keyframes`
   from {
@@ -38,9 +38,9 @@ const Container = styled.div`
   background: ${({ theme }) => theme.colors.background.default};
   position: relative;
   overflow: hidden;
-  
+
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: -50%;
     right: -50%;
@@ -77,7 +77,11 @@ const Logo = styled.div`
 const LogoIcon = styled.div`
   width: 48px;
   height: 48px;
-  background: linear-gradient(135deg, ${({ theme }) => theme.colors.primary.main} 0%, ${({ theme }) => theme.colors.primary.dark} 100%);
+  background: linear-gradient(
+    135deg,
+    ${({ theme }) => theme.colors.primary.main} 0%,
+    ${({ theme }) => theme.colors.primary.dark} 100%
+  );
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   display: flex;
   align-items: center;
@@ -118,7 +122,7 @@ const PasswordToggle = styled.button`
   align-items: center;
   justify-content: center;
   color: ${({ theme }) => theme.colors.text.secondary};
-  
+
   &:hover {
     color: ${({ theme }) => theme.colors.text.primary};
   }
@@ -159,11 +163,11 @@ const BenefitItem = styled.div`
   gap: ${({ theme }) => theme.spacing.sm};
   color: ${({ theme }) => theme.colors.text.secondary};
   font-size: 0.875rem;
-  
+
   &:not(:last-child) {
     margin-bottom: ${({ theme }) => theme.spacing.sm};
   }
-  
+
   svg {
     width: 18px;
     height: 18px;
@@ -176,11 +180,11 @@ const LoginLink = styled.p`
   color: ${({ theme }) => theme.colors.text.secondary};
   font-size: 0.9375rem;
   margin-top: ${({ theme }) => theme.spacing.md};
-  
+
   a {
     color: ${({ theme }) => theme.colors.primary.main};
     font-weight: 600;
-    
+
     &:hover {
       text-decoration: underline;
     }
@@ -190,47 +194,52 @@ const LoginLink = styled.p`
 export const RegisterPage: React.FC = () => {
   const { register, isLoading } = useAuth();
   const { showError } = useNotification();
-  
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  
+
   const passwordStrength = getPasswordStrength(password);
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrors({});
-    
-    const validation = validateRegisterForm(name, email, password, confirmPassword);
-    
+
+    const validation = validateRegisterForm(
+      name,
+      email,
+      password,
+      confirmPassword
+    );
+
     if (!validation.isValid) {
       const newErrors: Record<string, string> = {};
       validation.errors.forEach((error) => {
-        if (error.toLowerCase().includes('nome')) {
+        if (error.toLowerCase().includes("nome")) {
           newErrors.name = error;
-        } else if (error.toLowerCase().includes('email')) {
+        } else if (error.toLowerCase().includes("email")) {
           newErrors.email = error;
-        } else if (error.toLowerCase().includes('senhas não conferem')) {
+        } else if (error.toLowerCase().includes("senhas não conferem")) {
           newErrors.confirmPassword = error;
-        } else if (error.toLowerCase().includes('senha')) {
+        } else if (error.toLowerCase().includes("senha")) {
           newErrors.password = error;
         }
       });
       setErrors(newErrors);
       return;
     }
-    
+
     try {
-      await register({ name, email, password, phone: phone || undefined });
+      await register({ name, email, password, confirmPassword: password });
     } catch (error) {
-      showError(error instanceof Error ? error.message : 'Erro ao criar conta');
+      showError(error instanceof Error ? error.message : "Erro ao criar conta");
     }
   };
-  
+
   return (
     <Container>
       <Card>
@@ -238,10 +247,10 @@ export const RegisterPage: React.FC = () => {
           <LogoIcon>PR</LogoIcon>
           <LogoText>Pedido Rápido</LogoText>
         </Logo>
-        
+
         <Title>Crie sua conta</Title>
         <Subtitle>Comece a usar o Pedido Rápido gratuitamente</Subtitle>
-        
+
         <Form onSubmit={handleSubmit}>
           <Input
             type="text"
@@ -254,7 +263,7 @@ export const RegisterPage: React.FC = () => {
             required
             autoComplete="name"
           />
-          
+
           <Input
             type="email"
             label="Email"
@@ -266,7 +275,7 @@ export const RegisterPage: React.FC = () => {
             required
             autoComplete="email"
           />
-          
+
           <Input
             type="tel"
             label="Telefone (opcional)"
@@ -276,10 +285,10 @@ export const RegisterPage: React.FC = () => {
             leftIcon={<PhoneIcon />}
             autoComplete="tel"
           />
-          
+
           <div>
             <Input
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? "text" : "password"}
               label="Senha"
               placeholder="Mínimo 8 caracteres"
               value={password}
@@ -297,7 +306,7 @@ export const RegisterPage: React.FC = () => {
               required
               autoComplete="new-password"
             />
-            
+
             {password && (
               <>
                 <PasswordStrength>
@@ -315,9 +324,9 @@ export const RegisterPage: React.FC = () => {
               </>
             )}
           </div>
-          
+
           <Input
-            type={showPassword ? 'text' : 'password'}
+            type={showPassword ? "text" : "password"}
             label="Confirmar senha"
             placeholder="Digite a senha novamente"
             value={confirmPassword}
@@ -327,7 +336,7 @@ export const RegisterPage: React.FC = () => {
             required
             autoComplete="new-password"
           />
-          
+
           <Benefits>
             <BenefitItem>
               <CheckCircleIcon />
@@ -346,12 +355,12 @@ export const RegisterPage: React.FC = () => {
               <span>Suporte dedicado</span>
             </BenefitItem>
           </Benefits>
-          
+
           <Button type="submit" fullWidth isLoading={isLoading}>
             Criar conta
           </Button>
         </Form>
-        
+
         <LoginLink>
           Já tem uma conta? <Link href="/login">Fazer login</Link>
         </LoginLink>
@@ -359,4 +368,3 @@ export const RegisterPage: React.FC = () => {
     </Container>
   );
 };
-

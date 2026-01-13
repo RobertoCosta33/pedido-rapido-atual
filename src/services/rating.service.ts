@@ -1,391 +1,108 @@
 /**
- * Serviço de avaliações
- * Gerencia avaliações de produtos, funcionários, quiosques e atendimento
+ * Service de Avaliações
+ * Consome endpoints de ratings da FASE F
  */
 
-import { api } from './api';
-import { mockDataService, simulateDelay, MockRating } from './mock.service';
+import { apiClient } from "./api";
 
-export type RatingType = 'product' | 'employee' | 'kiosk' | 'service';
+// ============================================================================
+// Types - FASE F
+// ============================================================================
 
-export interface Rating {
-  id: string;
-  type: RatingType;
+export interface CreateRatingDto {
+  targetType: "Kiosk" | "Product" | "Staff";
   targetId: string;
-  targetName: string;
-  kioskId: string;
-  kioskName: string;
-  orderId: string;
-  customerId: string;
-  customerName: string;
-  rating: number;
-  comment: string;
-  createdAt: Date;
-}
-
-export interface CreateRatingData {
-  type: RatingType;
-  targetId: string;
-  targetName: string;
-  kioskId: string;
-  kioskName: string;
-  orderId: string;
-  customerId: string;
-  customerName: string;
-  rating: number;
+  score: number; // 1-5
   comment?: string;
 }
 
-export interface RatedItem {
+export interface RatingDto {
   id: string;
-  name: string;
-  kioskId?: string;
-  kioskName?: string;
-  average: number;
-  count: number;
+  userId: string;
+  userName: string;
+  targetType: "Kiosk" | "Product" | "Staff";
+  targetId: string;
+  score: number;
+  comment?: string | null;
+  createdAt: string;
 }
 
-export interface KioskRanking {
-  id: string;
-  name: string;
-  slug: string;
-  average: number;
-  count: number;
-  isPremium: boolean;
-  city?: string;
-  state?: string;
-  logo?: string;
+export interface RatingStatsDto {
+  averageRating: number;
+  totalRatings: number;
+  distribution: Record<string, number>; // Estrela -> Quantidade
+  recentRatings: RatingDto[];
 }
 
-// Labels para tipos de avaliação
-export const RATING_TYPE_LABELS: Record<RatingType, string> = {
-  product: 'Produto',
-  employee: 'Funcionário',
-  kiosk: 'Quiosque',
-  service: 'Atendimento',
-};
-
-/**
- * Converte MockRating para Rating
- */
-const toRating = (mock: MockRating): Rating => ({
-  id: mock.id,
-  type: mock.type,
-  targetId: mock.targetId,
-  targetName: mock.targetName,
-  kioskId: mock.kioskId,
-  kioskName: mock.kioskName,
-  orderId: mock.orderId,
-  customerId: mock.customerId,
-  customerName: mock.customerName,
-  rating: mock.rating,
-  comment: mock.comment,
-  createdAt: new Date(mock.createdAt),
-});
+// ============================================================================
+// Service
+// ============================================================================
 
 export const ratingService = {
   /**
-   * Lista todas as avaliações
+   * Cria uma nova avaliação (requer autenticação)
+   * Endpoint: POST /api/ratings
    */
-  getAll: async (): Promise<Rating[]> => {
-    if (process.env.NODE_ENV === 'development') {
-      await simulateDelay();
-      return mockDataService.getRatings().map(toRating);
-    }
-    
-    const response = await api.get<Rating[]>('/ratings');
-    return response.data;
+  create: async (data: CreateRatingDto): Promise<RatingDto> => {
+    return apiClient.post<RatingDto>("/ratings", data);
   },
 
   /**
-   * Lista avaliações de um quiosque
+   * Obtém avaliações por alvo
+   * Endpoint: GET /api/ratings/target
    */
-  getByKiosk: async (kioskId: string): Promise<Rating[]> => {
-    if (process.env.NODE_ENV === 'development') {
-      await simulateDelay();
-      return mockDataService.getRatingsByKiosk(kioskId).map(toRating);
-    }
-    
-    const response = await api.get<Rating[]>(`/kiosks/${kioskId}/ratings`);
-    return response.data;
+  getByTarget: async (
+    targetType: string,
+    targetId: string
+  ): Promise<RatingDto[]> => {
+    return apiClient.get<RatingDto[]>("/ratings/target", {
+      targetType,
+      targetId,
+    });
   },
 
   /**
-   * Lista avaliações de um alvo específico
+   * Obtém uma avaliação por ID
+   * Endpoint: GET /api/ratings/{id}
    */
-  getByTarget: async (type: RatingType, targetId: string): Promise<Rating[]> => {
-    if (process.env.NODE_ENV === 'development') {
-      await simulateDelay();
-      return mockDataService.getRatingsByTarget(type, targetId).map(toRating);
-    }
-    
-    const response = await api.get<Rating[]>(`/ratings?type=${type}&targetId=${targetId}`);
-    return response.data;
+  getById: async (id: string): Promise<RatingDto> => {
+    return apiClient.get<RatingDto>(`/ratings/${id}`);
   },
 
   /**
-   * Lista avaliações de um pedido
+   * Obtém estatísticas de avaliações
+   * Endpoint: GET /api/ratings/stats
    */
-  getByOrder: async (orderId: string): Promise<Rating[]> => {
-    if (process.env.NODE_ENV === 'development') {
-      await simulateDelay();
-      return mockDataService.getRatingsByOrder(orderId).map(toRating);
-    }
-    
-    const response = await api.get<Rating[]>(`/orders/${orderId}/ratings`);
-    return response.data;
+  getStats: async (
+    targetType: string,
+    targetId: string
+  ): Promise<RatingStatsDto> => {
+    return apiClient.get<RatingStatsDto>("/ratings/stats", {
+      targetType,
+      targetId,
+    });
   },
 
   /**
-   * Lista avaliações por entidade (type e entityId)
+   * Obtém média e contagem de avaliações
+   * Endpoint: GET /api/ratings/average
    */
-  getByEntity: async (entityType: RatingType, entityId: string): Promise<Rating[]> => {
-    if (process.env.NODE_ENV === 'development') {
-      await simulateDelay();
-      return mockDataService.getRatingsByTarget(entityType, entityId).map(toRating);
-    }
-    
-    const response = await api.get<Rating[]>(`/ratings?type=${entityType}&entityId=${entityId}`);
-    return response.data;
-  },
-
-  /**
-   * Cria nova avaliação
-   */
-  create: async (data: CreateRatingData): Promise<Rating> => {
-    if (process.env.NODE_ENV === 'development') {
-      await simulateDelay();
-      
-      const newRating: MockRating = {
-        id: `rat_${Date.now()}`,
-        type: data.type,
-        targetId: data.targetId,
-        targetName: data.targetName,
-        kioskId: data.kioskId,
-        kioskName: data.kioskName,
-        orderId: data.orderId,
-        customerId: data.customerId,
-        customerName: data.customerName,
-        rating: data.rating,
-        comment: data.comment || '',
-        createdAt: new Date().toISOString(),
-      };
-      
-      mockDataService.addRating(newRating);
-      return toRating(newRating);
-    }
-    
-    const response = await api.post<Rating>('/ratings', data);
-    return response.data;
-  },
-
-  /**
-   * Obtém média de avaliação de um alvo
-   */
-  getAverageRating: async (type: RatingType, targetId: string): Promise<number> => {
-    if (process.env.NODE_ENV === 'development') {
-      await simulateDelay();
-      return mockDataService.getAverageRating(type, targetId);
-    }
-    
-    const response = await api.get<{ average: number }>(`/ratings/average?type=${type}&targetId=${targetId}`);
-    return response.data.average;
-  },
-
-  /**
-   * Obtém produtos mais bem avaliados (ranking)
-   */
-  getTopProducts: async (limit: number = 10): Promise<RatedItem[]> => {
-    if (process.env.NODE_ENV === 'development') {
-      await simulateDelay();
-      const topProducts = mockDataService.getTopRatedProducts(limit);
-      return topProducts.map((p) => ({
-        id: p.id,
-        name: p.name,
-        kioskId: p.kioskId,
-        kioskName: p.kioskName,
-        average: Math.round(p.average * 10) / 10,
-        count: p.count,
-      }));
-    }
-    
-    const response = await api.get<RatedItem[]>(`/ratings/top-products?limit=${limit}`);
-    return response.data;
-  },
-
-  /**
-   * Obtém bebidas mais bem avaliadas
-   * (Filtra produtos que são bebidas por nome ou categoria)
-   */
-  getTopDrinks: async (limit: number = 10): Promise<RatedItem[]> => {
-    if (process.env.NODE_ENV === 'development') {
-      await simulateDelay();
-      
-      const drinkKeywords = ['caipirinha', 'cerveja', 'suco', 'água', 'refrigerante', 'mojito', 'drink', 'chopp', 'vinho', 'espumante'];
-      const topProducts = mockDataService.getTopRatedProducts(50);
-      
-      const drinks = topProducts.filter((p) => 
-        drinkKeywords.some((keyword) => p.name.toLowerCase().includes(keyword))
-      ).slice(0, limit);
-      
-      return drinks.map((d) => ({
-        id: d.id,
-        name: d.name,
-        kioskId: d.kioskId,
-        kioskName: d.kioskName,
-        average: Math.round(d.average * 10) / 10,
-        count: d.count,
-      }));
-    }
-    
-    const response = await api.get<RatedItem[]>(`/ratings/top-drinks?limit=${limit}`);
-    return response.data;
-  },
-
-  /**
-   * Obtém funcionários mais bem avaliados
-   */
-  getTopEmployees: async (limit: number = 10): Promise<RatedItem[]> => {
-    if (process.env.NODE_ENV === 'development') {
-      await simulateDelay();
-      
-      const employees = mockDataService.getTopEmployees(limit);
-      return employees.map((e) => ({
-        id: e.id,
-        name: e.name,
-        kioskId: e.kioskId,
-        average: e.rating,
-        count: e.totalRatings,
-      }));
-    }
-    
-    const response = await api.get<RatedItem[]>(`/ratings/top-employees?limit=${limit}`);
-    return response.data;
-  },
-
-  /**
-   * Obtém quiosques mais bem avaliados (ranking público)
-   */
-  getTopKiosks: async (limit: number = 10): Promise<KioskRanking[]> => {
-    if (process.env.NODE_ENV === 'development') {
-      await simulateDelay();
-      
-      const topKiosks = mockDataService.getTopRatedKiosks(limit);
-      const licenses = mockDataService.getLicenses();
-      const kiosks = mockDataService.getKiosks();
-      
-      return topKiosks.map((k) => {
-        const kiosk = kiosks.find((kq) => kq.id === k.id);
-        const license = licenses.find((l) => l.kioskId === k.id);
-        const isPremium = license?.plan === 'premium';
-        
-        return {
-          id: k.id,
-          name: k.name,
-          slug: kiosk?.slug || '',
-          average: Math.round(k.average * 10) / 10,
-          count: k.count,
-          isPremium,
-          city: kiosk?.address?.city,
-          state: kiosk?.address?.state,
-          logo: kiosk?.logo,
-        };
-      });
-    }
-    
-    const response = await api.get<KioskRanking[]>(`/ratings/top-kiosks?limit=${limit}`);
-    return response.data;
-  },
-
-  /**
-   * Obtém estatísticas de avaliações de um quiosque
-   */
-  getKioskStats: async (kioskId: string): Promise<{
-    averageRating: number;
-    totalRatings: number;
-    ratingsByType: Record<RatingType, { average: number; count: number }>;
-    distribution: Record<number, number>;
-    recentRatings: Rating[];
-  }> => {
-    if (process.env.NODE_ENV === 'development') {
-      await simulateDelay();
-      
-      const ratings = mockDataService.getRatingsByKiosk(kioskId);
-      
-      const totalRatings = ratings.length;
-      const averageRating = totalRatings > 0
-        ? ratings.reduce((sum, r) => sum + r.rating, 0) / totalRatings
-        : 0;
-      
-      const ratingsByType = (['product', 'employee', 'kiosk', 'service'] as RatingType[]).reduce((acc, type) => {
-        const typeRatings = ratings.filter((r) => r.type === type);
-        acc[type] = {
-          average: typeRatings.length > 0
-            ? typeRatings.reduce((sum, r) => sum + r.rating, 0) / typeRatings.length
-            : 0,
-          count: typeRatings.length,
-        };
-        return acc;
-      }, {} as Record<RatingType, { average: number; count: number }>);
-      
-      const distribution = [1, 2, 3, 4, 5].reduce((acc, star) => {
-        acc[star] = ratings.filter((r) => r.rating === star).length;
-        return acc;
-      }, {} as Record<number, number>);
-      
-      const recentRatings = ratings
-        .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-        .slice(0, 5)
-        .map(toRating);
-      
-      return {
-        averageRating: Math.round(averageRating * 10) / 10,
-        totalRatings,
-        ratingsByType,
-        distribution,
-        recentRatings,
-      };
-    }
-    
-    const response = await api.get<{
-      averageRating: number;
-      totalRatings: number;
-      ratingsByType: Record<RatingType, { average: number; count: number }>;
-      distribution: Record<number, number>;
-      recentRatings: Rating[];
-    }>(`/kiosks/${kioskId}/ratings/stats`);
-    return response.data;
-  },
-
-  /**
-   * Verifica se cliente pode avaliar um pedido
-   */
-  canRateOrder: async (orderId: string): Promise<boolean> => {
-    if (process.env.NODE_ENV === 'development') {
-      await simulateDelay();
-      
-      const order = mockDataService.getOrderById(orderId);
-      if (!order) return false;
-      
-      // Só pode avaliar pedidos entregues
-      if (order.status !== 'delivered') return false;
-      
-      // Verifica se já avaliou
-      const existingRatings = mockDataService.getRatingsByOrder(orderId);
-      return existingRatings.length === 0;
-    }
-    
-    const response = await api.get<{ canRate: boolean }>(`/orders/${orderId}/can-rate`);
-    return response.data.canRate;
-  },
-
-  /**
-   * Obtém label do tipo de avaliação
-   */
-  getTypeLabel: (type: RatingType): string => {
-    return RATING_TYPE_LABELS[type] || type;
+  getAverage: async (
+    targetType: string,
+    targetId: string
+  ): Promise<{ average: number; count: number }> => {
+    return apiClient.get<{ average: number; count: number }>(
+      "/ratings/average",
+      { targetType, targetId }
+    );
   },
 };
 
 export default ratingService;
 
+// Rating type labels for export
+export const RATING_TYPE_LABELS = {
+  kiosk: "Quiosque",
+  product: "Produto",
+  staff: "Funcionário",
+} as const;

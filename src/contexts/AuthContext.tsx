@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 /**
  * Context para gerenciamento de autenticação
@@ -6,8 +6,15 @@
  * Conecta com backend real via JWT
  */
 
-import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
-import { useRouter } from 'next/navigation';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+} from "react";
+import { useRouter } from "next/navigation";
 import {
   User,
   UserRole,
@@ -15,8 +22,8 @@ import {
   LoginCredentials,
   RegisterData,
   AuthTokens,
-} from '@/types';
-import { authService } from '@/services/auth.service';
+} from "@/types";
+import { authService } from "@/services/auth.service";
 
 interface AuthContextData extends AuthState {
   login: (credentials: LoginCredentials) => Promise<void>;
@@ -32,8 +39,8 @@ interface AuthContextData extends AuthState {
 
 const AuthContext = createContext<AuthContextData | undefined>(undefined);
 
-const AUTH_STORAGE_KEY = 'pedido-rapido-auth';
-const TOKEN_STORAGE_KEY = 'pedido-rapido-tokens';
+const AUTH_STORAGE_KEY = "pedido-rapido-auth";
+const TOKEN_STORAGE_KEY = "pedido-rapido-tokens";
 
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -110,80 +117,88 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   /**
    * Realiza login com credenciais
    */
-  const login = useCallback(async (credentials: LoginCredentials) => {
-    setState((prev) => ({ ...prev, isLoading: true, error: null }));
+  const login = useCallback(
+    async (credentials: LoginCredentials) => {
+      setState((prev) => ({ ...prev, isLoading: true, error: null }));
 
-    try {
-      const { user, tokens } = await authService.login(credentials);
+      try {
+        const { user, tokens } = await authService.login(credentials);
 
-      // Salva no localStorage
-      localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
-      localStorage.setItem(TOKEN_STORAGE_KEY, JSON.stringify(tokens));
-      setToken(tokens.accessToken);
+        // Salva no localStorage
+        localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
+        localStorage.setItem(TOKEN_STORAGE_KEY, JSON.stringify(tokens));
+        setToken(tokens.accessToken);
 
-      setState({
-        user,
-        isAuthenticated: true,
-        isLoading: false,
-        error: null,
-      });
+        setState({
+          user,
+          isAuthenticated: true,
+          isLoading: false,
+          error: null,
+        });
 
-      // Redireciona baseado na role
-      switch (user.role) {
-        case 'super_admin':
-          router.push('/super-admin');
-          break;
-        case 'admin':
-          router.push('/admin');
-          break;
-        case 'customer':
-          router.push('/menu');
-          break;
-        default:
-          router.push('/');
+        // Redireciona baseado na role
+        switch (user.role) {
+          case "super_admin":
+            router.push("/super-admin");
+            break;
+          case "admin":
+            router.push("/admin");
+            break;
+          case "customer":
+            router.push("/menu");
+            break;
+          default:
+            router.push("/");
+        }
+      } catch (error) {
+        const errorMessage =
+          error instanceof Error ? error.message : "Erro ao fazer login";
+        setState((prev) => ({
+          ...prev,
+          isLoading: false,
+          error: errorMessage,
+        }));
+        throw error;
       }
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Erro ao fazer login';
-      setState((prev) => ({
-        ...prev,
-        isLoading: false,
-        error: errorMessage,
-      }));
-      throw error;
-    }
-  }, [router]);
+    },
+    [router]
+  );
 
   /**
    * Registra novo usuário
    */
-  const register = useCallback(async (data: RegisterData) => {
-    setState((prev) => ({ ...prev, isLoading: true, error: null }));
+  const register = useCallback(
+    async (data: RegisterData) => {
+      setState((prev) => ({ ...prev, isLoading: true, error: null }));
 
-    try {
-      const { user, tokens } = await authService.register(data);
+      try {
+        const { user, tokens } = await authService.register(data);
 
-      localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
-      localStorage.setItem(TOKEN_STORAGE_KEY, JSON.stringify(tokens));
-      setToken(tokens.accessToken);
+        localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
+        localStorage.setItem(TOKEN_STORAGE_KEY, JSON.stringify(tokens));
+        setToken(tokens.accessToken);
 
-      setState({
-        user,
-        isAuthenticated: true,
-        isLoading: false,
-        error: null,
-      });
+        setState({
+          user,
+          isAuthenticated: true,
+          isLoading: false,
+          error: null,
+        });
 
-      router.push('/menu');
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Erro ao criar conta';
-      setState((prev) => ({
-        ...prev,
-        isLoading: false,
-        error: errorMessage,
-      }));
-      throw error;
-    }
-  }, [router]);
+        router.push("/menu");
+      } catch (error) {
+        const errorMessage =
+          error instanceof Error ? error.message : "Erro ao criar conta";
+        setState((prev) => ({
+          ...prev,
+          isLoading: false,
+          error: errorMessage,
+        }));
+        throw error;
+      }
+    },
+    [router]
+  );
 
   /**
    * Realiza logout
@@ -202,7 +217,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     });
 
     // Redireciona para login
-    router.push('/login');
+    router.push("/login");
   }, [router]);
 
   /**
@@ -234,9 +249,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   );
 
   // Computed properties para verificação rápida de role
-  const isSuperAdmin = useMemo(() => state.user?.role === 'super_admin', [state.user]);
-  const isAdmin = useMemo(() => state.user?.role === 'admin', [state.user]);
-  const isCustomer = useMemo(() => state.user?.role === 'customer', [state.user]);
+  const isSuperAdmin = useMemo(
+    () => state.user?.role === "super_admin",
+    [state.user]
+  );
+  const isAdmin = useMemo(() => state.user?.role === "admin", [state.user]);
+  const isCustomer = useMemo(
+    () => state.user?.role === "customer",
+    [state.user]
+  );
 
   const contextValue = useMemo(
     () => ({
@@ -251,10 +272,23 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       isCustomer,
       token,
     }),
-    [state, login, register, logout, updateUser, hasPermission, isSuperAdmin, isAdmin, isCustomer, token]
+    [
+      state,
+      login,
+      register,
+      logout,
+      updateUser,
+      hasPermission,
+      isSuperAdmin,
+      isAdmin,
+      isCustomer,
+      token,
+    ]
   );
 
-  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
+  );
 };
 
 /**
@@ -264,7 +298,7 @@ export const useAuth = (): AuthContextData => {
   const context = useContext(AuthContext);
 
   if (!context) {
-    throw new Error('useAuth deve ser usado dentro de um AuthProvider');
+    throw new Error("useAuth deve ser usado dentro de um AuthProvider");
   }
 
   return context;
@@ -284,9 +318,9 @@ export const withAuth = <P extends object>(
     useEffect(() => {
       if (!isLoading) {
         if (!isAuthenticated) {
-          router.push('/login');
+          router.push("/login");
         } else if (!hasPermission(allowedRoles)) {
-          router.push('/unauthorized');
+          router.push("/unauthorized");
         }
       }
     }, [isAuthenticated, isLoading, hasPermission, router]);

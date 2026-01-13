@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
 /**
  * Componente de gestão de pedidos
  * Lista e gerencia pedidos do quiosque
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect, useCallback } from "react";
+import styled from "styled-components";
 import {
   Box,
   Typography,
@@ -21,17 +21,17 @@ import {
   Tabs,
   Tab,
   Button,
-} from '@mui/material';
+} from "@mui/material";
 import {
   Refresh as RefreshIcon,
   AccessTime as TimeIcon,
   Person as PersonIcon,
   TableRestaurant as TableIcon,
-} from '@mui/icons-material';
-import { Card } from '@/components';
-import { orderService } from '@/services';
-import { Order, OrderStatus } from '@/types';
-import { formatCurrency, formatDate } from '@/utils';
+} from "@mui/icons-material";
+import { Card } from "@/components";
+import { orderService } from "@/services";
+import { Order, OrderStatus } from "@/types";
+import { formatCurrency, formatDate } from "@/utils";
 
 // Styled Components
 const PageContainer = styled.div`
@@ -67,24 +67,25 @@ const OrdersGrid = styled.div`
 `;
 
 const OrderCard = styled(Card)<{ $status: OrderStatus }>`
-  border-left: 4px solid ${({ $status, theme }) => {
-    switch ($status) {
-      case 'pending':
-        return '#FFA726';
-      case 'confirmed':
-        return '#42A5F5';
-      case 'preparing':
-        return '#AB47BC';
-      case 'ready':
-        return '#66BB6A';
-      case 'delivered':
-        return theme.colors.success;
-      case 'cancelled':
-        return theme.colors.error;
-      default:
-        return theme.colors.border;
-    }
-  }};
+  border-left: 4px solid
+    ${({ $status, theme }) => {
+      switch ($status) {
+        case "pending":
+          return "#FFA726";
+        case "confirmed":
+          return "#42A5F5";
+        case "preparing":
+          return "#AB47BC";
+        case "ready":
+          return "#66BB6A";
+        case "delivered":
+          return theme.colors.success;
+        case "cancelled":
+          return theme.colors.error;
+        default:
+          return theme.colors.border;
+      }
+    }};
 `;
 
 const OrderHeader = styled.div`
@@ -119,32 +120,39 @@ const CustomerInfo = styled.div`
   align-items: center;
   gap: ${({ theme }) => theme.spacing.xs};
   font-size: 0.875rem;
-  color: ${({ theme }) => theme.colors.textSecondary};
+  color: ${({ theme }) => theme.colors.text.secondary};
 `;
 
 const statusLabels: Record<OrderStatus, string> = {
-  pending: 'Pendente',
-  confirmed: 'Confirmado',
-  preparing: 'Preparando',
-  ready: 'Pronto',
-  delivered: 'Entregue',
-  cancelled: 'Cancelado',
+  pending: "Pendente",
+  confirmed: "Confirmado",
+  preparing: "Preparando",
+  ready: "Pronto",
+  delivered: "Entregue",
+  cancelled: "Cancelado",
 };
 
-const statusColors: Record<OrderStatus, 'warning' | 'info' | 'secondary' | 'success' | 'default' | 'error'> = {
-  pending: 'warning',
-  confirmed: 'info',
-  preparing: 'secondary',
-  ready: 'success',
-  delivered: 'default',
-  cancelled: 'error',
+const statusColors: Record<
+  OrderStatus,
+  "warning" | "info" | "secondary" | "success" | "default" | "error"
+> = {
+  pending: "warning",
+  confirmed: "info",
+  preparing: "secondary",
+  ready: "success",
+  delivered: "default",
+  cancelled: "error",
 };
 
 const statusStats = [
-  { status: 'pending' as OrderStatus, label: 'Pendentes', color: '#FFA726' },
-  { status: 'confirmed' as OrderStatus, label: 'Confirmados', color: '#42A5F5' },
-  { status: 'preparing' as OrderStatus, label: 'Preparando', color: '#AB47BC' },
-  { status: 'ready' as OrderStatus, label: 'Prontos', color: '#66BB6A' },
+  { status: "pending" as OrderStatus, label: "Pendentes", color: "#FFA726" },
+  {
+    status: "confirmed" as OrderStatus,
+    label: "Confirmados",
+    color: "#42A5F5",
+  },
+  { status: "preparing" as OrderStatus, label: "Preparando", color: "#AB47BC" },
+  { status: "ready" as OrderStatus, label: "Prontos", color: "#66BB6A" },
 ];
 
 const OrdersPage: React.FC = () => {
@@ -153,10 +161,10 @@ const OrdersPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [tabValue, setTabValue] = useState(0);
-  const [statusFilter, setStatusFilter] = useState<OrderStatus | 'all'>('all');
+  const [statusFilter, setStatusFilter] = useState<OrderStatus | "all">("all");
 
   // Simula kioskId do usuário logado
-  const kioskId = 'kiosk_001';
+  const kioskId = "kiosk_001";
 
   // Carrega pedidos
   const loadData = useCallback(async () => {
@@ -167,7 +175,7 @@ const OrdersPage: React.FC = () => {
       setFilteredOrders(data);
       setError(null);
     } catch (err) {
-      setError('Erro ao carregar pedidos');
+      setError("Erro ao carregar pedidos");
       console.error(err);
     } finally {
       setLoading(false);
@@ -180,7 +188,7 @@ const OrdersPage: React.FC = () => {
 
   // Filtra pedidos por status
   useEffect(() => {
-    if (statusFilter === 'all') {
+    if (statusFilter === "all") {
       setFilteredOrders(orders);
     } else {
       setFilteredOrders(orders.filter((o) => o.status === statusFilter));
@@ -189,15 +197,24 @@ const OrdersPage: React.FC = () => {
 
   // Filtra pedidos por tab
   useEffect(() => {
-    const activeStatuses: OrderStatus[] = ['pending', 'confirmed', 'preparing', 'ready'];
-    const completedStatuses: OrderStatus[] = ['delivered', 'cancelled'];
+    const activeStatuses: OrderStatus[] = [
+      "pending",
+      "confirmed",
+      "preparing",
+      "ready",
+    ];
+    const completedStatuses: OrderStatus[] = ["delivered", "cancelled"];
 
     if (tabValue === 0) {
       // Ativos
-      setFilteredOrders(orders.filter((o) => activeStatuses.includes(o.status)));
+      setFilteredOrders(
+        orders.filter((o) => activeStatuses.includes(o.status))
+      );
     } else {
       // Histórico
-      setFilteredOrders(orders.filter((o) => completedStatuses.includes(o.status)));
+      setFilteredOrders(
+        orders.filter((o) => completedStatuses.includes(o.status))
+      );
     }
   }, [orders, tabValue]);
 
@@ -207,22 +224,25 @@ const OrdersPage: React.FC = () => {
   };
 
   // Atualiza status do pedido
-  const handleUpdateStatus = async (orderId: string, newStatus: OrderStatus) => {
+  const handleUpdateStatus = async (
+    orderId: string,
+    newStatus: OrderStatus
+  ) => {
     try {
       await orderService.updateStatus(orderId, newStatus);
       await loadData();
     } catch (err) {
-      console.error('Erro ao atualizar pedido:', err);
+      console.error("Erro ao atualizar pedido:", err);
     }
   };
 
   // Próximo status
   const getNextStatus = (currentStatus: OrderStatus): OrderStatus | null => {
     const flow: Partial<Record<OrderStatus, OrderStatus>> = {
-      pending: 'confirmed',
-      confirmed: 'preparing',
-      preparing: 'ready',
-      ready: 'delivered',
+      pending: "confirmed",
+      confirmed: "preparing",
+      preparing: "ready",
+      ready: "delivered",
     };
     return flow[currentStatus] || null;
   };
@@ -235,7 +255,12 @@ const OrdersPage: React.FC = () => {
   if (loading) {
     return (
       <PageContainer>
-        <Box display="flex" justifyContent="center" alignItems="center" minHeight="400px">
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          minHeight="400px"
+        >
           <CircularProgress />
         </Box>
       </PageContainer>
@@ -274,10 +299,22 @@ const OrdersPage: React.FC = () => {
       </StatsCards>
 
       {/* Tabs */}
-      <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
+      <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 3 }}>
         <Tabs value={tabValue} onChange={(_, v) => setTabValue(v)}>
-          <Tab label={`Ativos (${orders.filter((o) => !['delivered', 'cancelled'].includes(o.status)).length})`} />
-          <Tab label={`Histórico (${orders.filter((o) => ['delivered', 'cancelled'].includes(o.status)).length})`} />
+          <Tab
+            label={`Ativos (${
+              orders.filter(
+                (o) => !["delivered", "cancelled"].includes(o.status)
+              ).length
+            })`}
+          />
+          <Tab
+            label={`Histórico (${
+              orders.filter((o) =>
+                ["delivered", "cancelled"].includes(o.status)
+              ).length
+            })`}
+          />
         </Tabs>
       </Box>
 
@@ -289,7 +326,9 @@ const OrdersPage: React.FC = () => {
             <Select
               value={statusFilter}
               label="Status"
-              onChange={(e) => setStatusFilter(e.target.value as OrderStatus | 'all')}
+              onChange={(e) =>
+                setStatusFilter(e.target.value as OrderStatus | "all")
+              }
             >
               <MenuItem value="all">Todos</MenuItem>
               <MenuItem value="delivered">Entregues</MenuItem>
@@ -332,13 +371,7 @@ const OrdersPage: React.FC = () => {
               <OrderBody>
                 <CustomerInfo style={{ marginBottom: 12 }}>
                   <PersonIcon fontSize="small" />
-                  {order.customerName}
-                  {order.tableNumber && (
-                    <>
-                      <TableIcon fontSize="small" style={{ marginLeft: 8 }} />
-                      Mesa {order.tableNumber}
-                    </>
-                  )}
+                  Cliente {order.customerId.slice(-4)}
                 </CustomerInfo>
 
                 {order.items.slice(0, 3).map((item) => (
@@ -346,7 +379,7 @@ const OrdersPage: React.FC = () => {
                     <span>
                       {item.quantity}x {item.productName}
                     </span>
-                    <span>{formatCurrency(item.totalPrice)}</span>
+                    <span>{formatCurrency(item.total)}</span>
                   </OrderItem>
                 ))}
 
@@ -366,18 +399,20 @@ const OrdersPage: React.FC = () => {
                   <Button
                     variant="contained"
                     size="small"
-                    onClick={() => handleUpdateStatus(order.id, getNextStatus(order.status)!)}
+                    onClick={() =>
+                      handleUpdateStatus(order.id, getNextStatus(order.status)!)
+                    }
                   >
                     {getNextStatusLabel(order.status)}
                   </Button>
                 )}
 
-                {order.status === 'pending' && (
+                {order.status === "pending" && (
                   <Button
                     variant="outlined"
                     size="small"
                     color="error"
-                    onClick={() => handleUpdateStatus(order.id, 'cancelled')}
+                    onClick={() => handleUpdateStatus(order.id, "cancelled")}
                     sx={{ ml: 1 }}
                   >
                     Cancelar
@@ -393,4 +428,3 @@ const OrdersPage: React.FC = () => {
 };
 
 export default OrdersPage;
-

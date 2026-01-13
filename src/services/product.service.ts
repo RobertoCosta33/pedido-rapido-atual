@@ -65,8 +65,8 @@ const mockProducts: Product[] = [
     preparationTime: 15,
     allergens: ['gluten', 'lactose'],
     tags: ['mais vendido', 'carne'],
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   },
   {
     id: '2',
@@ -81,8 +81,8 @@ const mockProducts: Product[] = [
     preparationTime: 18,
     allergens: ['gluten', 'lactose'],
     tags: ['bacon', 'carne'],
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   },
   {
     id: '3',
@@ -97,8 +97,8 @@ const mockProducts: Product[] = [
     preparationTime: 1,
     allergens: [],
     tags: ['bebida', 'gelado'],
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   },
   {
     id: '4',
@@ -113,8 +113,8 @@ const mockProducts: Product[] = [
     preparationTime: 10,
     allergens: ['gluten'],
     tags: ['porção', 'frito'],
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   },
   {
     id: '5',
@@ -129,8 +129,8 @@ const mockProducts: Product[] = [
     preparationTime: 5,
     allergens: ['gluten', 'lactose', 'eggs'],
     tags: ['doce', 'chocolate'],
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   },
 ];
 
@@ -167,8 +167,8 @@ const mockKiosks: Kiosk[] = [
     isActive: true,
     isPublic: true,
     licenseExpiry: new Date('2025-12-31'),
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
     ownerId: '2',
     settings: {
       allowOnlineOrders: true,
@@ -199,7 +199,7 @@ export const productService = {
     }
     
     const response = await api.get<Category[]>(`/kiosks/${kioskId}/categories`);
-    return response.data;
+    return response;
   },
 
   /**
@@ -222,7 +222,7 @@ export const productService = {
     }
     
     const response = await api.post<Category>(`/kiosks/${kioskId}/categories`, data);
-    return response.data;
+    return response;
   },
 
   /**
@@ -240,7 +240,7 @@ export const productService = {
     }
     
     const response = await api.put<Category>(`/categories/${categoryId}`, data);
-    return response.data;
+    return response;
   },
 
   /**
@@ -300,7 +300,7 @@ export const productService = {
     }
     
     const response = await api.get<PaginatedResponse<Product>>(`/kiosks/${kioskId}/products`, params);
-    return response.data;
+    return response;
   },
 
   /**
@@ -315,7 +315,7 @@ export const productService = {
     }
     
     const response = await api.get<Product>(`/products/${productId}`);
-    return response.data;
+    return response;
   },
 
   /**
@@ -337,15 +337,15 @@ export const productService = {
         preparationTime: data.preparationTime || 10,
         allergens: data.allergens || [],
         tags: data.tags || [],
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
       };
       mockProducts.push(newProduct);
       return newProduct;
     }
     
     const response = await api.post<Product>(`/kiosks/${kioskId}/products`, data);
-    return response.data;
+    return response;
   },
 
   /**
@@ -356,14 +356,14 @@ export const productService = {
       await simulateDelay();
       const index = mockProducts.findIndex((p) => p.id === productId);
       if (index !== -1) {
-        mockProducts[index] = { ...mockProducts[index], ...data, updatedAt: new Date() };
+        mockProducts[index] = { ...mockProducts[index], ...data, updatedAt: new Date().toISOString() };
         return mockProducts[index];
       }
       throw new Error('Produto não encontrado');
     }
     
     const response = await api.put<Product>(`/products/${productId}`, data);
-    return response.data;
+    return response;
   },
 
   /**
@@ -392,7 +392,7 @@ export const productService = {
     }
     
     const response = await api.get<Kiosk[]>('/kiosks');
-    return response.data;
+    return response;
   },
 
   /**
@@ -407,7 +407,7 @@ export const productService = {
     }
     
     const response = await api.get<Kiosk>(`/kiosks/${idOrSlug}`);
-    return response.data;
+    return response;
   },
 
   /**
@@ -420,15 +420,15 @@ export const productService = {
         ...mockKiosks[0],
         id: String(mockKiosks.length + 1),
         ...data,
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
       } as Kiosk;
       mockKiosks.push(newKiosk);
       return newKiosk;
     }
     
     const response = await api.post<Kiosk>('/kiosks', data);
-    return response.data;
+    return response;
   },
 
   /**
@@ -439,14 +439,14 @@ export const productService = {
       await simulateDelay();
       const index = mockKiosks.findIndex((k) => k.id === kioskId);
       if (index !== -1) {
-        mockKiosks[index] = { ...mockKiosks[index], ...data, updatedAt: new Date() };
+        mockKiosks[index] = { ...mockKiosks[index], ...data, updatedAt: new Date().toISOString() };
         return mockKiosks[index];
       }
       throw new Error('Quiosque não encontrado');
     }
     
     const response = await api.put<Kiosk>(`/kiosks/${kioskId}`, data);
-    return response.data;
+    return response;
   },
 
   /**
@@ -472,13 +472,13 @@ export const productService = {
               isAvailable: p.isAvailable,
             })),
         })),
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
       };
     }
     
     const response = await api.get<Menu>(`/kiosks/${kioskId}/menu/active`);
-    return response.data;
+    return response;
   },
 };
 

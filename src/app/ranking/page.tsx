@@ -1,55 +1,44 @@
 /**
- * Página de Ranking Público
- * Exibe os melhores quiosques, pratos, bebidas e funcionários
+ * Página de Rankings Públicos
+ * Mostra os top 10 de quiosques, produtos e funcionários
  */
 
-import { Metadata } from 'next';
-import RankingPage from './RankingPage';
+import React from "react";
+import { Metadata } from "next";
+import { Container, Typography, Box, Tabs, Tab } from "@mui/material";
+import { Navbar } from "@/components/Navbar";
+import { RankingTabs } from "@/components/RankingTabs";
 
 export const metadata: Metadata = {
-  title: 'Ranking dos Melhores Quiosques | Pedido Rápido',
-  description: 'Descubra os melhores quiosques de praia do Brasil. Veja avaliações reais, notas e comentários de clientes. Top 10 quiosques, pratos e bebidas mais bem avaliados.',
-  keywords: [
-    'melhores quiosques',
-    'ranking quiosques',
-    'quiosques de praia',
-    'avaliações quiosques',
-    'melhores pratos praia',
-    'bebidas praia',
-    'pedido rápido ranking',
-  ],
+  title: "Rankings",
+  description:
+    "Veja os melhores quiosques, produtos e funcionários avaliados pelos usuários",
   openGraph: {
-    title: 'Ranking dos Melhores Quiosques | Pedido Rápido',
-    description: 'Descubra os melhores quiosques de praia do Brasil com avaliações reais de clientes.',
-    type: 'website',
-    locale: 'pt_BR',
-    siteName: 'Pedido Rápido',
-    images: [
-      {
-        url: '/og-ranking.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Ranking de Quiosques - Pedido Rápido',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Ranking dos Melhores Quiosques',
-    description: 'Top 10 quiosques mais bem avaliados',
-  },
-  alternates: {
-    canonical: '/ranking',
-  },
-  robots: {
-    index: true,
-    follow: true,
+    title: "Rankings - Pedido Rápido",
+    description:
+      "Veja os melhores quiosques, produtos e funcionários avaliados pelos usuários",
   },
 };
 
-const Ranking = () => {
-  return <RankingPage />;
+const RankingPage: React.FC = () => {
+  return (
+    <>
+      <Navbar />
+      <Container maxWidth="lg" sx={{ py: 4 }}>
+        <Box mb={4}>
+          <Typography variant="h3" component="h1" gutterBottom>
+            Rankings
+          </Typography>
+          <Typography variant="body1" color="text.secondary">
+            Descubra os melhores quiosques, produtos e funcionários avaliados
+            pela nossa comunidade
+          </Typography>
+        </Box>
+
+        <RankingTabs />
+      </Container>
+    </>
+  );
 };
 
-export default Ranking;
-
+export default RankingPage;

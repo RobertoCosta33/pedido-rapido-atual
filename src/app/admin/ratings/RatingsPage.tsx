@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
 /**
  * Página de Avaliações do Quiosque
  * Exibe estatísticas e lista de avaliações recebidas
  */
 
-import { useState, useEffect, useCallback } from 'react';
-import styled from 'styled-components';
+import { useState, useEffect, useCallback } from "react";
+import styled from "styled-components";
 import {
   Box,
   Paper,
@@ -26,7 +26,7 @@ import {
   CircularProgress,
   Alert,
   Button,
-} from '@mui/material';
+} from "@mui/material";
 import {
   Star as StarIcon,
   Restaurant as RestaurantIcon,
@@ -34,9 +34,14 @@ import {
   Store as StoreIcon,
   ThumbUp as ServiceIcon,
   TrendingUp as TrendingUpIcon,
-} from '@mui/icons-material';
-import { useAuth } from '@/contexts/AuthContext';
-import { ratingService, licenseService, Rating as RatingType, RatingType as RatingTypeEnum } from '@/services';
+} from "@mui/icons-material";
+import { useAuth } from "@/contexts/AuthContext";
+import {
+  ratingService,
+  licenseService,
+  Rating as RatingType,
+  RatingType as RatingTypeEnum,
+} from "@/services";
 
 // Styled Components
 const PageContainer = styled.div`
@@ -90,7 +95,7 @@ const RatingsPage = () => {
    */
   const checkPermission = useCallback(async () => {
     if (!user?.kioskId) return false;
-    
+
     try {
       const license = await licenseService.getByKiosk(user.kioskId);
       return license?.features?.publicRanking === true;
@@ -104,25 +109,36 @@ const RatingsPage = () => {
    */
   const loadData = useCallback(async () => {
     if (!user?.kioskId) return;
-    
+
     setLoading(true);
     try {
       const [hasAccess, statsData, ratingsData] = await Promise.all([
         checkPermission(),
-        ratingService.getKioskStats(user.kioskId),
-        ratingService.getByKiosk(user.kioskId),
+        ratingService.getStats("kiosk", user.kioskId),
+        ratingService.getByTarget("kiosk", user.kioskId),
       ]);
-      
+
       setHasPermission(hasAccess);
-      
+
       if (hasAccess) {
-        setStats(statsData);
-        setRatings(ratingsData.sort((a, b) => 
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-        ));
+        // Ajustar statsData para corresponder ao tipo StatsData
+        const adjustedStats: StatsData = {
+          averageRating: statsData.averageRating,
+          totalRatings: statsData.totalRatings,
+          ratingsByType: {},
+          distribution: {},
+          recentRatings: [],
+        };
+        setStats(adjustedStats);
+        setRatings(
+          ratingsData.sort(
+            (a, b) =>
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          )
+        );
       }
     } catch (error) {
-      console.error('Erro ao carregar avaliações:', error);
+      console.error("Erro ao carregar avaliações:", error);
     } finally {
       setLoading(false);
     }
@@ -137,11 +153,11 @@ const RatingsPage = () => {
    */
   const getTypeIcon = (type: string) => {
     switch (type) {
-      case 'product':
+      case "product":
         return <RestaurantIcon fontSize="small" />;
-      case 'employee':
+      case "employee":
         return <PersonIcon fontSize="small" />;
-      case 'service':
+      case "service":
         return <ServiceIcon fontSize="small" />;
       default:
         return <StoreIcon fontSize="small" />;
@@ -153,10 +169,10 @@ const RatingsPage = () => {
    */
   const getTypeLabel = (type: string) => {
     const labels: Record<string, string> = {
-      product: 'Produto',
-      employee: 'Funcionário',
-      kiosk: 'Quiosque',
-      service: 'Atendimento',
+      product: "Produto",
+      employee: "Funcionário",
+      kiosk: "Quiosque",
+      service: "Atendimento",
     };
     return labels[type] || type;
   };
@@ -173,7 +189,12 @@ const RatingsPage = () => {
   if (loading) {
     return (
       <PageContainer>
-        <Box display="flex" justifyContent="center" alignItems="center" minHeight="400px">
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          minHeight="400px"
+        >
           <CircularProgress />
         </Box>
       </PageContainer>
@@ -189,7 +210,8 @@ const RatingsPage = () => {
             Funcionalidade não disponível
           </Typography>
           <Typography>
-            A visualização de avaliações e ranking está disponível apenas nos planos Professional e Premium.
+            A visualização de avaliações e ranking está disponível apenas nos
+            planos Professional e Premium.
           </Typography>
           <Button variant="contained" sx={{ mt: 2 }} href="/admin/upgrade">
             Fazer Upgrade
@@ -213,9 +235,14 @@ const RatingsPage = () => {
       {/* Estatísticas Gerais */}
       <StatsGrid>
         <StatCard elevation={2}>
-          <Box display="flex" alignItems="center" justifyContent="center" gap={1}>
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            gap={1}
+          >
             <Typography variant="h3" color="primary">
-              {stats?.averageRating?.toFixed(1) || '0.0'}
+              {stats?.averageRating?.toFixed(1) || "0.0"}
             </Typography>
             <StarIcon color="warning" sx={{ fontSize: 40 }} />
           </Box>
@@ -225,21 +252,28 @@ const RatingsPage = () => {
           </Typography>
         </StatCard>
 
-        {stats?.ratingsByType && Object.entries(stats.ratingsByType).map(([type, data]) => (
-          <StatCard key={type} elevation={2}>
-            <Box display="flex" alignItems="center" justifyContent="center" gap={0.5} mb={1}>
-              {getTypeIcon(type)}
-              <Typography variant="h4">
-                {data.average.toFixed(1)}
+        {stats?.ratingsByType &&
+          Object.entries(stats.ratingsByType).map(([type, data]) => (
+            <StatCard key={type} elevation={2}>
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                gap={0.5}
+                mb={1}
+              >
+                {getTypeIcon(type)}
+                <Typography variant="h4">{data.average.toFixed(1)}</Typography>
+                <StarIcon color="warning" fontSize="small" />
+              </Box>
+              <Typography color="textSecondary">
+                {getTypeLabel(type)}
               </Typography>
-              <StarIcon color="warning" fontSize="small" />
-            </Box>
-            <Typography color="textSecondary">{getTypeLabel(type)}</Typography>
-            <Typography variant="caption" color="textSecondary">
-              {data.count} avaliações
-            </Typography>
-          </StatCard>
-        ))}
+              <Typography variant="caption" color="textSecondary">
+                {data.count} avaliações
+              </Typography>
+            </StatCard>
+          ))}
       </StatsGrid>
 
       {/* Distribuição de Notas */}
@@ -259,19 +293,28 @@ const RatingsPage = () => {
                 <LinearProgress
                   variant="determinate"
                   value={getDistributionPercent(star)}
-                  sx={{ 
-                    height: 10, 
+                  sx={{
+                    height: 10,
                     borderRadius: 5,
-                    backgroundColor: 'action.disabledBackground',
-                    '& .MuiLinearProgress-bar': {
+                    backgroundColor: "action.disabledBackground",
+                    "& .MuiLinearProgress-bar": {
                       borderRadius: 5,
-                      backgroundColor: star >= 4 ? 'success.main' : star === 3 ? 'warning.main' : 'error.main',
+                      backgroundColor:
+                        star >= 4
+                          ? "success.main"
+                          : star === 3
+                          ? "warning.main"
+                          : "error.main",
                     },
                   }}
                 />
               </Box>
-              <Typography sx={{ minWidth: 50, textAlign: 'right' }} color="textSecondary">
-                {stats?.distribution[star] || 0} ({getDistributionPercent(star).toFixed(0)}%)
+              <Typography
+                sx={{ minWidth: 50, textAlign: "right" }}
+                color="textSecondary"
+              >
+                {stats?.distribution[star] || 0} (
+                {getDistributionPercent(star).toFixed(0)}%)
               </Typography>
             </DistributionRow>
           ))}
@@ -311,7 +354,9 @@ const RatingsPage = () => {
                       <Avatar sx={{ width: 32, height: 32 }}>
                         {rating.customerName.charAt(0)}
                       </Avatar>
-                      <Typography variant="body2">{rating.customerName}</Typography>
+                      <Typography variant="body2">
+                        {rating.customerName}
+                      </Typography>
                     </Box>
                   </TableCell>
                   <TableCell>
@@ -332,23 +377,23 @@ const RatingsPage = () => {
                     </Box>
                   </TableCell>
                   <TableCell>
-                    <Typography 
-                      variant="body2" 
+                    <Typography
+                      variant="body2"
                       color="textSecondary"
-                      sx={{ 
-                        maxWidth: 300, 
-                        overflow: 'hidden', 
-                        textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap',
+                      sx={{
+                        maxWidth: 300,
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
                       }}
                       title={rating.comment}
                     >
-                      {rating.comment || '—'}
+                      {rating.comment || "—"}
                     </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography variant="body2" color="textSecondary">
-                      {new Date(rating.createdAt).toLocaleDateString('pt-BR')}
+                      {new Date(rating.createdAt).toLocaleDateString("pt-BR")}
                     </Typography>
                   </TableCell>
                 </TableRow>
@@ -362,4 +407,3 @@ const RatingsPage = () => {
 };
 
 export default RatingsPage;
-
