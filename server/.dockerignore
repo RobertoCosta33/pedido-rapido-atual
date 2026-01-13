@@ -1,0 +1,70 @@
+# =============================================================================
+# .dockerignore - PEDIDO RÁPIDO API
+# Arquivos e pastas a serem ignorados durante o build do Docker
+# =============================================================================
+
+# Documentação
+*.md
+README*
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Visual Studio / VS Code
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build outputs
+**/bin/
+**/obj/
+**/out/
+
+# NuGet
+packages/
+*.nupkg
+*.snupkg
+
+# Test results
+TestResults/
+[Tt]est[Rr]esult*/
+*.trx
+*.coverage
+*.coveragexml
+
+# Logs
+logs/
+*.log
+
+# Runtime files
+*.pid
+*.seed
+*.pid.lock
+
+# Environment files (podem conter secrets)
+.env
+.env.local
+.env.production
+
+# Temporary files
+*.tmp
+*.temp
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Docker
+Dockerfile*
+.dockerignore
