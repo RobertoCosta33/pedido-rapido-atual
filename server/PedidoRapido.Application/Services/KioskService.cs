@@ -137,11 +137,11 @@ public class KioskService : IKioskService
 
     public async Task<IEnumerable<KioskRankingDto>> GetTopRatedAsync(int limit = 10)
     {
-        var topRated = await _ratingRepository.GetTopRatedAsync(RatingType.Kiosk, limit);
+        var topRated = await _ratingRepository.GetTopRatedAsync(RatingTargetType.Kiosk, limit);
         var result = new List<KioskRankingDto>();
         int position = 1;
 
-        foreach (var (targetId, targetName, average, count) in topRated)
+        foreach (var (targetId, average, count) in topRated)
         {
             var kiosk = await _kioskRepository.GetByIdAsync(targetId);
             if (kiosk == null) continue;
@@ -168,7 +168,7 @@ public class KioskService : IKioskService
 
     private async Task<KioskDto> ToDto(Kiosk kiosk)
     {
-        var ratings = await _ratingRepository.GetByTargetAsync(RatingType.Kiosk, kiosk.Id);
+        var ratings = await _ratingRepository.GetByTargetAsync(RatingTargetType.Kiosk, kiosk.Id);
         var ratingsList = ratings.ToList();
         var average = ratingsList.Count > 0 ? ratingsList.Average(r => r.Score) : 0;
         

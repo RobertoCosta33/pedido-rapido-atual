@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PedidoRapido.Application.DTOs;
 using PedidoRapido.Application.Interfaces;
 using PedidoRapido.Domain.Entities;
+using System.Security.Claims;
 
 namespace PedidoRapido.API.Controllers;
 
@@ -24,26 +26,15 @@ public class RatingsController : ControllerBase
     }
 
     /// <summary>
-    /// Lista avaliações de um quiosque
-    /// </summary>
-    [HttpGet("kiosk/{kioskId:guid}")]
-    [ProducesResponseType(typeof(IEnumerable<RatingDto>), StatusCodes.Status200OK)]
-    public async Task<ActionResult<IEnumerable<RatingDto>>> GetByKiosk(Guid kioskId)
-    {
-        var ratings = await _ratingService.GetByKioskIdAsync(kioskId);
-        return Ok(ratings);
-    }
-
-    /// <summary>
     /// Lista avaliações de um alvo específico
     /// </summary>
     [HttpGet("target")]
     [ProducesResponseType(typeof(IEnumerable<RatingDto>), StatusCodes.Status200OK)]
     public async Task<ActionResult<IEnumerable<RatingDto>>> GetByTarget(
-        [FromQuery] RatingType type, 
+        [FromQuery] RatingTargetType targetType, 
         [FromQuery] Guid targetId)
     {
-        var ratings = await _ratingService.GetByTargetAsync(type, targetId);
+        var ratings = await _ratingService.GetByTargetAsync(targetType, targetId);
         return Ok(ratings);
     }
 
@@ -63,16 +54,23 @@ public class RatingsController : ControllerBase
     }
 
     /// <summary>
-    /// Cria uma nova avaliação
+    /// Cria uma nova avaliação (requer autenticação)
     /// </summary>
     [HttpPost]
+    [Authorize]
     [ProducesResponseType(typeof(RatingDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<RatingDto>> Create([FromBody] CreateRatingDto dto)
     {
         try
         {
-            var rating = await _ratingService.CreateAsync(dto);
+            // Obter userId do token JWT
+            var userIdClaim = User.FindFirst("userId")?.Value;
+            if (string.IsNullOrEmpty(userIdClaim) || !Guid.TryParse(userIdClaim, out var userId))
+                return Unauthorized(new { message = "Token inválido" });
+
+            var rating = await _ratingService.CreateAsync(userId, dto);
             return CreatedAtAction(nameof(GetById), new { id = rating.Id }, rating);
         }
         catch (KeyNotFoundException ex)
@@ -83,21 +81,27 @@ public class RatingsController : ControllerBase
         {
             return BadRequest(new { message = ex.Message });
         }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Erro ao criar avaliação");
-            return BadRequest(new { message = ex.Message });
+            return StatusCode(500, new { message = "Erro interno do servidor" });
         }
     }
 
     /// <summary>
-    /// Obtém estatísticas de avaliações de um quiosque
+    /// Obtém estatísticas de avaliações de um alvo
     /// </summary>
-    [HttpGet("stats/{kioskId:guid}")]
+    [HttpGet("stats")]
     [ProducesResponseType(typeof(RatingStatsDto), StatusCodes.Status200OK)]
-    public async Task<ActionResult<RatingStatsDto>> GetStats(Guid kioskId)
+    public async Task<ActionResult<RatingStatsDto>> GetStats(
+        [FromQuery] RatingTargetType targetType,
+        [FromQuery] Guid targetId)
     {
-        var stats = await _ratingService.GetStatsAsync(kioskId);
+        var stats = await _ratingService.GetStatsAsync(targetType, targetId);
         return Ok(stats);
     }
 
@@ -105,13 +109,18 @@ public class RatingsController : ControllerBase
     /// Obtém média de avaliação de um alvo
     /// </summary>
     [HttpGet("average")]
-    [ProducesResponseType(typeof(double), StatusCodes.Status200OK)]
-    public async Task<ActionResult<double>> GetAverage(
-        [FromQuery] RatingType type, 
+    [ProducesResponseType(typeof(object), StatusCodes.Status200OK)]
+    public async Task<ActionResult<object>> GetAverage(
+        [FromQuery] RatingTargetType targetType, 
         [FromQuery] Guid targetId)
     {
-        var average = await _ratingService.GetAverageAsync(type, targetId);
-        return Ok(new { average = Math.Round(average, 1) });
+        var average = await _ratingService.GetAverageAsync(targetType, targetId);
+        var count = await _ratingService.GetCountAsync(targetType, targetId);
+        
+        return Ok(new { 
+            average = Math.Round(average, 1),
+            count = count
+        });
     }
 }
 

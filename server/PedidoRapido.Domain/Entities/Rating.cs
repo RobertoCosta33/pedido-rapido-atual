@@ -1,35 +1,30 @@
 namespace PedidoRapido.Domain.Entities;
 
 /// <summary>
-/// Avaliação feita por um cliente.
-/// Pode ser de quiosque, item do menu, funcionário ou atendimento.
+/// Avaliação feita por um usuário.
+/// Pode ser de quiosque, produto (MenuItem) ou funcionário (Employee).
 /// </summary>
 public class Rating : BaseEntity
 {
-    public Guid KioskId { get; set; }
-    public Guid? CustomerId { get; set; }
-    public string CustomerName { get; set; } = string.Empty;
+    public Guid UserId { get; set; }
     
-    public RatingType Type { get; set; }
+    public RatingTargetType TargetType { get; set; }
     public Guid TargetId { get; set; }
-    public string TargetName { get; set; } = string.Empty;
     
     public int Score { get; set; } // 1 a 5
     public string? Comment { get; set; }
     
     // Navegações
-    public Kiosk? Kiosk { get; set; }
-    public User? Customer { get; set; }
+    public User? User { get; set; }
 }
 
 /// <summary>
-/// Tipo de avaliação
+/// Tipo de alvo da avaliação
 /// </summary>
-public enum RatingType
+public enum RatingTargetType
 {
-    Kiosk = 0,
-    MenuItem = 1,
-    Employee = 2,
-    Service = 3
+    Kiosk = 1,
+    Product = 2,
+    Staff = 3
 }
 

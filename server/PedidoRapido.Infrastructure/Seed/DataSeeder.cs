@@ -417,12 +417,9 @@ public static class DataSeeder
                 ratings.Add(new Rating
                 {
                     Id = Guid.NewGuid(),
-                    KioskId = kiosk.Id,
-                    CustomerId = customer.Id,
-                    CustomerName = customer.Name,
-                    Type = RatingType.Kiosk,
+                    UserId = customer.Id,
+                    TargetType = RatingTargetType.Kiosk,
                     TargetId = kiosk.Id,
-                    TargetName = kiosk.Name,
                     Score = _random.Next(3, 6), // 3-5 estrelas
                     Comment = _random.NextDouble() > 0.3 ? Comments[_random.Next(Comments.Length)] : null,
                     CreatedAt = DateTime.UtcNow.AddDays(-_random.Next(1, 180))
@@ -437,16 +434,12 @@ public static class DataSeeder
             for (int i = 0; i < ratingCount; i++)
             {
                 var customer = customers[_random.Next(customers.Count)];
-                var kiosk = kiosks.First(k => k.Id == emp.KioskId);
                 ratings.Add(new Rating
                 {
                     Id = Guid.NewGuid(),
-                    KioskId = emp.KioskId,
-                    CustomerId = customer.Id,
-                    CustomerName = customer.Name,
-                    Type = RatingType.Employee,
+                    UserId = customer.Id,
+                    TargetType = RatingTargetType.Staff,
                     TargetId = emp.Id,
-                    TargetName = emp.Name,
                     Score = _random.Next(3, 6),
                     Comment = _random.NextDouble() > 0.5 ? "Ótimo atendimento!" : null,
                     CreatedAt = DateTime.UtcNow.AddDays(-_random.Next(1, 180))
@@ -461,16 +454,12 @@ public static class DataSeeder
             for (int i = 0; i < ratingCount; i++)
             {
                 var customer = customers[_random.Next(customers.Count)];
-                var kiosk = kiosks.First(k => k.Id == item.KioskId);
                 ratings.Add(new Rating
                 {
                     Id = Guid.NewGuid(),
-                    KioskId = item.KioskId,
-                    CustomerId = customer.Id,
-                    CustomerName = customer.Name,
-                    Type = RatingType.MenuItem,
+                    UserId = customer.Id,
+                    TargetType = RatingTargetType.Product,
                     TargetId = item.Id,
-                    TargetName = item.Name,
                     Score = _random.Next(3, 6),
                     Comment = _random.NextDouble() > 0.5 ? "Delicioso!" : null,
                     CreatedAt = DateTime.UtcNow.AddDays(-_random.Next(1, 180))
@@ -485,7 +474,7 @@ public static class DataSeeder
     {
         foreach (var emp in employees)
         {
-            var empRatings = ratings.Where(r => r.Type == RatingType.Employee && r.TargetId == emp.Id).ToList();
+            var empRatings = ratings.Where(r => r.TargetType == RatingTargetType.Staff && r.TargetId == emp.Id).ToList();
             if (empRatings.Count > 0)
             {
                 emp.AverageRating = empRatings.Average(r => r.Score);
@@ -495,7 +484,7 @@ public static class DataSeeder
 
         foreach (var item in items)
         {
-            var itemRatings = ratings.Where(r => r.Type == RatingType.MenuItem && r.TargetId == item.Id).ToList();
+            var itemRatings = ratings.Where(r => r.TargetType == RatingTargetType.Product && r.TargetId == item.Id).ToList();
             if (itemRatings.Count > 0)
             {
                 item.AverageRating = itemRatings.Average(r => r.Score);

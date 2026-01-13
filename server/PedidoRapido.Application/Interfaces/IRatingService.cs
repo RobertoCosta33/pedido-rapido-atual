@@ -9,10 +9,10 @@ namespace PedidoRapido.Application.Interfaces;
 public interface IRatingService
 {
     Task<RatingDto?> GetByIdAsync(Guid id);
-    Task<IEnumerable<RatingDto>> GetByKioskIdAsync(Guid kioskId);
-    Task<IEnumerable<RatingDto>> GetByTargetAsync(RatingType type, Guid targetId);
-    Task<RatingDto> CreateAsync(CreateRatingDto dto);
-    Task<RatingStatsDto> GetStatsAsync(Guid kioskId);
-    Task<double> GetAverageAsync(RatingType type, Guid targetId);
+    Task<IEnumerable<RatingDto>> GetByTargetAsync(RatingTargetType targetType, Guid targetId);
+    Task<RatingDto> CreateAsync(Guid userId, CreateRatingDto dto);
+    Task<RatingStatsDto> GetStatsAsync(RatingTargetType targetType, Guid targetId);
+    Task<double> GetAverageAsync(RatingTargetType targetType, Guid targetId);
+    Task<int> GetCountAsync(RatingTargetType targetType, Guid targetId);
 }
 

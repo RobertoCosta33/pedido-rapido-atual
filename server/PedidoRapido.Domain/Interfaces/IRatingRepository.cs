@@ -7,9 +7,29 @@ namespace PedidoRapido.Domain.Interfaces;
 /// </summary>
 public interface IRatingRepository : IRepository<Rating>
 {
-    Task<IEnumerable<Rating>> GetByKioskIdAsync(Guid kioskId);
-    Task<IEnumerable<Rating>> GetByTargetAsync(RatingType type, Guid targetId);
-    Task<double> GetAverageByTargetAsync(RatingType type, Guid targetId);
-    Task<IEnumerable<(Guid TargetId, string TargetName, double Average, int Count)>> GetTopRatedAsync(RatingType type, int limit = 10);
+    /// <summary>
+    /// Verifica se um usuário já avaliou um alvo específico
+    /// </summary>
+    Task<bool> HasUserRatedTargetAsync(Guid userId, RatingTargetType targetType, Guid targetId);
+    
+    /// <summary>
+    /// Obtém avaliações por tipo de alvo e ID do alvo
+    /// </summary>
+    Task<IEnumerable<Rating>> GetByTargetAsync(RatingTargetType targetType, Guid targetId);
+    
+    /// <summary>
+    /// Obtém média de avaliações por tipo de alvo e ID do alvo
+    /// </summary>
+    Task<double> GetAverageByTargetAsync(RatingTargetType targetType, Guid targetId);
+    
+    /// <summary>
+    /// Obtém contagem de avaliações por tipo de alvo e ID do alvo
+    /// </summary>
+    Task<int> GetCountByTargetAsync(RatingTargetType targetType, Guid targetId);
+    
+    /// <summary>
+    /// Obtém top rankings por tipo de alvo
+    /// </summary>
+    Task<IEnumerable<(Guid TargetId, double Average, int Count)>> GetTopRatedAsync(RatingTargetType targetType, int limit = 10);
 }
 

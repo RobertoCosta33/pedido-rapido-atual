@@ -7,12 +7,10 @@ namespace PedidoRapido.Application.DTOs;
 /// </summary>
 public record RatingDto(
     Guid Id,
-    Guid KioskId,
-    string KioskName,
-    string CustomerName,
-    string Type,
+    Guid UserId,
+    string UserName,
+    RatingTargetType TargetType,
     Guid TargetId,
-    string TargetName,
     int Score,
     string? Comment,
     DateTime CreatedAt
@@ -22,14 +20,22 @@ public record RatingDto(
 /// DTO para criação de Avaliação
 /// </summary>
 public record CreateRatingDto(
-    Guid KioskId,
-    Guid? CustomerId,
-    string CustomerName,
-    RatingType Type,
+    RatingTargetType TargetType,
     Guid TargetId,
-    string TargetName,
     int Score,
     string? Comment
+);
+
+/// <summary>
+/// DTO para item do ranking
+/// </summary>
+public record RankingItemDto(
+    Guid Id,
+    string Name,
+    double AverageRating,
+    int TotalRatings,
+    string? Description = null,
+    string? Image = null
 );
 
 /// <summary>

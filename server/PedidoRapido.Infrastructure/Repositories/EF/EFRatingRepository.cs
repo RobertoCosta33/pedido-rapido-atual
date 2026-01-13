@@ -15,48 +15,53 @@ public class EFRatingRepository : EFRepository<Rating>, IRatingRepository
     {
     }
 
-    public async Task<IEnumerable<Rating>> GetByKioskIdAsync(Guid kioskId)
+    public async Task<bool> HasUserRatedTargetAsync(Guid userId, RatingTargetType targetType, Guid targetId)
     {
         return await _dbSet
-            .Where(r => r.KioskId == kioskId)
+            .AnyAsync(r => r.UserId == userId && r.TargetType == targetType && r.TargetId == targetId);
+    }
+
+    public async Task<IEnumerable<Rating>> GetByTargetAsync(RatingTargetType targetType, Guid targetId)
+    {
+        return await _dbSet
+            .Where(r => r.TargetType == targetType && r.TargetId == targetId)
+            .OrderByDescending(r => r.CreatedAt)
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<Rating>> GetByTargetAsync(RatingType type, Guid targetId)
-    {
-        return await _dbSet
-            .Where(r => r.Type == type && r.TargetId == targetId)
-            .ToListAsync();
-    }
-
-    public async Task<double> GetAverageByTargetAsync(RatingType type, Guid targetId)
+    public async Task<double> GetAverageByTargetAsync(RatingTargetType targetType, Guid targetId)
     {
         var ratings = await _dbSet
-            .Where(r => r.Type == type && r.TargetId == targetId)
+            .Where(r => r.TargetType == targetType && r.TargetId == targetId)
             .Select(r => r.Score)
             .ToListAsync();
 
         return ratings.Count == 0 ? 0.0 : ratings.Average();
     }
 
-    public async Task<IEnumerable<(Guid TargetId, string TargetName, double Average, int Count)>> GetTopRatedAsync(RatingType type, int limit = 10)
+    public async Task<int> GetCountByTargetAsync(RatingTargetType targetType, Guid targetId)
+    {
+        return await _dbSet
+            .CountAsync(r => r.TargetType == targetType && r.TargetId == targetId);
+    }
+
+    public async Task<IEnumerable<(Guid TargetId, double Average, int Count)>> GetTopRatedAsync(RatingTargetType targetType, int limit = 10)
     {
         var grouped = await _dbSet
-            .Where(r => r.Type == type)
-            .GroupBy(r => new { r.TargetId, r.TargetName })
+            .Where(r => r.TargetType == targetType)
+            .GroupBy(r => r.TargetId)
             .Select(g => new
             {
-                TargetId = g.Key.TargetId,
-                TargetName = g.Key.TargetName,
+                TargetId = g.Key,
                 Average = g.Average(r => r.Score),
                 Count = g.Count()
             })
-            .Where(x => x.Count >= 2)
+            .Where(x => x.Count >= 1) // Pelo menos 1 avaliação
             .OrderByDescending(x => x.Average)
             .ThenByDescending(x => x.Count)
             .Take(limit)
             .ToListAsync();
 
-        return grouped.Select(x => (x.TargetId, x.TargetName, x.Average, x.Count));
+        return grouped.Select(x => (x.TargetId, x.Average, x.Count));
     }
 }

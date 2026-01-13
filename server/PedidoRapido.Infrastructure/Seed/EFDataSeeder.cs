@@ -456,12 +456,9 @@ public static class EFDataSeeder
                 ratings.Add(new Rating
                 {
                     Id = Guid.NewGuid(),
-                    KioskId = kiosk.Id,
-                    CustomerId = customer.Id,
-                    CustomerName = customer.Name,
-                    Type = RatingType.Kiosk,
+                    UserId = customer.Id,
+                    TargetType = RatingTargetType.Kiosk,
                     TargetId = kiosk.Id,
-                    TargetName = kiosk.Name,
                     Score = _random.Next(3, 6), // 3-5 estrelas
                     Comment = _random.NextDouble() > 0.3 ? Comments[_random.Next(Comments.Length)] : null,
                     CreatedAt = DateTime.UtcNow.AddDays(-_random.Next(1, 180))
@@ -479,12 +476,9 @@ public static class EFDataSeeder
                 ratings.Add(new Rating
                 {
                     Id = Guid.NewGuid(),
-                    KioskId = emp.KioskId,
-                    CustomerId = customer.Id,
-                    CustomerName = customer.Name,
-                    Type = RatingType.Employee,
+                    UserId = customer.Id,
+                    TargetType = RatingTargetType.Staff,
                     TargetId = emp.Id,
-                    TargetName = emp.Name,
                     Score = _random.Next(3, 6),
                     Comment = _random.NextDouble() > 0.5 ? "Ótimo atendimento!" : null,
                     CreatedAt = DateTime.UtcNow.AddDays(-_random.Next(1, 180))
@@ -502,12 +496,9 @@ public static class EFDataSeeder
                 ratings.Add(new Rating
                 {
                     Id = Guid.NewGuid(),
-                    KioskId = item.KioskId,
-                    CustomerId = customer.Id,
-                    CustomerName = customer.Name,
-                    Type = RatingType.MenuItem,
+                    UserId = customer.Id,
+                    TargetType = RatingTargetType.Product,
                     TargetId = item.Id,
-                    TargetName = item.Name,
                     Score = _random.Next(3, 6),
                     Comment = _random.NextDouble() > 0.5 ? "Delicioso!" : null,
                     CreatedAt = DateTime.UtcNow.AddDays(-_random.Next(1, 180))
@@ -524,7 +515,7 @@ public static class EFDataSeeder
         foreach (var emp in employees)
         {
             var empRatings = await context.Ratings
-                .Where(r => r.Type == RatingType.Employee && r.TargetId == emp.Id)
+                .Where(r => r.TargetType == RatingTargetType.Staff && r.TargetId == emp.Id)
                 .Select(r => r.Score)
                 .ToListAsync();
 
@@ -539,7 +530,7 @@ public static class EFDataSeeder
         foreach (var item in items)
         {
             var itemRatings = await context.Ratings
-                .Where(r => r.Type == RatingType.MenuItem && r.TargetId == item.Id)
+                .Where(r => r.TargetType == RatingTargetType.Product && r.TargetId == item.Id)
                 .Select(r => r.Score)
                 .ToListAsync();
 

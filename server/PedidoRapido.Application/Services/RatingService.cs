@@ -14,17 +14,20 @@ public class RatingService : IRatingService
     private readonly IKioskRepository _kioskRepository;
     private readonly IMenuItemRepository _menuItemRepository;
     private readonly IEmployeeRepository _employeeRepository;
+    private readonly IUserRepository _userRepository;
 
     public RatingService(
         IRatingRepository ratingRepository,
         IKioskRepository kioskRepository,
         IMenuItemRepository menuItemRepository,
-        IEmployeeRepository employeeRepository)
+        IEmployeeRepository employeeRepository,
+        IUserRepository userRepository)
     {
         _ratingRepository = ratingRepository;
         _kioskRepository = kioskRepository;
         _menuItemRepository = menuItemRepository;
         _employeeRepository = employeeRepository;
+        _userRepository = userRepository;
     }
 
     public async Task<RatingDto?> GetByIdAsync(Guid id)
@@ -32,64 +35,63 @@ public class RatingService : IRatingService
         var rating = await _ratingRepository.GetByIdAsync(id);
         if (rating == null) return null;
         
-        return ToDto(rating);
+        return await ToDtoAsync(rating);
     }
 
-    public async Task<IEnumerable<RatingDto>> GetByKioskIdAsync(Guid kioskId)
+    public async Task<IEnumerable<RatingDto>> GetByTargetAsync(RatingTargetType targetType, Guid targetId)
     {
-        var ratings = await _ratingRepository.GetByKioskIdAsync(kioskId);
-        return ratings.Select(ToDto);
+        var ratings = await _ratingRepository.GetByTargetAsync(targetType, targetId);
+        var dtos = new List<RatingDto>();
+        
+        foreach (var rating in ratings)
+        {
+            dtos.Add(await ToDtoAsync(rating));
+        }
+        
+        return dtos;
     }
 
-    public async Task<IEnumerable<RatingDto>> GetByTargetAsync(RatingType type, Guid targetId)
+    public async Task<RatingDto> CreateAsync(Guid userId, CreateRatingDto dto)
     {
-        var ratings = await _ratingRepository.GetByTargetAsync(type, targetId);
-        return ratings.Select(ToDto);
-    }
-
-    public async Task<RatingDto> CreateAsync(CreateRatingDto dto)
-    {
-        // Validar que o quiosque existe
-        var kiosk = await _kioskRepository.GetByIdAsync(dto.KioskId)
-            ?? throw new KeyNotFoundException($"Quiosque {dto.KioskId} não encontrado");
-
         // Validar score
         if (dto.Score < 1 || dto.Score > 5)
             throw new ArgumentException("Score deve ser entre 1 e 5");
 
+        // Verificar se usuário já avaliou este alvo
+        var hasRated = await _ratingRepository.HasUserRatedTargetAsync(userId, dto.TargetType, dto.TargetId);
+        if (hasRated)
+            throw new InvalidOperationException("Usuário já avaliou este item");
+
+        // Verificar se o alvo existe
+        await ValidateTargetExistsAsync(dto.TargetType, dto.TargetId);
+
         var rating = new Rating
         {
-            KioskId = dto.KioskId,
-            CustomerId = dto.CustomerId,
-            CustomerName = dto.CustomerName,
-            Type = dto.Type,
+            UserId = userId,
+            TargetType = dto.TargetType,
             TargetId = dto.TargetId,
-            TargetName = dto.TargetName,
             Score = dto.Score,
-            Comment = dto.Comment
+            Comment = dto.Comment,
+            CreatedAt = DateTime.UtcNow
         };
 
         var created = await _ratingRepository.AddAsync(rating);
-
-        // Atualizar média do alvo
-        await UpdateTargetAverageAsync(dto.Type, dto.TargetId);
-
-        return ToDto(created);
+        return await ToDtoAsync(created);
     }
 
-    public async Task<RatingStatsDto> GetStatsAsync(Guid kioskId)
+    public async Task<RatingStatsDto> GetStatsAsync(RatingTargetType targetType, Guid targetId)
     {
-        var ratings = (await _ratingRepository.GetByKioskIdAsync(kioskId)).ToList();
+        var ratings = (await _ratingRepository.GetByTargetAsync(targetType, targetId)).ToList();
         
         var average = ratings.Count > 0 ? ratings.Average(r => r.Score) : 0;
         var distribution = Enumerable.Range(1, 5)
             .ToDictionary(i => i, i => ratings.Count(r => r.Score == i));
         
-        var recent = ratings
-            .OrderByDescending(r => r.CreatedAt)
-            .Take(5)
-            .Select(ToDto)
-            .ToList();
+        var recent = new List<RatingDto>();
+        foreach (var rating in ratings.OrderByDescending(r => r.CreatedAt).Take(5))
+        {
+            recent.Add(await ToDtoAsync(rating));
+        }
 
         return new RatingStatsDto(
             Math.Round(average, 1),
@@ -99,50 +101,53 @@ public class RatingService : IRatingService
         );
     }
 
-    public async Task<double> GetAverageAsync(RatingType type, Guid targetId)
+    public async Task<double> GetAverageAsync(RatingTargetType targetType, Guid targetId)
     {
-        return await _ratingRepository.GetAverageByTargetAsync(type, targetId);
+        return await _ratingRepository.GetAverageByTargetAsync(targetType, targetId);
     }
 
-    private async Task UpdateTargetAverageAsync(RatingType type, Guid targetId)
+    public async Task<int> GetCountAsync(RatingTargetType targetType, Guid targetId)
     {
-        var average = await _ratingRepository.GetAverageByTargetAsync(type, targetId);
-        var ratings = await _ratingRepository.GetByTargetAsync(type, targetId);
-        var count = ratings.Count();
+        return await _ratingRepository.GetCountByTargetAsync(targetType, targetId);
+    }
 
-        switch (type)
+    private async Task ValidateTargetExistsAsync(RatingTargetType targetType, Guid targetId)
+    {
+        switch (targetType)
         {
-            case RatingType.MenuItem:
-                var item = await _menuItemRepository.GetByIdAsync(targetId);
-                if (item != null)
-                {
-                    item.AverageRating = average;
-                    item.TotalRatings = count;
-                    await _menuItemRepository.UpdateAsync(item);
-                }
+            case RatingTargetType.Kiosk:
+                var kiosk = await _kioskRepository.GetByIdAsync(targetId);
+                if (kiosk == null)
+                    throw new KeyNotFoundException($"Quiosque {targetId} não encontrado");
                 break;
-            case RatingType.Employee:
-                var emp = await _employeeRepository.GetByIdAsync(targetId);
-                if (emp != null)
-                {
-                    emp.AverageRating = average;
-                    emp.TotalRatings = count;
-                    await _employeeRepository.UpdateAsync(emp);
-                }
+            
+            case RatingTargetType.Product:
+                var product = await _menuItemRepository.GetByIdAsync(targetId);
+                if (product == null)
+                    throw new KeyNotFoundException($"Produto {targetId} não encontrado");
                 break;
+            
+            case RatingTargetType.Staff:
+                var staff = await _employeeRepository.GetByIdAsync(targetId);
+                if (staff == null)
+                    throw new KeyNotFoundException($"Funcionário {targetId} não encontrado");
+                break;
+            
+            default:
+                throw new ArgumentException($"Tipo de alvo inválido: {targetType}");
         }
     }
 
-    private static RatingDto ToDto(Rating rating)
+    private async Task<RatingDto> ToDtoAsync(Rating rating)
     {
+        var user = await _userRepository.GetByIdAsync(rating.UserId);
+        
         return new RatingDto(
             rating.Id,
-            rating.KioskId,
-            rating.Kiosk?.Name ?? "Desconhecido",
-            rating.CustomerName,
-            rating.Type.ToString(),
+            rating.UserId,
+            user?.Name ?? "Usuário Desconhecido",
+            rating.TargetType,
             rating.TargetId,
-            rating.TargetName,
             rating.Score,
             rating.Comment,
             rating.CreatedAt

@@ -214,11 +214,6 @@ public class PedidoRapidoDbContext : DbContext
                 .HasForeignKey(e => e.KioskId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            entity.HasMany(e => e.Ratings)
-                .WithOne(e => e.Kiosk)
-                .HasForeignKey(e => e.KioskId)
-                .OnDelete(DeleteBehavior.Cascade);
-
             // Relacionamento um-para-um com Subscription
             entity.HasOne(e => e.Subscription)
                 .WithOne(e => e.Kiosk)
@@ -279,13 +274,6 @@ public class PedidoRapidoDbContext : DbContext
 
             entity.HasIndex(e => e.IsActive)
                 .HasDatabaseName("ix_employees_is_active");
-
-            // Relacionamentos
-            entity.HasMany(e => e.Ratings)
-                .WithOne()
-                .HasForeignKey(r => r.TargetId)
-                .HasPrincipalKey(e => e.Id)
-                .OnDelete(DeleteBehavior.Cascade);
         });
     }
 
@@ -336,13 +324,6 @@ public class PedidoRapidoDbContext : DbContext
 
             entity.HasIndex(e => e.IsActive)
                 .HasDatabaseName("ix_menu_items_is_active");
-
-            // Relacionamentos
-            entity.HasMany(e => e.Ratings)
-                .WithOne()
-                .HasForeignKey(r => r.TargetId)
-                .HasPrincipalKey(e => e.Id)
-                .OnDelete(DeleteBehavior.Cascade);
         });
     }
 
@@ -357,44 +338,49 @@ public class PedidoRapidoDbContext : DbContext
             entity.HasKey(e => e.Id);
 
             // Propriedades obrigatórias
-            entity.Property(e => e.CustomerName)
-                .IsRequired()
-                .HasMaxLength(100);
+            entity.Property(e => e.UserId)
+                .IsRequired();
 
-            entity.Property(e => e.TargetName)
-                .IsRequired()
-                .HasMaxLength(100);
+            entity.Property(e => e.TargetId)
+                .IsRequired();
+
+            entity.Property(e => e.Score)
+                .IsRequired();
 
             entity.Property(e => e.Comment)
                 .HasMaxLength(1000);
 
+            entity.Property(e => e.CreatedAt)
+                .IsRequired();
+
             // Enum como string
-            entity.Property(e => e.Type)
+            entity.Property(e => e.TargetType)
                 .HasConversion<string>()
                 .IsRequired();
 
-            // Score com validação
-            entity.Property(e => e.Score)
-                .IsRequired();
+            // Índice único composto: um usuário não pode avaliar o mesmo alvo mais de uma vez
+            entity.HasIndex(e => new { e.UserId, e.TargetType, e.TargetId })
+                .IsUnique()
+                .HasDatabaseName("ix_ratings_user_target_unique");
 
-            // Índices compostos para performance
-            entity.HasIndex(e => e.KioskId)
-                .HasDatabaseName("ix_ratings_kiosk_id");
+            // Índices para performance
+            entity.HasIndex(e => new { e.TargetType, e.TargetId })
+                .HasDatabaseName("ix_ratings_target_type_id");
 
-            entity.HasIndex(e => new { e.Type, e.TargetId })
-                .HasDatabaseName("ix_ratings_type_target_id");
-
-            entity.HasIndex(e => e.CustomerId)
-                .HasDatabaseName("ix_ratings_customer_id");
+            entity.HasIndex(e => e.UserId)
+                .HasDatabaseName("ix_ratings_user_id");
 
             entity.HasIndex(e => e.CreatedAt)
                 .HasDatabaseName("ix_ratings_created_at");
 
-            // Relacionamento com Customer (User)
-            entity.HasOne(e => e.Customer)
+            entity.HasIndex(e => e.Score)
+                .HasDatabaseName("ix_ratings_score");
+
+            // Relacionamento com User
+            entity.HasOne(e => e.User)
                 .WithMany()
-                .HasForeignKey(e => e.CustomerId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
         });
     }
 

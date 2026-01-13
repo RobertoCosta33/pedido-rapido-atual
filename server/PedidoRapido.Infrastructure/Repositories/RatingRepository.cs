@@ -8,54 +8,62 @@ namespace PedidoRapido.Infrastructure.Repositories;
 /// </summary>
 public class RatingRepository : InMemoryRepository<Rating>, IRatingRepository
 {
-    public Task<IEnumerable<Rating>> GetByKioskIdAsync(Guid kioskId)
+    public Task<bool> HasUserRatedTargetAsync(Guid userId, RatingTargetType targetType, Guid targetId)
     {
         lock (_lock)
         {
-            var ratings = _data.Where(r => r.KioskId == kioskId);
+            var exists = _data.Any(r => r.UserId == userId && r.TargetType == targetType && r.TargetId == targetId);
+            return Task.FromResult(exists);
+        }
+    }
+
+    public Task<IEnumerable<Rating>> GetByTargetAsync(RatingTargetType targetType, Guid targetId)
+    {
+        lock (_lock)
+        {
+            var ratings = _data.Where(r => r.TargetType == targetType && r.TargetId == targetId);
             return Task.FromResult<IEnumerable<Rating>>(ratings.ToList());
         }
     }
 
-    public Task<IEnumerable<Rating>> GetByTargetAsync(RatingType type, Guid targetId)
+    public Task<double> GetAverageByTargetAsync(RatingTargetType targetType, Guid targetId)
     {
         lock (_lock)
         {
-            var ratings = _data.Where(r => r.Type == type && r.TargetId == targetId);
-            return Task.FromResult<IEnumerable<Rating>>(ratings.ToList());
-        }
-    }
-
-    public Task<double> GetAverageByTargetAsync(RatingType type, Guid targetId)
-    {
-        lock (_lock)
-        {
-            var ratings = _data.Where(r => r.Type == type && r.TargetId == targetId).ToList();
+            var ratings = _data.Where(r => r.TargetType == targetType && r.TargetId == targetId).ToList();
             if (ratings.Count == 0) return Task.FromResult(0.0);
             return Task.FromResult(ratings.Average(r => r.Score));
         }
     }
 
-    public Task<IEnumerable<(Guid TargetId, string TargetName, double Average, int Count)>> GetTopRatedAsync(RatingType type, int limit = 10)
+    public Task<int> GetCountByTargetAsync(RatingTargetType targetType, Guid targetId)
+    {
+        lock (_lock)
+        {
+            var count = _data.Count(r => r.TargetType == targetType && r.TargetId == targetId);
+            return Task.FromResult(count);
+        }
+    }
+
+    public Task<IEnumerable<(Guid TargetId, double Average, int Count)>> GetTopRatedAsync(RatingTargetType targetType, int limit = 10)
     {
         lock (_lock)
         {
             var grouped = _data
-                .Where(r => r.Type == type)
-                .GroupBy(r => new { r.TargetId, r.TargetName })
+                .Where(r => r.TargetType == targetType)
+                .GroupBy(r => r.TargetId)
                 .Select(g => (
-                    TargetId: g.Key.TargetId,
-                    TargetName: g.Key.TargetName,
+                    TargetId: g.Key,
                     Average: g.Average(r => r.Score),
                     Count: g.Count()
                 ))
-                .Where(x => x.Count >= 2)
+                .Where(x => x.Count >= 1) // Pelo menos 1 avaliação
                 .OrderByDescending(x => x.Average)
                 .ThenByDescending(x => x.Count)
                 .Take(limit)
                 .ToList();
 
-            return Task.FromResult<IEnumerable<(Guid, string, double, int)>>(grouped);
+            return Task.FromResult<IEnumerable<(Guid, double, int)>>(grouped);
         }
     }
 }
