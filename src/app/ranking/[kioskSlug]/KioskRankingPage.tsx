@@ -89,6 +89,7 @@ const ReviewCard = styled(Card)`
 
 interface KioskRankingPageProps {
   kioskSlug: string;
+  isRegion?: boolean;
 }
 
 interface KioskData {
@@ -106,12 +107,66 @@ interface StatsData {
   recentRatings: RatingType[];
 }
 
-const KioskRankingPage = ({ kioskSlug }: KioskRankingPageProps) => {
+// Mapeamento de regiões
+const regionNames: Record<string, string> = {
+  'sp': 'São Paulo',
+  'rj': 'Rio de Janeiro',
+  'ba': 'Bahia',
+  'sc': 'Santa Catarina',
+  'pe': 'Pernambuco',
+  'ce': 'Ceará',
+  'es': 'Espírito Santo',
+  'rn': 'Rio Grande do Norte',
+  'santos': 'Santos - SP',
+  'copacabana': 'Copacabana - RJ',
+  'salvador': 'Salvador - BA',
+  'florianopolis': 'Florianópolis - SC',
+  'recife': 'Recife - PE',
+  'fortaleza': 'Fortaleza - CE',
+};
+
+const KioskRankingPage = ({ kioskSlug, isRegion = false }: KioskRankingPageProps) => {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [kiosk, setKiosk] = useState<KioskData | null>(null);
   const [stats, setStats] = useState<StatsData | null>(null);
   const [notFound, setNotFound] = useState(false);
+
+  // Se for região, mostra mensagem de redirecionamento
+  if (isRegion) {
+    const regionName = regionNames[kioskSlug.toLowerCase()] || kioskSlug;
+    return (
+      <PageContainer>
+        <HeaderSection>
+          <Container>
+            <Button
+              startIcon={<BackIcon />}
+              onClick={() => router.push('/ranking')}
+              sx={{ color: 'white', mb: 2 }}
+            >
+              Voltar ao Ranking
+            </Button>
+            <Typography variant="h4" fontWeight={700}>
+              Quiosques em {regionName}
+            </Typography>
+            <Typography sx={{ opacity: 0.9, mt: 1 }}>
+              Em breve teremos o ranking por região disponível
+            </Typography>
+          </Container>
+        </HeaderSection>
+        <Container>
+          <Box py={4} textAlign="center">
+            <Alert severity="info" sx={{ mb: 3 }}>
+              O ranking regional está em desenvolvimento. Por enquanto, veja o ranking geral.
+            </Alert>
+            <Button variant="contained" onClick={() => router.push('/ranking')}>
+              Ver Ranking Geral
+            </Button>
+          </Box>
+        </Container>
+      </PageContainer>
+    );
+  }
 
   /**
    * Carrega dados do quiosque e estatísticas
