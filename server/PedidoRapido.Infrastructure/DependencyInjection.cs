@@ -156,33 +156,89 @@ public static class DependencyInjection
                 return;
             }
 
-            Console.WriteLine("[DB] 🔄 Verificando conexão com PostgreSQL...");
+            var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
+            Console.WriteLine($"[DB] 🔄 Inicializando banco de dados - Ambiente: {environment}");
 
-            // Verificar se o banco está acessível
-            var canConnect = await context.Database.CanConnectAsync();
-            if (!canConnect)
+            // Verificar se o banco está acessível com retry
+            var maxRetries = 5;
+            var retryDelay = TimeSpan.FromSeconds(2);
+            
+            for (int i = 0; i < maxRetries; i++)
             {
-                Console.WriteLine("[DB] ❌ Não foi possível conectar ao PostgreSQL");
-                Console.WriteLine("[DB] ℹ️  Verifique se o PostgreSQL está rodando e a connection string está correta");
-                return;
+                try
+                {
+                    var canConnect = await context.Database.CanConnectAsync();
+                    if (canConnect)
+                    {
+                        Console.WriteLine("[DB] ✅ Conexão com PostgreSQL estabelecida");
+                        break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    if (i == maxRetries - 1)
+                    {
+                        Console.WriteLine($"[DB] ❌ Falha na conexão após {maxRetries} tentativas: {ex.Message}");
+                        
+                        // Em produção, falhar se não conseguir conectar
+                        if (environment == "Production")
+                        {
+                            throw new InvalidOperationException("Não foi possível conectar ao banco de dados em produção", ex);
+                        }
+                        return;
+                    }
+                    
+                    Console.WriteLine($"[DB] ⚠️  Tentativa {i + 1}/{maxRetries} falhou, tentando novamente em {retryDelay.TotalSeconds}s...");
+                    await Task.Delay(retryDelay);
+                }
             }
 
-            Console.WriteLine("[DB] ✅ Conexão com PostgreSQL estabelecida");
-
             // Aplicar migrations pendentes
-            Console.WriteLine("[DB] 🔄 Aplicando migrations...");
-            await context.Database.MigrateAsync();
-            Console.WriteLine("[DB] ✅ Migrations aplicadas");
+            Console.WriteLine("[DB] 🔄 Verificando migrations pendentes...");
+            var pendingMigrations = await context.Database.GetPendingMigrationsAsync();
+            
+            if (pendingMigrations.Any())
+            {
+                Console.WriteLine($"[DB] 📦 Aplicando {pendingMigrations.Count()} migrations pendentes...");
+                await context.Database.MigrateAsync();
+                Console.WriteLine("[DB] ✅ Migrations aplicadas com sucesso");
+            }
+            else
+            {
+                Console.WriteLine("[DB] ✅ Banco de dados já está atualizado");
+            }
 
-            // Executar seed
-            Console.WriteLine("[DB] 🌱 Executando seed...");
-            await EFDataSeeder.SeedAsync(context);
-            Console.WriteLine("[DB] ✅ Inicialização do banco concluída");
+            // Executar seed apenas se necessário
+            Console.WriteLine("[DB] 🌱 Verificando necessidade de seed...");
+            var needsSeed = !await context.Users.AnyAsync();
+            
+            if (needsSeed)
+            {
+                Console.WriteLine("[DB] 🌱 Executando seed inicial...");
+                await EFDataSeeder.SeedAsync(context);
+                Console.WriteLine("[DB] ✅ Seed executado com sucesso");
+            }
+            else
+            {
+                Console.WriteLine("[DB] ✅ Dados já existem, pulando seed");
+            }
+
+            Console.WriteLine("[DB] 🎉 Inicialização do banco concluída com sucesso");
         }
         catch (Exception ex)
         {
+            var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
             Console.WriteLine($"[DB] ❌ Erro na inicialização do banco: {ex.Message}");
-            Console.WriteLine("[DB] ℹ️  A aplicação continuará funcionando, mas pode haver problemas com dados");
+            
+            if (environment == "Production")
+            {
+                Console.WriteLine("[DB] 💥 Falha crítica em produção - encerrando aplicação");
+                throw;
+            }
+            else
+            {
+                Console.WriteLine("[DB] ⚠️  Continuando em modo desenvolvimento sem banco");
+            }
         }
     }
 }
