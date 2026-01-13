@@ -3,7 +3,31 @@
  * Facilita importação: import { authService, productService } from '@/services'
  */
 
-export { api } from './api';
+// API Client (Axios)
+export { api, apiClient } from './api';
+
+// Services que consomem API real
+export { kiosksService } from './kiosks.service';
+export type { KioskDto, KioskRankingDto, CreateKioskDto, UpdateKioskDto } from './kiosks.service';
+
+export { rankingService } from './ranking.service';
+export type { 
+  KioskRankingDto as RankingKioskDto, 
+  MenuItemRankingDto, 
+  EmployeeRankingDto, 
+  FullRankingDto 
+} from './ranking.service';
+
+export { employeesService } from './employees.service';
+export type { EmployeeDto, CreateEmployeeDto, UpdateEmployeeDto } from './employees.service';
+
+export { menuItemsService } from './menu-items.service';
+export type { MenuItemDto, CreateMenuItemDto, UpdateMenuItemDto } from './menu-items.service';
+
+export { plansService } from './plans.service';
+export type { PlanDto } from './plans.service';
+
+// Services legados (mock) - manter para compatibilidade
 export { authService } from './auth.service';
 export { productService } from './product.service';
 export { stockService } from './stock.service';

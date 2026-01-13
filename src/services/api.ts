@@ -1,164 +1,123 @@
 /**
- * Configuração base da API
- * Cliente HTTP para comunicação com backend
+ * Cliente HTTP centralizado
+ * Usa Axios com interceptors preparados para JWT futuro
  */
 
-import { ApiResponse } from '@/types';
+import axios, { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
-
-interface RequestOptions extends RequestInit {
-  params?: Record<string, string | number | boolean | undefined>;
-}
+// URL base da API (variável de ambiente)
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
 /**
- * Obtém o token de acesso do localStorage
+ * Instância do Axios configurada
  */
-const getAccessToken = (): string | null => {
-  if (typeof window === 'undefined') return null;
-  
-  const tokens = localStorage.getItem('pedido-rapido-tokens');
-  if (!tokens) return null;
-  
-  try {
-    const parsed = JSON.parse(tokens);
-    return parsed.accessToken;
-  } catch {
-    return null;
-  }
-};
-
-/**
- * Constrói URL com query params
- */
-const buildUrl = (endpoint: string, params?: Record<string, string | number | boolean | undefined>): string => {
-  const url = new URL(`${API_BASE_URL}${endpoint}`);
-  
-  if (params) {
-    Object.entries(params).forEach(([key, value]) => {
-      if (value !== undefined) {
-        url.searchParams.append(key, String(value));
-      }
-    });
-  }
-  
-  return url.toString();
-};
-
-/**
- * Cliente HTTP base
- */
-const httpClient = async <T>(
-  endpoint: string,
-  options: RequestOptions = {}
-): Promise<ApiResponse<T>> => {
-  const { params, ...fetchOptions } = options;
-  
-  const token = getAccessToken();
-  
-  const headers: HeadersInit = {
+const axiosInstance: AxiosInstance = axios.create({
+  baseURL: API_BASE_URL,
+  timeout: 15000,
+  headers: {
     'Content-Type': 'application/json',
-    ...options.headers,
-  };
-  
-  if (token) {
-    (headers as Record<string, string>)['Authorization'] = `Bearer ${token}`;
-  }
-  
-  const url = buildUrl(endpoint, params);
-  
-  try {
-    const response = await fetch(url, {
-      ...fetchOptions,
-      headers,
-    });
-    
-    const data = await response.json();
-    
-    if (!response.ok) {
-      throw new Error(data.message || `HTTP error! status: ${response.status}`);
-    }
-    
-    return data as ApiResponse<T>;
-  } catch (error) {
-    if (error instanceof Error) {
-      throw error;
-    }
-    throw new Error('Erro desconhecido na requisição');
-  }
-};
+  },
+});
 
 /**
- * Métodos HTTP exportados
+ * Interceptor de Request
+ * Adiciona token JWT quando disponível (preparado para futuro)
  */
-export const api = {
+axiosInstance.interceptors.request.use(
+  (config: InternalAxiosRequestConfig) => {
+    // Obter token do localStorage (quando implementar autenticação)
+    if (typeof window !== 'undefined') {
+      const tokens = localStorage.getItem('pedido-rapido-tokens');
+      if (tokens) {
+        try {
+          const parsed = JSON.parse(tokens);
+          if (parsed.accessToken) {
+            config.headers.Authorization = `Bearer ${parsed.accessToken}`;
+          }
+        } catch {
+          // Token inválido, ignora
+        }
+      }
+    }
+    return config;
+  },
+  (error: AxiosError) => {
+    return Promise.reject(error);
+  }
+);
+
+/**
+ * Interceptor de Response
+ * Trata erros globais (401, 403, 500, etc)
+ */
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  (error: AxiosError<{ message?: string }>) => {
+    // Log do erro para debug
+    console.error('[API Error]', error.response?.status, error.message);
+
+    // Tratar erros específicos
+    if (error.response?.status === 401) {
+      // Token expirado ou inválido - futuro: redirecionar para login
+      console.warn('Não autorizado - token pode estar expirado');
+    }
+
+    if (error.response?.status === 403) {
+      console.warn('Acesso negado');
+    }
+
+    // Propagar erro com mensagem amigável
+    const message = error.response?.data?.message || error.message || 'Erro na requisição';
+    return Promise.reject(new Error(message));
+  }
+);
+
+/**
+ * API Client exportado
+ * Wrapper sobre o Axios para padronizar retornos
+ */
+export const apiClient = {
   /**
    * GET request
    */
-  get: <T>(endpoint: string, params?: Record<string, string | number | boolean | undefined>) =>
-    httpClient<T>(endpoint, { method: 'GET', params }),
-  
+  get: async <T>(url: string, params?: Record<string, unknown>): Promise<T> => {
+    const response = await axiosInstance.get<T>(url, { params });
+    return response.data;
+  },
+
   /**
    * POST request
    */
-  post: <T>(endpoint: string, body?: unknown) =>
-    httpClient<T>(endpoint, {
-      method: 'POST',
-      body: body ? JSON.stringify(body) : undefined,
-    }),
-  
+  post: async <T>(url: string, data?: unknown): Promise<T> => {
+    const response = await axiosInstance.post<T>(url, data);
+    return response.data;
+  },
+
   /**
    * PUT request
    */
-  put: <T>(endpoint: string, body?: unknown) =>
-    httpClient<T>(endpoint, {
-      method: 'PUT',
-      body: body ? JSON.stringify(body) : undefined,
-    }),
-  
+  put: async <T>(url: string, data?: unknown): Promise<T> => {
+    const response = await axiosInstance.put<T>(url, data);
+    return response.data;
+  },
+
   /**
    * PATCH request
    */
-  patch: <T>(endpoint: string, body?: unknown) =>
-    httpClient<T>(endpoint, {
-      method: 'PATCH',
-      body: body ? JSON.stringify(body) : undefined,
-    }),
-  
+  patch: async <T>(url: string, data?: unknown): Promise<T> => {
+    const response = await axiosInstance.patch<T>(url, data);
+    return response.data;
+  },
+
   /**
    * DELETE request
    */
-  delete: <T>(endpoint: string) =>
-    httpClient<T>(endpoint, { method: 'DELETE' }),
-  
-  /**
-   * Upload de arquivos
-   */
-  upload: async <T>(endpoint: string, file: File, fieldName: string = 'file'): Promise<ApiResponse<T>> => {
-    const token = getAccessToken();
-    const formData = new FormData();
-    formData.append(fieldName, file);
-    
-    const headers: HeadersInit = {};
-    if (token) {
-      (headers as Record<string, string>)['Authorization'] = `Bearer ${token}`;
-    }
-    
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-      method: 'POST',
-      headers,
-      body: formData,
-    });
-    
-    const data = await response.json();
-    
-    if (!response.ok) {
-      throw new Error(data.message || 'Erro no upload');
-    }
-    
-    return data as ApiResponse<T>;
+  delete: async <T>(url: string): Promise<T> => {
+    const response = await axiosInstance.delete<T>(url);
+    return response.data;
   },
 };
 
-export default api;
-
+// Manter export default para compatibilidade com código antigo
+export const api = apiClient;
+export default apiClient;

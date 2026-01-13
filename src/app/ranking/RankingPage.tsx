@@ -2,7 +2,7 @@
 
 /**
  * Página de Ranking Público
- * Exibe os melhores quiosques, pratos, bebidas e funcionários
+ * Consome API real do backend ASP.NET Core
  */
 
 import { useState, useEffect, useCallback } from 'react';
@@ -22,6 +22,7 @@ import {
   Rating,
   Skeleton,
   Paper,
+  Alert,
 } from '@mui/material';
 import {
   Store as StoreIcon,
@@ -30,10 +31,19 @@ import {
   Person as PersonIcon,
   EmojiEvents as TrophyIcon,
   Verified as VerifiedIcon,
+  ErrorOutline as ErrorIcon,
 } from '@mui/icons-material';
-import { ratingService, RatedItem, KioskRanking } from '@/services';
+import { 
+  rankingService, 
+  KioskRankingDto, 
+  MenuItemRankingDto, 
+  EmployeeRankingDto 
+} from '@/services/ranking.service';
 
+// ============================================================================
 // Styled Components
+// ============================================================================
+
 const PageContainer = styled.div`
   min-height: 100vh;
   background: ${({ theme }) => theme.colors.background};
@@ -66,7 +76,7 @@ const RankingCard = styled(Card)<{ $rank: number }>`
   position: relative;
   overflow: visible;
   
-  ${({ $rank, theme }) => $rank <= 3 && `
+  ${({ $rank }) => $rank <= 3 && `
     border: 2px solid ${
       $rank === 1 ? '#FFD700' : 
       $rank === 2 ? '#C0C0C0' : 
@@ -125,38 +135,67 @@ const PremiumBadge = styled(Chip)`
   right: 8px;
 `;
 
-type TabType = 'kiosks' | 'products' | 'drinks' | 'employees';
+const EmptyState = styled(Box)`
+  text-align: center;
+  padding: ${({ theme }) => theme.spacing.xxl} 0;
+`;
+
+// ============================================================================
+// Types
+// ============================================================================
+
+type TabType = 'kiosks' | 'dishes' | 'drinks' | 'employees';
+
+interface RankingState {
+  loading: boolean;
+  error: string | null;
+  kiosks: KioskRankingDto[];
+  dishes: MenuItemRankingDto[];
+  drinks: MenuItemRankingDto[];
+  employees: EmployeeRankingDto[];
+}
+
+// ============================================================================
+// Component
+// ============================================================================
 
 const RankingPage = () => {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<TabType>('kiosks');
-  const [loading, setLoading] = useState(true);
-  const [kiosks, setKiosks] = useState<KioskRanking[]>([]);
-  const [products, setProducts] = useState<RatedItem[]>([]);
-  const [drinks, setDrinks] = useState<RatedItem[]>([]);
-  const [employees, setEmployees] = useState<RatedItem[]>([]);
+  const [state, setState] = useState<RankingState>({
+    loading: true,
+    error: null,
+    kiosks: [],
+    dishes: [],
+    drinks: [],
+    employees: [],
+  });
 
   /**
-   * Carrega dados do ranking
+   * Carrega dados do ranking da API real
    */
   const loadRankingData = useCallback(async () => {
-    setLoading(true);
+    setState(prev => ({ ...prev, loading: true, error: null }));
+    
     try {
-      const [kiosksData, productsData, drinksData, employeesData] = await Promise.all([
-        ratingService.getTopKiosks(20),
-        ratingService.getTopProducts(20),
-        ratingService.getTopDrinks(20),
-        ratingService.getTopEmployees(20),
-      ]);
+      // Chamada única que retorna todos os rankings
+      const data = await rankingService.getAll(20);
       
-      setKiosks(kiosksData);
-      setProducts(productsData);
-      setDrinks(drinksData);
-      setEmployees(employeesData);
+      setState({
+        loading: false,
+        error: null,
+        kiosks: data.kiosks,
+        dishes: data.dishes,
+        drinks: data.drinks,
+        employees: data.employees,
+      });
     } catch (error) {
       console.error('Erro ao carregar ranking:', error);
-    } finally {
-      setLoading(false);
+      setState(prev => ({
+        ...prev,
+        loading: false,
+        error: error instanceof Error ? error.message : 'Erro ao carregar ranking',
+      }));
     }
   }, []);
 
@@ -193,135 +232,196 @@ const RankingPage = () => {
   );
 
   /**
+   * Renderiza estado de erro
+   */
+  const renderError = () => (
+    <Alert 
+      severity="error" 
+      icon={<ErrorIcon />}
+      action={
+        <button onClick={loadRankingData} style={{ cursor: 'pointer' }}>
+          Tentar novamente
+        </button>
+      }
+    >
+      {state.error}
+    </Alert>
+  );
+
+  /**
+   * Renderiza estado vazio
+   */
+  const renderEmpty = (message: string) => (
+    <EmptyState>
+      <TrophyIcon sx={{ fontSize: 64, color: 'text.secondary', mb: 2 }} />
+      <Typography variant="h6" color="textSecondary" gutterBottom>
+        {message}
+      </Typography>
+      <Typography color="textSecondary">
+        Aguarde mais avaliações serem registradas
+      </Typography>
+    </EmptyState>
+  );
+
+  /**
    * Renderiza cards de quiosques
    */
-  const renderKiosks = () => (
-    <RankingGrid>
-      {kiosks.map((kiosk, index) => (
-        <RankingCard key={kiosk.id} $rank={index + 1} elevation={index < 3 ? 4 : 1}>
-          <RankBadge $rank={index + 1}>
-            {index < 3 ? <TrophyIcon fontSize="small" /> : index + 1}
-          </RankBadge>
-          {kiosk.isPremium && (
-            <PremiumBadge
-              icon={<VerifiedIcon />}
-              label="Premium"
-              color="primary"
-              size="small"
-            />
-          )}
-          <CardActionArea onClick={() => handleKioskClick(kiosk.slug)}>
+  const renderKiosks = () => {
+    if (state.kiosks.length === 0) {
+      return renderEmpty('Nenhum quiosque avaliado ainda');
+    }
+
+    return (
+      <RankingGrid>
+        {state.kiosks.map((kiosk) => (
+          <RankingCard key={kiosk.id} $rank={kiosk.position} elevation={kiosk.position <= 3 ? 4 : 1}>
+            <RankBadge $rank={kiosk.position}>
+              {kiosk.position <= 3 ? <TrophyIcon fontSize="small" /> : kiosk.position}
+            </RankBadge>
+            {kiosk.isPremium && (
+              <PremiumBadge
+                icon={<VerifiedIcon />}
+                label="Premium"
+                color="primary"
+                size="small"
+              />
+            )}
+            <CardActionArea onClick={() => handleKioskClick(kiosk.slug)}>
+              <CardContent sx={{ pt: 3 }}>
+                <Box display="flex" alignItems="center" gap={2}>
+                  <Avatar 
+                    sx={{ width: 60, height: 60, bgcolor: 'primary.main' }}
+                    src={kiosk.logo || undefined}
+                  >
+                    <StoreIcon />
+                  </Avatar>
+                  <Box flex={1}>
+                    <Typography variant="h6" fontWeight={600}>
+                      {kiosk.name}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" gutterBottom>
+                      {kiosk.city}, {kiosk.state}
+                    </Typography>
+                    <Box display="flex" alignItems="center" gap={1}>
+                      <Rating value={kiosk.averageRating} precision={0.1} size="small" readOnly />
+                      <Typography variant="body2" color="textSecondary">
+                        {kiosk.averageRating.toFixed(1)} ({kiosk.totalRatings} avaliações)
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Box>
+              </CardContent>
+            </CardActionArea>
+          </RankingCard>
+        ))}
+      </RankingGrid>
+    );
+  };
+
+  /**
+   * Renderiza cards de pratos/bebidas
+   */
+  const renderMenuItems = (items: MenuItemRankingDto[], icon: React.ReactNode, emptyMessage: string) => {
+    if (items.length === 0) {
+      return renderEmpty(emptyMessage);
+    }
+
+    return (
+      <RankingGrid>
+        {items.map((item) => (
+          <RankingCard key={item.id} $rank={item.position} elevation={item.position <= 3 ? 4 : 1}>
+            <RankBadge $rank={item.position}>
+              {item.position <= 3 ? <TrophyIcon fontSize="small" /> : item.position}
+            </RankBadge>
             <CardContent sx={{ pt: 3 }}>
               <Box display="flex" alignItems="center" gap={2}>
-                <Avatar sx={{ width: 60, height: 60, bgcolor: 'primary.main' }}>
-                  <StoreIcon />
+                <Avatar 
+                  sx={{ width: 60, height: 60, bgcolor: 'secondary.main' }}
+                  src={item.image || undefined}
+                >
+                  {icon}
                 </Avatar>
                 <Box flex={1}>
                   <Typography variant="h6" fontWeight={600}>
-                    {kiosk.name}
+                    {item.name}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary" gutterBottom>
+                    {item.kioskName} • R$ {item.price.toFixed(2)}
                   </Typography>
                   <Box display="flex" alignItems="center" gap={1}>
-                    <Rating value={kiosk.average} precision={0.1} size="small" readOnly />
+                    <Rating value={item.averageRating} precision={0.1} size="small" readOnly />
                     <Typography variant="body2" color="textSecondary">
-                      {kiosk.average.toFixed(1)} ({kiosk.count} avaliações)
+                      {item.averageRating.toFixed(1)} ({item.totalRatings})
                     </Typography>
                   </Box>
                 </Box>
               </Box>
             </CardContent>
-          </CardActionArea>
-        </RankingCard>
-      ))}
-    </RankingGrid>
-  );
-
-  /**
-   * Renderiza cards de produtos/bebidas
-   */
-  const renderProducts = (items: RatedItem[], icon: React.ReactNode) => (
-    <RankingGrid>
-      {items.map((item, index) => (
-        <RankingCard key={item.id} $rank={index + 1} elevation={index < 3 ? 4 : 1}>
-          <RankBadge $rank={index + 1}>
-            {index < 3 ? <TrophyIcon fontSize="small" /> : index + 1}
-          </RankBadge>
-          <CardContent sx={{ pt: 3 }}>
-            <Box display="flex" alignItems="center" gap={2}>
-              <Avatar sx={{ width: 60, height: 60, bgcolor: 'secondary.main' }}>
-                {icon}
-              </Avatar>
-              <Box flex={1}>
-                <Typography variant="h6" fontWeight={600}>
-                  {item.name}
-                </Typography>
-                {item.kioskName && (
-                  <Typography variant="body2" color="textSecondary" gutterBottom>
-                    {item.kioskName}
-                  </Typography>
-                )}
-                <Box display="flex" alignItems="center" gap={1}>
-                  <Rating value={item.average} precision={0.1} size="small" readOnly />
-                  <Typography variant="body2" color="textSecondary">
-                    {item.average.toFixed(1)} ({item.count})
-                  </Typography>
-                </Box>
-              </Box>
-            </Box>
-          </CardContent>
-        </RankingCard>
-      ))}
-    </RankingGrid>
-  );
+          </RankingCard>
+        ))}
+      </RankingGrid>
+    );
+  };
 
   /**
    * Renderiza cards de funcionários
    */
-  const renderEmployees = () => (
-    <RankingGrid>
-      {employees.map((employee, index) => (
-        <RankingCard key={employee.id} $rank={index + 1} elevation={index < 3 ? 4 : 1}>
-          <RankBadge $rank={index + 1}>
-            {index < 3 ? <TrophyIcon fontSize="small" /> : index + 1}
-          </RankBadge>
-          <CardContent sx={{ pt: 3 }}>
-            <Box display="flex" alignItems="center" gap={2}>
-              <Avatar 
-                sx={{ width: 60, height: 60 }}
-                src={`https://i.pravatar.cc/150?u=${employee.id}`}
-              >
-                <PersonIcon />
-              </Avatar>
-              <Box flex={1}>
-                <Typography variant="h6" fontWeight={600}>
-                  {employee.name}
-                </Typography>
-                <Box display="flex" alignItems="center" gap={1}>
-                  <Rating value={employee.average} precision={0.1} size="small" readOnly />
-                  <Typography variant="body2" color="textSecondary">
-                    {employee.average.toFixed(1)} ({employee.count})
+  const renderEmployees = () => {
+    if (state.employees.length === 0) {
+      return renderEmpty('Nenhum funcionário avaliado ainda');
+    }
+
+    return (
+      <RankingGrid>
+        {state.employees.map((employee) => (
+          <RankingCard key={employee.id} $rank={employee.position} elevation={employee.position <= 3 ? 4 : 1}>
+            <RankBadge $rank={employee.position}>
+              {employee.position <= 3 ? <TrophyIcon fontSize="small" /> : employee.position}
+            </RankBadge>
+            <CardContent sx={{ pt: 3 }}>
+              <Box display="flex" alignItems="center" gap={2}>
+                <Avatar 
+                  sx={{ width: 60, height: 60 }}
+                  src={employee.photo || `https://i.pravatar.cc/150?u=${employee.id}`}
+                >
+                  <PersonIcon />
+                </Avatar>
+                <Box flex={1}>
+                  <Typography variant="h6" fontWeight={600}>
+                    {employee.name}
                   </Typography>
+                  <Typography variant="body2" color="textSecondary" gutterBottom>
+                    {employee.role} • {employee.kioskName}
+                  </Typography>
+                  <Box display="flex" alignItems="center" gap={1}>
+                    <Rating value={employee.averageRating} precision={0.1} size="small" readOnly />
+                    <Typography variant="body2" color="textSecondary">
+                      {employee.averageRating.toFixed(1)} ({employee.totalRatings})
+                    </Typography>
+                  </Box>
                 </Box>
               </Box>
-            </Box>
-          </CardContent>
-        </RankingCard>
-      ))}
-    </RankingGrid>
-  );
+            </CardContent>
+          </RankingCard>
+        ))}
+      </RankingGrid>
+    );
+  };
 
   /**
    * Renderiza conteúdo da tab ativa
    */
   const renderTabContent = () => {
-    if (loading) return renderSkeletons();
+    if (state.loading) return renderSkeletons();
+    if (state.error) return renderError();
 
     switch (activeTab) {
       case 'kiosks':
         return renderKiosks();
-      case 'products':
-        return renderProducts(products, <RestaurantIcon />);
+      case 'dishes':
+        return renderMenuItems(state.dishes, <RestaurantIcon />, 'Nenhum prato avaliado ainda');
       case 'drinks':
-        return renderProducts(drinks, <DrinkIcon />);
+        return renderMenuItems(state.drinks, <DrinkIcon />, 'Nenhuma bebida avaliada ainda');
       case 'employees':
         return renderEmployees();
       default:
@@ -361,7 +461,7 @@ const RankingPage = () => {
             <Tab
               icon={<RestaurantIcon />}
               label="Pratos"
-              value="products"
+              value="dishes"
               iconPosition="start"
             />
             <Tab
@@ -380,26 +480,9 @@ const RankingPage = () => {
         </TabsContainer>
 
         {renderTabContent()}
-
-        {!loading && (
-          (activeTab === 'kiosks' && kiosks.length === 0) ||
-          (activeTab === 'products' && products.length === 0) ||
-          (activeTab === 'drinks' && drinks.length === 0) ||
-          (activeTab === 'employees' && employees.length === 0)
-        ) && (
-          <Box textAlign="center" py={8}>
-            <Typography variant="h6" color="textSecondary">
-              Nenhum item encontrado para este ranking
-            </Typography>
-            <Typography color="textSecondary">
-              Aguarde mais avaliações serem registradas
-            </Typography>
-          </Box>
-        )}
       </Container>
     </PageContainer>
   );
 };
 
 export default RankingPage;
-
