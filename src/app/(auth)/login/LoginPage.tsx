@@ -303,9 +303,8 @@ export const LoginPage: React.FC = () => {
         
         <DemoCredentials>
           <p>Credenciais de demonstração:</p>
-          <p>Super Admin: <code>super@pedidorapido.com</code> / <code>admin123</code></p>
-          <p>Admin: <code>admin@quiosque.com</code> / <code>admin123</code></p>
-          <p>Cliente: <code>cliente@email.com</code> / <code>cliente123</code></p>
+          <p>Super Admin: <code>admin@pedidorapido.com</code> / <code>123456</code></p>
+          <p>Admin: use qualquer email de admin seedado / <code>123456</code></p>
         </DemoCredentials>
       </Card>
     </Container>

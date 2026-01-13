@@ -15,6 +15,8 @@ export interface User {
   createdAt: Date;
   updatedAt: Date;
   isActive: boolean;
+  kioskId?: string;
+  kioskName?: string;
 }
 
 export interface SuperAdmin extends User {

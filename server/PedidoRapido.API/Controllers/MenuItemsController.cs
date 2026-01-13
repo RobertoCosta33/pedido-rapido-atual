@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PedidoRapido.Application.DTOs;
 using PedidoRapido.Application.Interfaces;
@@ -7,6 +8,7 @@ namespace PedidoRapido.API.Controllers;
 /// <summary>
 /// Controller de Itens de Menu.
 /// Gerencia operações CRUD de pratos e bebidas.
+/// Consultas são públicas, modificações requerem Admin.
 /// </summary>
 [ApiController]
 [Route("api/[controller]")]
@@ -60,11 +62,14 @@ public class MenuItemsController : ControllerBase
     }
 
     /// <summary>
-    /// Cria um novo item de menu
+    /// Cria um novo item de menu (Admin)
     /// </summary>
     [HttpPost]
+    [Authorize(Policy = "Admin")]
     [ProducesResponseType(typeof(MenuItemDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public async Task<ActionResult<MenuItemDto>> Create([FromBody] CreateMenuItemDto dto)
     {
         try
@@ -84,11 +89,14 @@ public class MenuItemsController : ControllerBase
     }
 
     /// <summary>
-    /// Atualiza um item de menu
+    /// Atualiza um item de menu (Admin)
     /// </summary>
     [HttpPut("{id:guid}")]
+    [Authorize(Policy = "Admin")]
     [ProducesResponseType(typeof(MenuItemDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public async Task<ActionResult<MenuItemDto>> Update(Guid id, [FromBody] UpdateMenuItemDto dto)
     {
         try
@@ -103,11 +111,14 @@ public class MenuItemsController : ControllerBase
     }
 
     /// <summary>
-    /// Remove um item de menu
+    /// Remove um item de menu (Admin)
     /// </summary>
     [HttpDelete("{id:guid}")]
+    [Authorize(Policy = "Admin")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public async Task<IActionResult> Delete(Guid id)
     {
         var deleted = await _menuItemService.DeleteAsync(id);

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PedidoRapido.Application.DTOs;
 using PedidoRapido.Application.Interfaces;
@@ -7,10 +8,12 @@ namespace PedidoRapido.API.Controllers;
 /// <summary>
 /// Controller de Funcionários.
 /// Gerencia operações CRUD de funcionários vinculados a quiosques.
+/// Requer autenticação de Admin ou Super Admin.
 /// </summary>
 [ApiController]
 [Route("api/[controller]")]
 [Produces("application/json")]
+[Authorize(Policy = "Admin")] // Requer Admin ou SuperAdmin
 public class EmployeesController : ControllerBase
 {
     private readonly IEmployeeService _employeeService;
@@ -118,9 +121,10 @@ public class EmployeesController : ControllerBase
     }
 
     /// <summary>
-    /// Obtém ranking dos funcionários mais bem avaliados
+    /// Obtém ranking dos funcionários mais bem avaliados (público)
     /// </summary>
     [HttpGet("ranking")]
+    [AllowAnonymous] // Ranking é público
     [ProducesResponseType(typeof(IEnumerable<EmployeeRankingDto>), StatusCodes.Status200OK)]
     public async Task<ActionResult<IEnumerable<EmployeeRankingDto>>> GetRanking([FromQuery] int limit = 10)
     {

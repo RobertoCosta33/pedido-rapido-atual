@@ -2,6 +2,7 @@
 
 /**
  * Layout do painel Super Admin
+ * Protegido por autenticação - requer role SuperAdmin
  */
 
 import React, { useState } from 'react';
@@ -17,6 +18,7 @@ import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import { useRouter } from 'next/navigation';
 import { Sidebar, NavSectionData } from '@/components';
+import { SuperAdminGuard } from '@/components/Auth';
 import { useAuth, useTheme } from '@/contexts';
 import IconButton from '@mui/material/IconButton';
 import LightModeIcon from '@mui/icons-material/LightMode';
@@ -129,30 +131,32 @@ const SuperAdminLayout = ({ children }: SuperAdminLayoutProps) => {
   };
   
   return (
-    <Container>
-      <Sidebar
-        sections={navSections}
-        userName={user?.name || 'Super Admin'}
-        userRole="Super Administrador"
-        isMobileOpen={mobileMenuOpen}
-        onMobileClose={() => setMobileMenuOpen(false)}
-        onLogout={handleLogout}
-      />
-      
-      <Main $sidebarCollapsed={false}>
-        <Header>
-          <MobileMenuButton onClick={() => setMobileMenuOpen(true)}>
-            <MenuIcon />
-          </MobileMenuButton>
-          <PageTitle>Super Admin</PageTitle>
-          <IconButton onClick={toggleTheme}>
-            {isDarkMode ? <LightModeIcon /> : <DarkModeIcon />}
-          </IconButton>
-        </Header>
+    <SuperAdminGuard>
+      <Container>
+        <Sidebar
+          sections={navSections}
+          userName={user?.name || 'Super Admin'}
+          userRole="Super Administrador"
+          isMobileOpen={mobileMenuOpen}
+          onMobileClose={() => setMobileMenuOpen(false)}
+          onLogout={handleLogout}
+        />
         
-        <Content>{children}</Content>
-      </Main>
-    </Container>
+        <Main $sidebarCollapsed={false}>
+          <Header>
+            <MobileMenuButton onClick={() => setMobileMenuOpen(true)}>
+              <MenuIcon />
+            </MobileMenuButton>
+            <PageTitle>Super Admin</PageTitle>
+            <IconButton onClick={toggleTheme}>
+              {isDarkMode ? <LightModeIcon /> : <DarkModeIcon />}
+            </IconButton>
+          </Header>
+          
+          <Content>{children}</Content>
+        </Main>
+      </Container>
+    </SuperAdminGuard>
   );
 };
 

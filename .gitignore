@@ -33,3 +33,10 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# .NET
+**/bin/
+**/obj/
+*.user
+*.userosscache
+*.sln.docstates
+

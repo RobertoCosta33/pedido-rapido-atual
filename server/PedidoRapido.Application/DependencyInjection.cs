@@ -21,6 +21,9 @@ public static class DependencyInjection
         services.AddScoped<IRatingService, RatingService>();
         services.AddScoped<IPlanService, PlanService>();
         services.AddScoped<IRankingService, RankingService>();
+        
+        // Serviço de autenticação
+        services.AddScoped<IAuthService, AuthService>();
 
         return services;
     }

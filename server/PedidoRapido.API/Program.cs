@@ -1,4 +1,8 @@
+using System.Text;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using PedidoRapido.Application;
 using PedidoRapido.Infrastructure;
 
@@ -18,19 +22,108 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
     });
 
+// =============================================================================
+// Configuração JWT Authentication
+// =============================================================================
+
+var jwtSecret = builder.Configuration["JwtSettings:Secret"] 
+    ?? throw new InvalidOperationException("JWT Secret não configurado em appsettings.json");
+var jwtIssuer = builder.Configuration["JwtSettings:Issuer"] ?? "PedidoRapido.API";
+var jwtAudience = builder.Configuration["JwtSettings:Audience"] ?? "PedidoRapido.Frontend";
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret)),
+        ValidateIssuer = true,
+        ValidIssuer = jwtIssuer,
+        ValidateAudience = true,
+        ValidAudience = jwtAudience,
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero // Sem tolerância de tempo
+    };
+
+    // Eventos para debugging (remover em produção)
+    options.Events = new JwtBearerEvents
+    {
+        OnAuthenticationFailed = context =>
+        {
+            Console.WriteLine($"[JWT] Autenticação falhou: {context.Exception.Message}");
+            return Task.CompletedTask;
+        },
+        OnTokenValidated = context =>
+        {
+            var userId = context.Principal?.FindFirst("userId")?.Value;
+            Console.WriteLine($"[JWT] Token validado para usuário: {userId}");
+            return Task.CompletedTask;
+        }
+    };
+});
+
+builder.Services.AddAuthorization(options =>
+{
+    // Policy para Super Admin
+    options.AddPolicy("SuperAdmin", policy =>
+        policy.RequireClaim("role", "SuperAdmin"));
+
+    // Policy para Admin (Admin ou SuperAdmin)
+    options.AddPolicy("Admin", policy =>
+        policy.RequireClaim("role", "Admin", "SuperAdmin"));
+
+    // Policy para usuários autenticados
+    options.AddPolicy("Authenticated", policy =>
+        policy.RequireAuthenticatedUser());
+});
+
+// =============================================================================
 // Swagger / OpenAPI
+// =============================================================================
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    options.SwaggerDoc("v1", new OpenApiInfo
     {
         Title = "Pedido Rápido API",
         Version = "v1",
         Description = "API do sistema Pedido Rápido - Gestão de quiosques, cardápios e avaliações",
-        Contact = new Microsoft.OpenApi.Models.OpenApiContact
+        Contact = new OpenApiContact
         {
             Name = "Pedido Rápido",
             Email = "contato@pedidorapido.com"
+        }
+    });
+
+    // Configuração de autenticação JWT no Swagger
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Insira o token JWT no formato: Bearer {seu_token}"
+    });
+
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
         }
     });
 
@@ -43,7 +136,10 @@ builder.Services.AddSwaggerGen(options =>
     }
 });
 
+// =============================================================================
 // CORS - Permitir frontend local
+// =============================================================================
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
@@ -106,9 +202,9 @@ if (!app.Environment.IsDevelopment())
     app.UseHttpsRedirection();
 }
 
-// Autenticação e Autorização (preparado para futuro)
-// app.UseAuthentication();
-// app.UseAuthorization();
+// Autenticação e Autorização (ATIVADOS)
+app.UseAuthentication();
+app.UseAuthorization();
 
 // Mapear controllers
 app.MapControllers();
@@ -142,13 +238,20 @@ Console.WriteLine(@"
 ║  Swagger UI: http://localhost:5000                            ║
 ║  API Base:   http://localhost:5000/api                        ║
 ║                                                               ║
-║  Endpoints disponíveis:                                       ║
-║  • GET /api/kiosks        - Listar quiosques                 ║
-║  • GET /api/employees     - Listar funcionários              ║
-║  • GET /api/menuitems     - Listar cardápio                  ║
-║  • GET /api/ratings       - Listar avaliações                ║
-║  • GET /api/ranking       - Rankings públicos                ║
-║  • GET /api/plans         - Listar planos                    ║
+║  🔐 AUTENTICAÇÃO JWT ATIVADA                                  ║
+║                                                               ║
+║  Usuários de teste:                                           ║
+║  • admin@pedidorapido.com (SuperAdmin) - senha: 123456        ║
+║                                                               ║
+║  Endpoints públicos:                                          ║
+║  • POST /api/auth/login     - Fazer login                     ║
+║  • GET  /api/ranking/*      - Rankings públicos               ║
+║                                                               ║
+║  Endpoints protegidos (requer token):                         ║
+║  • GET /api/auth/me         - Dados do usuário                ║
+║  • GET /api/kiosks          - Listar quiosques                ║
+║  • GET /api/employees       - Listar funcionários             ║
+║  • GET /api/menuitems       - Listar cardápio                 ║
 ║                                                               ║
 ╚═══════════════════════════════════════════════════════════════╝
 ");
