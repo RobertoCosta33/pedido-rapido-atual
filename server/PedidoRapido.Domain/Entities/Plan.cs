@@ -16,6 +16,7 @@ public class Plan : BaseEntity
     public decimal AnnualPrice { get; set; }
     
     // Limites
+    public int MaxKiosks { get; set; } = 1; // Novo campo para limitar quiosques
     public int MaxProducts { get; set; } = -1; // -1 = ilimitado
     public int MaxOrdersPerMonth { get; set; } = -1;
     public int MaxEmployees { get; set; } = -1;

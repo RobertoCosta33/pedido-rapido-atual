@@ -14,15 +14,18 @@ public class KioskService : IKioskService
     private readonly IKioskRepository _kioskRepository;
     private readonly IRatingRepository _ratingRepository;
     private readonly ISubscriptionRepository _subscriptionRepository;
+    private readonly IPlanValidationService _planValidationService;
 
     public KioskService(
         IKioskRepository kioskRepository,
         IRatingRepository ratingRepository,
-        ISubscriptionRepository subscriptionRepository)
+        ISubscriptionRepository subscriptionRepository,
+        IPlanValidationService planValidationService)
     {
         _kioskRepository = kioskRepository;
         _ratingRepository = ratingRepository;
         _subscriptionRepository = subscriptionRepository;
+        _planValidationService = planValidationService;
     }
 
     public async Task<KioskDto?> GetByIdAsync(Guid id)
@@ -69,6 +72,9 @@ public class KioskService : IKioskService
 
     public async Task<KioskDto> CreateAsync(CreateKioskDto dto)
     {
+        // Validar se o usuário pode criar um novo quiosque
+        await _planValidationService.ValidateCanCreateKioskAsync(dto.OwnerId);
+
         var kiosk = new Kiosk
         {
             Name = dto.Name,
@@ -91,6 +97,14 @@ public class KioskService : IKioskService
         };
 
         var created = await _kioskRepository.AddAsync(kiosk);
+        
+        // Se é o primeiro quiosque do usuário, criar assinatura trial automática
+        var userKiosks = await _kioskRepository.GetByOwnerIdAsync(dto.OwnerId);
+        if (userKiosks.Count() == 1) // Primeiro quiosque
+        {
+            await CreateTrialSubscriptionAsync(created.Id);
+        }
+        
         return await ToDto(created);
     }
 
@@ -196,6 +210,29 @@ public class KioskService : IKioskService
             .Replace("õ", "o")
             .Replace("ú", "u")
             .Replace("ç", "c");
+    }
+
+    /// <summary>
+    /// Cria uma assinatura trial automática de 14 dias para o primeiro quiosque
+    /// </summary>
+    private async Task CreateTrialSubscriptionAsync(Guid kioskId)
+    {
+        // Plano Free (trial de 14 dias)
+        var freePlanId = Guid.Parse("00000000-0000-0000-0000-000000000001");
+        
+        var subscription = new Subscription
+        {
+            KioskId = kioskId,
+            PlanId = freePlanId,
+            Status = SubscriptionStatus.Active,
+            BillingCycle = BillingCycle.Monthly,
+            StartDate = DateTime.UtcNow,
+            ExpiryDate = DateTime.UtcNow.AddDays(14), // Trial de 14 dias
+            AutoRenew = false, // Trial não renova automaticamente
+            Price = 0
+        };
+
+        await _subscriptionRepository.AddAsync(subscription);
     }
 }
 

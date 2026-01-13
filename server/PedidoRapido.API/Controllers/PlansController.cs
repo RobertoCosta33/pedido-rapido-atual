@@ -1,16 +1,14 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PedidoRapido.Application.DTOs;
 using PedidoRapido.Application.Interfaces;
 
 namespace PedidoRapido.API.Controllers;
 
 /// <summary>
-/// Controller de Planos.
-/// Retorna informações sobre os planos disponíveis.
+/// Controller para gerenciar planos de assinatura.
 /// </summary>
 [ApiController]
 [Route("api/[controller]")]
-[Produces("application/json")]
 public class PlansController : ControllerBase
 {
     private readonly IPlanService _planService;
@@ -21,55 +19,39 @@ public class PlansController : ControllerBase
     }
 
     /// <summary>
-    /// Lista todos os planos
+    /// Lista todos os planos disponíveis
     /// </summary>
     [HttpGet]
-    [ProducesResponseType(typeof(IEnumerable<PlanDto>), StatusCodes.Status200OK)]
-    public async Task<ActionResult<IEnumerable<PlanDto>>> GetAll()
+    public async Task<IActionResult> GetPlans()
     {
-        var plans = await _planService.GetAllAsync();
-        return Ok(plans);
+        try
+        {
+            var plans = await _planService.GetActiveAsync();
+            return Ok(plans);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = "Erro interno do servidor", error = ex.Message });
+        }
     }
 
     /// <summary>
-    /// Lista planos ativos
+    /// Obtém um plano específico por slug
     /// </summary>
-    [HttpGet("active")]
-    [ProducesResponseType(typeof(IEnumerable<PlanDto>), StatusCodes.Status200OK)]
-    public async Task<ActionResult<IEnumerable<PlanDto>>> GetActive()
+    [HttpGet("{slug}")]
+    public async Task<IActionResult> GetPlanBySlug(string slug)
     {
-        var plans = await _planService.GetActiveAsync();
-        return Ok(plans);
-    }
+        try
+        {
+            var plan = await _planService.GetBySlugAsync(slug);
+            if (plan == null)
+                return NotFound(new { message = "Plano não encontrado" });
 
-    /// <summary>
-    /// Obtém um plano por ID
-    /// </summary>
-    [HttpGet("{id:guid}")]
-    [ProducesResponseType(typeof(PlanDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<PlanDto>> GetById(Guid id)
-    {
-        var plan = await _planService.GetByIdAsync(id);
-        if (plan == null)
-            return NotFound(new { message = "Plano não encontrado" });
-        
-        return Ok(plan);
-    }
-
-    /// <summary>
-    /// Obtém um plano por slug
-    /// </summary>
-    [HttpGet("slug/{slug}")]
-    [ProducesResponseType(typeof(PlanDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<PlanDto>> GetBySlug(string slug)
-    {
-        var plan = await _planService.GetBySlugAsync(slug);
-        if (plan == null)
-            return NotFound(new { message = "Plano não encontrado" });
-        
-        return Ok(plan);
+            return Ok(plan);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = "Erro interno do servidor", error = ex.Message });
+        }
     }
 }
-

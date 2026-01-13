@@ -12,13 +12,16 @@ public class MenuItemService : IMenuItemService
 {
     private readonly IMenuItemRepository _menuItemRepository;
     private readonly IKioskRepository _kioskRepository;
+    private readonly IPlanValidationService _planValidationService;
 
     public MenuItemService(
         IMenuItemRepository menuItemRepository,
-        IKioskRepository kioskRepository)
+        IKioskRepository kioskRepository,
+        IPlanValidationService planValidationService)
     {
         _menuItemRepository = menuItemRepository;
         _kioskRepository = kioskRepository;
+        _planValidationService = planValidationService;
     }
 
     public async Task<MenuItemDto?> GetByIdAsync(Guid id)
@@ -59,6 +62,9 @@ public class MenuItemService : IMenuItemService
     {
         var kiosk = await _kioskRepository.GetByIdAsync(dto.KioskId)
             ?? throw new KeyNotFoundException($"Quiosque {dto.KioskId} não encontrado");
+
+        // Validar se o plano permite criar mais produtos
+        await _planValidationService.ValidateCanCreateMenuItemAsync(dto.KioskId);
 
         var item = new MenuItem
         {

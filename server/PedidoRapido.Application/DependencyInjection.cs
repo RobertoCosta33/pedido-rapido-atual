@@ -25,6 +25,9 @@ public static class DependencyInjection
         // Serviço de autenticação
         services.AddScoped<IAuthService, AuthService>();
 
+        // Serviço de validação de planos (FASE D)
+        services.AddScoped<IPlanValidationService, PlanValidationService>();
+
         return services;
     }
 }

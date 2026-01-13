@@ -12,13 +12,16 @@ public class EmployeeService : IEmployeeService
 {
     private readonly IEmployeeRepository _employeeRepository;
     private readonly IKioskRepository _kioskRepository;
+    private readonly IPlanValidationService _planValidationService;
 
     public EmployeeService(
         IEmployeeRepository employeeRepository,
-        IKioskRepository kioskRepository)
+        IKioskRepository kioskRepository,
+        IPlanValidationService planValidationService)
     {
         _employeeRepository = employeeRepository;
         _kioskRepository = kioskRepository;
+        _planValidationService = planValidationService;
     }
 
     public async Task<EmployeeDto?> GetByIdAsync(Guid id)
@@ -59,6 +62,9 @@ public class EmployeeService : IEmployeeService
     {
         var kiosk = await _kioskRepository.GetByIdAsync(dto.KioskId)
             ?? throw new KeyNotFoundException($"Quiosque {dto.KioskId} não encontrado");
+
+        // Validar se o plano permite criar funcionários
+        await _planValidationService.ValidateCanCreateEmployeeAsync(dto.KioskId);
 
         var employee = new Employee
         {
