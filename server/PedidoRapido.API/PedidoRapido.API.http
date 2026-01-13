@@ -1,0 +1,6 @@
+@PedidoRapido.API_HostAddress = http://localhost:5208
+
+GET {{PedidoRapido.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

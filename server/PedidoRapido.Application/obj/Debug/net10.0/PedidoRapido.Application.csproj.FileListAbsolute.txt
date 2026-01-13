@@ -1,0 +1,16 @@
+C:\Users\rbtde\OneDrive\Documentos\pedido-rapido\server\PedidoRapido.Application\obj\Debug\net10.0\PedidoRapido.Application.csproj.AssemblyReference.cache
+C:\Users\rbtde\OneDrive\Documentos\pedido-rapido\server\PedidoRapido.Application\obj\Debug\net10.0\PedidoRapido.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\rbtde\OneDrive\Documentos\pedido-rapido\server\PedidoRapido.Application\obj\Debug\net10.0\PedidoRapido.Application.AssemblyInfoInputs.cache
+C:\Users\rbtde\OneDrive\Documentos\pedido-rapido\server\PedidoRapido.Application\obj\Debug\net10.0\PedidoRapido.Application.AssemblyInfo.cs
+C:\Users\rbtde\OneDrive\Documentos\pedido-rapido\server\PedidoRapido.Application\obj\Debug\net10.0\PedidoRapido.Application.csproj.CoreCompileInputs.cache
+C:\Users\rbtde\OneDrive\Documentos\pedido-rapido\server\PedidoRapido.Application\obj\Debug\net10.0\PedidoRapido.Application.sourcelink.json
+C:\Users\rbtde\OneDrive\Documentos\pedido-rapido\server\PedidoRapido.Application\bin\Debug\net10.0\PedidoRapido.Application.deps.json
+C:\Users\rbtde\OneDrive\Documentos\pedido-rapido\server\PedidoRapido.Application\bin\Debug\net10.0\PedidoRapido.Application.dll
+C:\Users\rbtde\OneDrive\Documentos\pedido-rapido\server\PedidoRapido.Application\bin\Debug\net10.0\PedidoRapido.Application.pdb
+C:\Users\rbtde\OneDrive\Documentos\pedido-rapido\server\PedidoRapido.Application\bin\Debug\net10.0\PedidoRapido.Domain.dll
+C:\Users\rbtde\OneDrive\Documentos\pedido-rapido\server\PedidoRapido.Application\bin\Debug\net10.0\PedidoRapido.Domain.pdb
+C:\Users\rbtde\OneDrive\Documentos\pedido-rapido\server\PedidoRapido.Application\obj\Debug\net10.0\PedidoRa.B4CA052F.Up2Date
+C:\Users\rbtde\OneDrive\Documentos\pedido-rapido\server\PedidoRapido.Application\obj\Debug\net10.0\PedidoRapido.Application.dll
+C:\Users\rbtde\OneDrive\Documentos\pedido-rapido\server\PedidoRapido.Application\obj\Debug\net10.0\refint\PedidoRapido.Application.dll
+C:\Users\rbtde\OneDrive\Documentos\pedido-rapido\server\PedidoRapido.Application\obj\Debug\net10.0\PedidoRapido.Application.pdb
+C:\Users\rbtde\OneDrive\Documentos\pedido-rapido\server\PedidoRapido.Application\obj\Debug\net10.0\ref\PedidoRapido.Application.dll

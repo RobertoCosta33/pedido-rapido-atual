@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "Tw5BylVGp98=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\rbtde\\OneDrive\\Documentos\\pedido-rapido\\server\\PedidoRapido.Infrastructure\\PedidoRapido.Infrastructure.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\rbtde\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\10.0.1\\microsoft.extensions.dependencyinjection.abstractions.10.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
