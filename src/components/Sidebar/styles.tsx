@@ -265,3 +265,37 @@ export const UserRole = styled.p`
   margin: 0;
 `;
 
+export const LogoutButton = styled.button<{ $isCollapsed: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: ${({ $isCollapsed }) => ($isCollapsed ? 'center' : 'flex-start')};
+  gap: ${({ theme }) => theme.spacing.md};
+  width: 100%;
+  padding: ${({ theme }) => theme.spacing.sm} ${({ theme }) => theme.spacing.md};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  color: ${({ theme }) => theme.colors.error.main};
+  transition: all ${({ theme }) => theme.transitions.fast};
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9375rem;
+  
+  &:hover {
+    background: ${({ theme }) => theme.colors.error.main}15;
+    color: ${({ theme }) => theme.colors.error.dark};
+  }
+  
+  svg {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+  }
+  
+  span {
+    white-space: nowrap;
+    overflow: hidden;
+    opacity: ${({ $isCollapsed }) => ($isCollapsed ? 0 : 1)};
+    transition: opacity ${({ theme }) => theme.transitions.fast};
+  }
+`;
+

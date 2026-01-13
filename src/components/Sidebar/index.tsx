@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import LogoutIcon from '@mui/icons-material/Logout';
 import {
   SidebarContainer,
   SidebarOverlay,
@@ -25,6 +26,7 @@ import {
   UserDetails,
   UserName,
   UserRole,
+  LogoutButton,
 } from './styles';
 
 export interface NavItemData {
@@ -45,6 +47,7 @@ export interface SidebarProps {
   userRole?: string;
   userInitials?: string;
   onUserClick?: () => void;
+  onLogout?: () => void;
   isMobileOpen?: boolean;
   onMobileClose?: () => void;
 }
@@ -55,6 +58,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   userRole = 'Admin',
   userInitials,
   onUserClick,
+  onLogout,
   isMobileOpen = false,
   onMobileClose,
 }) => {
@@ -119,6 +123,17 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <UserRole>{userRole}</UserRole>
             </UserDetails>
           </UserInfo>
+          
+          {onLogout && (
+            <LogoutButton
+              $isCollapsed={isCollapsed}
+              onClick={onLogout}
+              title="Sair"
+            >
+              <LogoutIcon />
+              {!isCollapsed && <span>Sair</span>}
+            </LogoutButton>
+          )}
           
           <CollapseButton
             $isCollapsed={isCollapsed}

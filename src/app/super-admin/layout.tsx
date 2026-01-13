@@ -15,8 +15,12 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import MenuIcon from '@mui/icons-material/Menu';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import { useRouter } from 'next/navigation';
 import { Sidebar, NavSectionData } from '@/components';
-import { useAuth } from '@/contexts';
+import { useAuth, useTheme } from '@/contexts';
+import IconButton from '@mui/material/IconButton';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 
 const Container = styled.div`
   display: flex;
@@ -111,8 +115,18 @@ interface SuperAdminLayoutProps {
 }
 
 const SuperAdminLayout = ({ children }: SuperAdminLayoutProps) => {
-  const { user } = useAuth();
+  const router = useRouter();
+  const { user, logout } = useAuth();
+  const { toggleTheme, isDarkMode } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
+  /**
+   * Executa logout e redireciona para login
+   */
+  const handleLogout = () => {
+    logout();
+    router.push('/login');
+  };
   
   return (
     <Container>
@@ -122,6 +136,7 @@ const SuperAdminLayout = ({ children }: SuperAdminLayoutProps) => {
         userRole="Super Administrador"
         isMobileOpen={mobileMenuOpen}
         onMobileClose={() => setMobileMenuOpen(false)}
+        onLogout={handleLogout}
       />
       
       <Main $sidebarCollapsed={false}>
@@ -130,7 +145,9 @@ const SuperAdminLayout = ({ children }: SuperAdminLayoutProps) => {
             <MenuIcon />
           </MobileMenuButton>
           <PageTitle>Super Admin</PageTitle>
-          <div />
+          <IconButton onClick={toggleTheme}>
+            {isDarkMode ? <LightModeIcon /> : <DarkModeIcon />}
+          </IconButton>
         </Header>
         
         <Content>{children}</Content>

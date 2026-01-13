@@ -22,6 +22,7 @@ import Badge from '@mui/material/Badge';
 import IconButton from '@mui/material/IconButton';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
+import { useRouter } from 'next/navigation';
 import { Sidebar, NavSectionData } from '@/components';
 import { useAuth, useTheme } from '@/contexts';
 
@@ -137,9 +138,18 @@ interface AdminLayoutProps {
 }
 
 const AdminLayout = ({ children }: AdminLayoutProps) => {
-  const { user } = useAuth();
+  const router = useRouter();
+  const { user, logout } = useAuth();
   const { toggleTheme, isDarkMode } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
+  /**
+   * Executa logout e redireciona para login
+   */
+  const handleLogout = () => {
+    logout();
+    router.push('/login');
+  };
   
   return (
     <Container>
@@ -149,6 +159,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
         userRole="Administrador"
         isMobileOpen={mobileMenuOpen}
         onMobileClose={() => setMobileMenuOpen(false)}
+        onLogout={handleLogout}
       />
       
       <Main>
