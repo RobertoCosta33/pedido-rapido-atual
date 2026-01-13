@@ -52,6 +52,9 @@ export interface KioskRanking {
   average: number;
   count: number;
   isPremium: boolean;
+  city?: string;
+  state?: string;
+  logo?: string;
 }
 
 // Labels para tipos de avaliação
@@ -130,6 +133,19 @@ export const ratingService = {
     }
     
     const response = await api.get<Rating[]>(`/orders/${orderId}/ratings`);
+    return response.data;
+  },
+
+  /**
+   * Lista avaliações por entidade (type e entityId)
+   */
+  getByEntity: async (entityType: RatingType, entityId: string): Promise<Rating[]> => {
+    if (process.env.NODE_ENV === 'development') {
+      await simulateDelay();
+      return mockDataService.getRatingsByTarget(entityType, entityId).map(toRating);
+    }
+    
+    const response = await api.get<Rating[]>(`/ratings?type=${entityType}&entityId=${entityId}`);
     return response.data;
   },
 
@@ -270,6 +286,9 @@ export const ratingService = {
           average: Math.round(k.average * 10) / 10,
           count: k.count,
           isPremium,
+          city: kiosk?.address?.city,
+          state: kiosk?.address?.state,
+          logo: kiosk?.logo,
         };
       });
     }

@@ -18,6 +18,8 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MenuIcon from '@mui/icons-material/Menu';
 import PeopleIcon from '@mui/icons-material/People';
 import StarIcon from '@mui/icons-material/Star';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import PaymentIcon from '@mui/icons-material/Payment';
 import Badge from '@mui/material/Badge';
 import IconButton from '@mui/material/IconButton';
 import LightModeIcon from '@mui/icons-material/LightMode';
@@ -123,11 +125,13 @@ const navSections: NavSectionData[] = [
     items: [
       { href: '/admin/employees', label: 'Funcionários', icon: <PeopleIcon /> },
       { href: '/admin/ratings', label: 'Avaliações', icon: <StarIcon /> },
+      { href: '/ranking', label: 'Ranking Público', icon: <EmojiEventsIcon /> },
     ],
   },
   {
     title: 'Sistema',
     items: [
+      { href: '/admin/plans', label: 'Meu Plano', icon: <PaymentIcon /> },
       { href: '/admin/settings', label: 'Configurações', icon: <SettingsIcon /> },
     ],
   },

@@ -27,13 +27,48 @@
       "instagram": "@praiacentral.santos"
     },
     "operatingHours": [
-      { "dayOfWeek": "sunday", "isOpen": true, "openTime": "08:00", "closeTime": "22:00" },
-      { "dayOfWeek": "monday", "isOpen": true, "openTime": "10:00", "closeTime": "20:00" },
-      { "dayOfWeek": "tuesday", "isOpen": true, "openTime": "10:00", "closeTime": "20:00" },
-      { "dayOfWeek": "wednesday", "isOpen": true, "openTime": "10:00", "closeTime": "20:00" },
-      { "dayOfWeek": "thursday", "isOpen": true, "openTime": "10:00", "closeTime": "20:00" },
-      { "dayOfWeek": "friday", "isOpen": true, "openTime": "10:00", "closeTime": "23:00" },
-      { "dayOfWeek": "saturday", "isOpen": true, "openTime": "08:00", "closeTime": "23:00" }
+      {
+        "dayOfWeek": "sunday",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "22:00"
+      },
+      {
+        "dayOfWeek": "monday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "tuesday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "wednesday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "thursday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "friday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "23:00"
+      },
+      {
+        "dayOfWeek": "saturday",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "23:00"
+      }
     ],
     "isActive": true,
     "isPublic": true,
@@ -83,13 +118,48 @@
       "facebook": "sabordomar.copa"
     },
     "operatingHours": [
-      { "dayOfWeek": "sunday", "isOpen": true, "openTime": "07:00", "closeTime": "23:00" },
-      { "dayOfWeek": "monday", "isOpen": true, "openTime": "09:00", "closeTime": "21:00" },
-      { "dayOfWeek": "tuesday", "isOpen": true, "openTime": "09:00", "closeTime": "21:00" },
-      { "dayOfWeek": "wednesday", "isOpen": true, "openTime": "09:00", "closeTime": "21:00" },
-      { "dayOfWeek": "thursday", "isOpen": true, "openTime": "09:00", "closeTime": "21:00" },
-      { "dayOfWeek": "friday", "isOpen": true, "openTime": "09:00", "closeTime": "00:00" },
-      { "dayOfWeek": "saturday", "isOpen": true, "openTime": "07:00", "closeTime": "00:00" }
+      {
+        "dayOfWeek": "sunday",
+        "isOpen": true,
+        "openTime": "07:00",
+        "closeTime": "23:00"
+      },
+      {
+        "dayOfWeek": "monday",
+        "isOpen": true,
+        "openTime": "09:00",
+        "closeTime": "21:00"
+      },
+      {
+        "dayOfWeek": "tuesday",
+        "isOpen": true,
+        "openTime": "09:00",
+        "closeTime": "21:00"
+      },
+      {
+        "dayOfWeek": "wednesday",
+        "isOpen": true,
+        "openTime": "09:00",
+        "closeTime": "21:00"
+      },
+      {
+        "dayOfWeek": "thursday",
+        "isOpen": true,
+        "openTime": "09:00",
+        "closeTime": "21:00"
+      },
+      {
+        "dayOfWeek": "friday",
+        "isOpen": true,
+        "openTime": "09:00",
+        "closeTime": "00:00"
+      },
+      {
+        "dayOfWeek": "saturday",
+        "isOpen": true,
+        "openTime": "07:00",
+        "closeTime": "00:00"
+      }
     ],
     "isActive": true,
     "isPublic": true,
@@ -138,13 +208,48 @@
       "instagram": "@tropicalbeach.ssa"
     },
     "operatingHours": [
-      { "dayOfWeek": "sunday", "isOpen": true, "openTime": "08:00", "closeTime": "22:00" },
-      { "dayOfWeek": "monday", "isOpen": true, "openTime": "10:00", "closeTime": "20:00" },
-      { "dayOfWeek": "tuesday", "isOpen": false, "openTime": "00:00", "closeTime": "00:00" },
-      { "dayOfWeek": "wednesday", "isOpen": true, "openTime": "10:00", "closeTime": "20:00" },
-      { "dayOfWeek": "thursday", "isOpen": true, "openTime": "10:00", "closeTime": "20:00" },
-      { "dayOfWeek": "friday", "isOpen": true, "openTime": "10:00", "closeTime": "23:00" },
-      { "dayOfWeek": "saturday", "isOpen": true, "openTime": "08:00", "closeTime": "23:00" }
+      {
+        "dayOfWeek": "sunday",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "22:00"
+      },
+      {
+        "dayOfWeek": "monday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "tuesday",
+        "isOpen": false,
+        "openTime": "00:00",
+        "closeTime": "00:00"
+      },
+      {
+        "dayOfWeek": "wednesday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "thursday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "friday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "23:00"
+      },
+      {
+        "dayOfWeek": "saturday",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "23:00"
+      }
     ],
     "isActive": true,
     "isPublic": true,
@@ -193,13 +298,48 @@
       "instagram": "@solnascente.recife"
     },
     "operatingHours": [
-      { "dayOfWeek": "sunday", "isOpen": true, "openTime": "06:00", "closeTime": "20:00" },
-      { "dayOfWeek": "monday", "isOpen": true, "openTime": "06:00", "closeTime": "18:00" },
-      { "dayOfWeek": "tuesday", "isOpen": true, "openTime": "06:00", "closeTime": "18:00" },
-      { "dayOfWeek": "wednesday", "isOpen": true, "openTime": "06:00", "closeTime": "18:00" },
-      { "dayOfWeek": "thursday", "isOpen": true, "openTime": "06:00", "closeTime": "18:00" },
-      { "dayOfWeek": "friday", "isOpen": true, "openTime": "06:00", "closeTime": "21:00" },
-      { "dayOfWeek": "saturday", "isOpen": true, "openTime": "06:00", "closeTime": "21:00" }
+      {
+        "dayOfWeek": "sunday",
+        "isOpen": true,
+        "openTime": "06:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "monday",
+        "isOpen": true,
+        "openTime": "06:00",
+        "closeTime": "18:00"
+      },
+      {
+        "dayOfWeek": "tuesday",
+        "isOpen": true,
+        "openTime": "06:00",
+        "closeTime": "18:00"
+      },
+      {
+        "dayOfWeek": "wednesday",
+        "isOpen": true,
+        "openTime": "06:00",
+        "closeTime": "18:00"
+      },
+      {
+        "dayOfWeek": "thursday",
+        "isOpen": true,
+        "openTime": "06:00",
+        "closeTime": "18:00"
+      },
+      {
+        "dayOfWeek": "friday",
+        "isOpen": true,
+        "openTime": "06:00",
+        "closeTime": "21:00"
+      },
+      {
+        "dayOfWeek": "saturday",
+        "isOpen": true,
+        "openTime": "06:00",
+        "closeTime": "21:00"
+      }
     ],
     "isActive": true,
     "isPublic": true,
@@ -249,13 +389,48 @@
       "facebook": "maresiabar.fortaleza"
     },
     "operatingHours": [
-      { "dayOfWeek": "sunday", "isOpen": true, "openTime": "10:00", "closeTime": "02:00" },
-      { "dayOfWeek": "monday", "isOpen": false, "openTime": "00:00", "closeTime": "00:00" },
-      { "dayOfWeek": "tuesday", "isOpen": true, "openTime": "16:00", "closeTime": "23:00" },
-      { "dayOfWeek": "wednesday", "isOpen": true, "openTime": "16:00", "closeTime": "23:00" },
-      { "dayOfWeek": "thursday", "isOpen": true, "openTime": "16:00", "closeTime": "00:00" },
-      { "dayOfWeek": "friday", "isOpen": true, "openTime": "16:00", "closeTime": "02:00" },
-      { "dayOfWeek": "saturday", "isOpen": true, "openTime": "10:00", "closeTime": "02:00" }
+      {
+        "dayOfWeek": "sunday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "02:00"
+      },
+      {
+        "dayOfWeek": "monday",
+        "isOpen": false,
+        "openTime": "00:00",
+        "closeTime": "00:00"
+      },
+      {
+        "dayOfWeek": "tuesday",
+        "isOpen": true,
+        "openTime": "16:00",
+        "closeTime": "23:00"
+      },
+      {
+        "dayOfWeek": "wednesday",
+        "isOpen": true,
+        "openTime": "16:00",
+        "closeTime": "23:00"
+      },
+      {
+        "dayOfWeek": "thursday",
+        "isOpen": true,
+        "openTime": "16:00",
+        "closeTime": "00:00"
+      },
+      {
+        "dayOfWeek": "friday",
+        "isOpen": true,
+        "openTime": "16:00",
+        "closeTime": "02:00"
+      },
+      {
+        "dayOfWeek": "saturday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "02:00"
+      }
     ],
     "isActive": true,
     "isPublic": true,
@@ -294,7 +469,7 @@
       "country": "Brasil",
       "coordinates": {
         "latitude": -26.9934,
-        "longitude": -48.6370
+        "longitude": -48.637
       }
     },
     "contact": {
@@ -304,13 +479,48 @@
       "instagram": "@ondaazul.bc"
     },
     "operatingHours": [
-      { "dayOfWeek": "sunday", "isOpen": true, "openTime": "09:00", "closeTime": "23:00" },
-      { "dayOfWeek": "monday", "isOpen": true, "openTime": "11:00", "closeTime": "21:00" },
-      { "dayOfWeek": "tuesday", "isOpen": true, "openTime": "11:00", "closeTime": "21:00" },
-      { "dayOfWeek": "wednesday", "isOpen": true, "openTime": "11:00", "closeTime": "21:00" },
-      { "dayOfWeek": "thursday", "isOpen": true, "openTime": "11:00", "closeTime": "22:00" },
-      { "dayOfWeek": "friday", "isOpen": true, "openTime": "11:00", "closeTime": "00:00" },
-      { "dayOfWeek": "saturday", "isOpen": true, "openTime": "09:00", "closeTime": "00:00" }
+      {
+        "dayOfWeek": "sunday",
+        "isOpen": true,
+        "openTime": "09:00",
+        "closeTime": "23:00"
+      },
+      {
+        "dayOfWeek": "monday",
+        "isOpen": true,
+        "openTime": "11:00",
+        "closeTime": "21:00"
+      },
+      {
+        "dayOfWeek": "tuesday",
+        "isOpen": true,
+        "openTime": "11:00",
+        "closeTime": "21:00"
+      },
+      {
+        "dayOfWeek": "wednesday",
+        "isOpen": true,
+        "openTime": "11:00",
+        "closeTime": "21:00"
+      },
+      {
+        "dayOfWeek": "thursday",
+        "isOpen": true,
+        "openTime": "11:00",
+        "closeTime": "22:00"
+      },
+      {
+        "dayOfWeek": "friday",
+        "isOpen": true,
+        "openTime": "11:00",
+        "closeTime": "00:00"
+      },
+      {
+        "dayOfWeek": "saturday",
+        "isOpen": true,
+        "openTime": "09:00",
+        "closeTime": "00:00"
+      }
     ],
     "isActive": true,
     "isPublic": true,
@@ -359,13 +569,48 @@
       "instagram": "@coqueiroverde.vix"
     },
     "operatingHours": [
-      { "dayOfWeek": "sunday", "isOpen": true, "openTime": "08:00", "closeTime": "20:00" },
-      { "dayOfWeek": "monday", "isOpen": true, "openTime": "10:00", "closeTime": "18:00" },
-      { "dayOfWeek": "tuesday", "isOpen": true, "openTime": "10:00", "closeTime": "18:00" },
-      { "dayOfWeek": "wednesday", "isOpen": true, "openTime": "10:00", "closeTime": "18:00" },
-      { "dayOfWeek": "thursday", "isOpen": true, "openTime": "10:00", "closeTime": "18:00" },
-      { "dayOfWeek": "friday", "isOpen": true, "openTime": "10:00", "closeTime": "21:00" },
-      { "dayOfWeek": "saturday", "isOpen": true, "openTime": "08:00", "closeTime": "21:00" }
+      {
+        "dayOfWeek": "sunday",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "monday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "18:00"
+      },
+      {
+        "dayOfWeek": "tuesday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "18:00"
+      },
+      {
+        "dayOfWeek": "wednesday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "18:00"
+      },
+      {
+        "dayOfWeek": "thursday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "18:00"
+      },
+      {
+        "dayOfWeek": "friday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "21:00"
+      },
+      {
+        "dayOfWeek": "saturday",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "21:00"
+      }
     ],
     "isActive": true,
     "isPublic": true,
@@ -415,13 +660,48 @@
       "facebook": "areiabranca.floripa"
     },
     "operatingHours": [
-      { "dayOfWeek": "sunday", "isOpen": true, "openTime": "11:00", "closeTime": "00:00" },
-      { "dayOfWeek": "monday", "isOpen": false, "openTime": "00:00", "closeTime": "00:00" },
-      { "dayOfWeek": "tuesday", "isOpen": false, "openTime": "00:00", "closeTime": "00:00" },
-      { "dayOfWeek": "wednesday", "isOpen": true, "openTime": "18:00", "closeTime": "00:00" },
-      { "dayOfWeek": "thursday", "isOpen": true, "openTime": "18:00", "closeTime": "00:00" },
-      { "dayOfWeek": "friday", "isOpen": true, "openTime": "12:00", "closeTime": "02:00" },
-      { "dayOfWeek": "saturday", "isOpen": true, "openTime": "11:00", "closeTime": "02:00" }
+      {
+        "dayOfWeek": "sunday",
+        "isOpen": true,
+        "openTime": "11:00",
+        "closeTime": "00:00"
+      },
+      {
+        "dayOfWeek": "monday",
+        "isOpen": false,
+        "openTime": "00:00",
+        "closeTime": "00:00"
+      },
+      {
+        "dayOfWeek": "tuesday",
+        "isOpen": false,
+        "openTime": "00:00",
+        "closeTime": "00:00"
+      },
+      {
+        "dayOfWeek": "wednesday",
+        "isOpen": true,
+        "openTime": "18:00",
+        "closeTime": "00:00"
+      },
+      {
+        "dayOfWeek": "thursday",
+        "isOpen": true,
+        "openTime": "18:00",
+        "closeTime": "00:00"
+      },
+      {
+        "dayOfWeek": "friday",
+        "isOpen": true,
+        "openTime": "12:00",
+        "closeTime": "02:00"
+      },
+      {
+        "dayOfWeek": "saturday",
+        "isOpen": true,
+        "openTime": "11:00",
+        "closeTime": "02:00"
+      }
     ],
     "isActive": true,
     "isPublic": true,
@@ -470,13 +750,48 @@
       "instagram": "@recantodosol.natal"
     },
     "operatingHours": [
-      { "dayOfWeek": "sunday", "isOpen": true, "openTime": "07:00", "closeTime": "19:00" },
-      { "dayOfWeek": "monday", "isOpen": true, "openTime": "07:00", "closeTime": "17:00" },
-      { "dayOfWeek": "tuesday", "isOpen": true, "openTime": "07:00", "closeTime": "17:00" },
-      { "dayOfWeek": "wednesday", "isOpen": true, "openTime": "07:00", "closeTime": "17:00" },
-      { "dayOfWeek": "thursday", "isOpen": true, "openTime": "07:00", "closeTime": "17:00" },
-      { "dayOfWeek": "friday", "isOpen": true, "openTime": "07:00", "closeTime": "19:00" },
-      { "dayOfWeek": "saturday", "isOpen": true, "openTime": "07:00", "closeTime": "19:00" }
+      {
+        "dayOfWeek": "sunday",
+        "isOpen": true,
+        "openTime": "07:00",
+        "closeTime": "19:00"
+      },
+      {
+        "dayOfWeek": "monday",
+        "isOpen": true,
+        "openTime": "07:00",
+        "closeTime": "17:00"
+      },
+      {
+        "dayOfWeek": "tuesday",
+        "isOpen": true,
+        "openTime": "07:00",
+        "closeTime": "17:00"
+      },
+      {
+        "dayOfWeek": "wednesday",
+        "isOpen": true,
+        "openTime": "07:00",
+        "closeTime": "17:00"
+      },
+      {
+        "dayOfWeek": "thursday",
+        "isOpen": true,
+        "openTime": "07:00",
+        "closeTime": "17:00"
+      },
+      {
+        "dayOfWeek": "friday",
+        "isOpen": true,
+        "openTime": "07:00",
+        "closeTime": "19:00"
+      },
+      {
+        "dayOfWeek": "saturday",
+        "isOpen": true,
+        "openTime": "07:00",
+        "closeTime": "19:00"
+      }
     ],
     "isActive": true,
     "isPublic": true,
@@ -525,13 +840,48 @@
       "instagram": "@paraisotropical.aju"
     },
     "operatingHours": [
-      { "dayOfWeek": "sunday", "isOpen": true, "openTime": "08:00", "closeTime": "21:00" },
-      { "dayOfWeek": "monday", "isOpen": true, "openTime": "09:00", "closeTime": "18:00" },
-      { "dayOfWeek": "tuesday", "isOpen": true, "openTime": "09:00", "closeTime": "18:00" },
-      { "dayOfWeek": "wednesday", "isOpen": true, "openTime": "09:00", "closeTime": "18:00" },
-      { "dayOfWeek": "thursday", "isOpen": true, "openTime": "09:00", "closeTime": "18:00" },
-      { "dayOfWeek": "friday", "isOpen": true, "openTime": "09:00", "closeTime": "22:00" },
-      { "dayOfWeek": "saturday", "isOpen": true, "openTime": "08:00", "closeTime": "22:00" }
+      {
+        "dayOfWeek": "sunday",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "21:00"
+      },
+      {
+        "dayOfWeek": "monday",
+        "isOpen": true,
+        "openTime": "09:00",
+        "closeTime": "18:00"
+      },
+      {
+        "dayOfWeek": "tuesday",
+        "isOpen": true,
+        "openTime": "09:00",
+        "closeTime": "18:00"
+      },
+      {
+        "dayOfWeek": "wednesday",
+        "isOpen": true,
+        "openTime": "09:00",
+        "closeTime": "18:00"
+      },
+      {
+        "dayOfWeek": "thursday",
+        "isOpen": true,
+        "openTime": "09:00",
+        "closeTime": "18:00"
+      },
+      {
+        "dayOfWeek": "friday",
+        "isOpen": true,
+        "openTime": "09:00",
+        "closeTime": "22:00"
+      },
+      {
+        "dayOfWeek": "saturday",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "22:00"
+      }
     ],
     "isActive": true,
     "isPublic": true,
@@ -551,6 +901,865 @@
         "secondaryColor": "#CAD2C5"
       }
     }
+  },
+  {
+    "id": "kiosk_011",
+    "name": "Pôr do Sol Salvador",
+    "slug": "por-do-sol-salvador",
+    "description": "O melhor quiosque de Salvador. Especializado em frutos do mar frescos e drinks tropicais.",
+    "logo": "https://images.unsplash.com/photo-1500088819229?w=200",
+    "coverImage": "https://images.unsplash.com/photo-1500074649193?w=1200",
+    "address": {
+      "street": "Av. Beira Mar",
+      "number": "2907",
+      "complement": "Quiosque 42",
+      "neighborhood": "Centro",
+      "city": "Salvador",
+      "state": "BA",
+      "zipCode": "33208-393",
+      "country": "Brasil",
+      "coordinates": {
+        "latitude": -6.867077981004353,
+        "longitude": -45.10432852711442
+      }
+    },
+    "contact": {
+      "phone": "(77) 3298-2317",
+      "whatsapp": "(59) 99984-3631",
+      "email": "contato@por-do-sol-salv.com.br",
+      "instagram": "@por-do-sol-salv"
+    },
+    "operatingHours": [
+      {
+        "dayOfWeek": "sunday",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "22:00"
+      },
+      {
+        "dayOfWeek": "monday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "tuesday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "wednesday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "thursday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "friday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "23:00"
+      },
+      {
+        "dayOfWeek": "saturday",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "23:00"
+      }
+    ],
+    "isActive": true,
+    "isPublic": true,
+    "licenseExpiry": "2026-01-07T10:27:22.524Z",
+    "createdAt": "2023-02-21T05:18:59.305Z",
+    "updatedAt": "2024-11-13T04:19:29.497Z",
+    "ownerId": "usr_038",
+    "planId": "plan_professional",
+    "settings": {
+      "allowOnlineOrders": true,
+      "allowTableOrders": true,
+      "requirePaymentUpfront": false,
+      "estimatedPrepTime": 16,
+      "maxOrdersPerHour": 37
+    }
+  },
+  {
+    "id": "kiosk_012",
+    "name": "Pérola do Mar Fortaleza",
+    "slug": "perola-do-mar-fortaleza",
+    "description": "O melhor quiosque de Fortaleza. Especializado em frutos do mar frescos e drinks tropicais.",
+    "logo": "https://images.unsplash.com/photo-1500034405460?w=200",
+    "coverImage": "https://images.unsplash.com/photo-1500004983210?w=1200",
+    "address": {
+      "street": "Av. Beira Mar",
+      "number": "3873",
+      "complement": "Quiosque 49",
+      "neighborhood": "Centro",
+      "city": "Fortaleza",
+      "state": "CE",
+      "zipCode": "36598-676",
+      "country": "Brasil",
+      "coordinates": {
+        "latitude": -22.811908874135288,
+        "longitude": -42.522234341810304
+      }
+    },
+    "contact": {
+      "phone": "(74) 3083-1636",
+      "whatsapp": "(34) 97631-4975",
+      "email": "contato@perola-do-mar-f.com.br",
+      "instagram": "@perola-do-mar-f"
+    },
+    "operatingHours": [
+      {
+        "dayOfWeek": "sunday",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "22:00"
+      },
+      {
+        "dayOfWeek": "monday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "tuesday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "wednesday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "thursday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "friday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "23:00"
+      },
+      {
+        "dayOfWeek": "saturday",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "23:00"
+      }
+    ],
+    "isActive": true,
+    "isPublic": true,
+    "licenseExpiry": "2026-12-16T02:34:59.997Z",
+    "createdAt": "2023-03-03T20:06:06.938Z",
+    "updatedAt": "2024-11-21T21:58:27.255Z",
+    "ownerId": "usr_006",
+    "planId": "plan_professional",
+    "settings": {
+      "allowOnlineOrders": true,
+      "allowTableOrders": true,
+      "requirePaymentUpfront": false,
+      "estimatedPrepTime": 27,
+      "maxOrdersPerHour": 40
+    }
+  },
+  {
+    "id": "kiosk_013",
+    "name": "Onda Azul Santos",
+    "slug": "onda-azul-santos",
+    "description": "O melhor quiosque de Santos. Especializado em frutos do mar frescos e drinks tropicais.",
+    "logo": "https://images.unsplash.com/photo-1500072455742?w=200",
+    "coverImage": "https://images.unsplash.com/photo-1500024890877?w=1200",
+    "address": {
+      "street": "Av. Beira Mar",
+      "number": "3225",
+      "complement": "Quiosque 13",
+      "neighborhood": "Centro",
+      "city": "Santos",
+      "state": "SP",
+      "zipCode": "93345-693",
+      "country": "Brasil",
+      "coordinates": {
+        "latitude": -11.685554602619261,
+        "longitude": -43.02200438393945
+      }
+    },
+    "contact": {
+      "phone": "(14) 3168-1270",
+      "whatsapp": "(80) 99069-2811",
+      "email": "contato@onda-azul-santo.com.br",
+      "instagram": "@onda-azul-santo"
+    },
+    "operatingHours": [
+      {
+        "dayOfWeek": "sunday",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "22:00"
+      },
+      {
+        "dayOfWeek": "monday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "tuesday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "wednesday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "thursday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "friday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "23:00"
+      },
+      {
+        "dayOfWeek": "saturday",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "23:00"
+      }
+    ],
+    "isActive": true,
+    "isPublic": true,
+    "licenseExpiry": "2026-09-15T08:08:32.023Z",
+    "createdAt": "2023-04-03T10:11:49.204Z",
+    "updatedAt": "2024-07-17T21:26:34.683Z",
+    "ownerId": "usr_020",
+    "planId": "plan_professional",
+    "settings": {
+      "allowOnlineOrders": true,
+      "allowTableOrders": true,
+      "requirePaymentUpfront": false,
+      "estimatedPrepTime": 19,
+      "maxOrdersPerHour": 28
+    }
+  },
+  {
+    "id": "kiosk_014",
+    "name": "Costa Verde Cabo Frio",
+    "slug": "costa-verde-cabo-frio",
+    "description": "O melhor quiosque de Cabo Frio. Especializado em frutos do mar frescos e drinks tropicais.",
+    "logo": "https://images.unsplash.com/photo-1500045994166?w=200",
+    "coverImage": "https://images.unsplash.com/photo-1500014319787?w=1200",
+    "address": {
+      "street": "Av. Beira Mar",
+      "number": "2076",
+      "complement": "Quiosque 48",
+      "neighborhood": "Centro",
+      "city": "Cabo Frio",
+      "state": "RJ",
+      "zipCode": "43019-804",
+      "country": "Brasil",
+      "coordinates": {
+        "latitude": -21.54442831319069,
+        "longitude": -35.06690777371438
+      }
+    },
+    "contact": {
+      "phone": "(45) 3549-4898",
+      "whatsapp": "(19) 99969-9526",
+      "email": "contato@costa-verde-cab.com.br",
+      "instagram": "@costa-verde-cab"
+    },
+    "operatingHours": [
+      {
+        "dayOfWeek": "sunday",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "22:00"
+      },
+      {
+        "dayOfWeek": "monday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "tuesday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "wednesday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "thursday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "friday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "23:00"
+      },
+      {
+        "dayOfWeek": "saturday",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "23:00"
+      }
+    ],
+    "isActive": true,
+    "isPublic": true,
+    "licenseExpiry": "2026-10-07T06:19:46.877Z",
+    "createdAt": "2024-02-07T15:07:26.861Z",
+    "updatedAt": "2024-12-04T09:21:29.373Z",
+    "ownerId": "usr_044",
+    "planId": "plan_professional",
+    "settings": {
+      "allowOnlineOrders": true,
+      "allowTableOrders": true,
+      "requirePaymentUpfront": false,
+      "estimatedPrepTime": 16,
+      "maxOrdersPerHour": 98
+    }
+  },
+  {
+    "id": "kiosk_015",
+    "name": "Refúgio Tropical Ubatuba",
+    "slug": "refugio-tropical-ubatuba",
+    "description": "O melhor quiosque de Ubatuba. Especializado em frutos do mar frescos e drinks tropicais.",
+    "logo": "https://images.unsplash.com/photo-1500024247097?w=200",
+    "coverImage": "https://images.unsplash.com/photo-1500009697907?w=1200",
+    "address": {
+      "street": "Av. Beira Mar",
+      "number": "3231",
+      "complement": "Quiosque 20",
+      "neighborhood": "Centro",
+      "city": "Ubatuba",
+      "state": "SP",
+      "zipCode": "12745-973",
+      "country": "Brasil",
+      "coordinates": {
+        "latitude": -19.23198101275174,
+        "longitude": -40.94018331529563
+      }
+    },
+    "contact": {
+      "phone": "(77) 3302-3279",
+      "whatsapp": "(27) 98932-9892",
+      "email": "contato@refugio-tropica.com.br",
+      "instagram": "@refugio-tropica"
+    },
+    "operatingHours": [
+      {
+        "dayOfWeek": "sunday",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "22:00"
+      },
+      {
+        "dayOfWeek": "monday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "tuesday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "wednesday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "thursday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "friday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "23:00"
+      },
+      {
+        "dayOfWeek": "saturday",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "23:00"
+      }
+    ],
+    "isActive": true,
+    "isPublic": true,
+    "licenseExpiry": "2026-06-06T15:59:02.673Z",
+    "createdAt": "2023-05-03T12:34:46.508Z",
+    "updatedAt": "2024-12-06T04:56:43.101Z",
+    "ownerId": "usr_037",
+    "planId": "plan_basic",
+    "settings": {
+      "allowOnlineOrders": true,
+      "allowTableOrders": true,
+      "requirePaymentUpfront": false,
+      "estimatedPrepTime": 16,
+      "maxOrdersPerHour": 54
+    }
+  },
+  {
+    "id": "kiosk_016",
+    "name": "Costa Verde Angra dos Reis",
+    "slug": "costa-verde-angra-dos-reis",
+    "description": "O melhor quiosque de Angra dos Reis. Especializado em frutos do mar frescos e drinks tropicais.",
+    "logo": "https://images.unsplash.com/photo-1500095629773?w=200",
+    "coverImage": "https://images.unsplash.com/photo-1500091474056?w=1200",
+    "address": {
+      "street": "Av. Beira Mar",
+      "number": "3254",
+      "complement": "Quiosque 16",
+      "neighborhood": "Centro",
+      "city": "Angra dos Reis",
+      "state": "RJ",
+      "zipCode": "79117-885",
+      "country": "Brasil",
+      "coordinates": {
+        "latitude": -5.771888868042716,
+        "longitude": -39.128988882819144
+      }
+    },
+    "contact": {
+      "phone": "(54) 3886-9124",
+      "whatsapp": "(14) 98202-3370",
+      "email": "contato@costa-verde-ang.com.br",
+      "instagram": "@costa-verde-ang"
+    },
+    "operatingHours": [
+      {
+        "dayOfWeek": "sunday",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "22:00"
+      },
+      {
+        "dayOfWeek": "monday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "tuesday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "wednesday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "thursday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "friday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "23:00"
+      },
+      {
+        "dayOfWeek": "saturday",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "23:00"
+      }
+    ],
+    "isActive": true,
+    "isPublic": true,
+    "licenseExpiry": "2026-05-11T11:21:55.238Z",
+    "createdAt": "2024-01-14T19:00:17.245Z",
+    "updatedAt": "2024-12-19T05:14:01.281Z",
+    "ownerId": "usr_014",
+    "planId": "plan_premium",
+    "settings": {
+      "allowOnlineOrders": true,
+      "allowTableOrders": true,
+      "requirePaymentUpfront": false,
+      "estimatedPrepTime": 30,
+      "maxOrdersPerHour": 24
+    }
+  },
+  {
+    "id": "kiosk_017",
+    "name": "Maré Alta Cabo Frio",
+    "slug": "mare-alta-cabo-frio",
+    "description": "O melhor quiosque de Cabo Frio. Especializado em frutos do mar frescos e drinks tropicais.",
+    "logo": "https://images.unsplash.com/photo-1500070047398?w=200",
+    "coverImage": "https://images.unsplash.com/photo-1500031003182?w=1200",
+    "address": {
+      "street": "Av. Beira Mar",
+      "number": "4670",
+      "complement": "Quiosque 27",
+      "neighborhood": "Centro",
+      "city": "Cabo Frio",
+      "state": "RJ",
+      "zipCode": "79395-881",
+      "country": "Brasil",
+      "coordinates": {
+        "latitude": -13.800945378401362,
+        "longitude": -47.31302363500608
+      }
+    },
+    "contact": {
+      "phone": "(73) 3967-5959",
+      "whatsapp": "(16) 98055-4059",
+      "email": "contato@mare-alta-cabo-.com.br",
+      "instagram": "@mare-alta-cabo-"
+    },
+    "operatingHours": [
+      {
+        "dayOfWeek": "sunday",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "22:00"
+      },
+      {
+        "dayOfWeek": "monday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "tuesday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "wednesday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "thursday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "friday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "23:00"
+      },
+      {
+        "dayOfWeek": "saturday",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "23:00"
+      }
+    ],
+    "isActive": true,
+    "isPublic": true,
+    "licenseExpiry": "2026-07-29T13:42:01.927Z",
+    "createdAt": "2024-01-22T10:50:42.617Z",
+    "updatedAt": "2024-11-03T23:04:02.458Z",
+    "ownerId": "usr_003",
+    "planId": "plan_professional",
+    "settings": {
+      "allowOnlineOrders": true,
+      "allowTableOrders": true,
+      "requirePaymentUpfront": false,
+      "estimatedPrepTime": 28,
+      "maxOrdersPerHour": 36
+    }
+  },
+  {
+    "id": "kiosk_018",
+    "name": "Quiosque Sol Nascente Niterói",
+    "slug": "quiosque-sol-nascente-niteroi",
+    "description": "O melhor quiosque de Niterói. Especializado em frutos do mar frescos e drinks tropicais.",
+    "logo": "https://images.unsplash.com/photo-1500040166217?w=200",
+    "coverImage": "https://images.unsplash.com/photo-1500095956213?w=1200",
+    "address": {
+      "street": "Av. Beira Mar",
+      "number": "4402",
+      "complement": "Quiosque 30",
+      "neighborhood": "Centro",
+      "city": "Niterói",
+      "state": "RJ",
+      "zipCode": "95572-994",
+      "country": "Brasil",
+      "coordinates": {
+        "latitude": -10.318575099628918,
+        "longitude": -35.02788213027577
+      }
+    },
+    "contact": {
+      "phone": "(15) 3351-9429",
+      "whatsapp": "(36) 97200-2223",
+      "email": "contato@quiosque-sol-na.com.br",
+      "instagram": "@quiosque-sol-na"
+    },
+    "operatingHours": [
+      {
+        "dayOfWeek": "sunday",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "22:00"
+      },
+      {
+        "dayOfWeek": "monday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "tuesday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "wednesday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "thursday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "friday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "23:00"
+      },
+      {
+        "dayOfWeek": "saturday",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "23:00"
+      }
+    ],
+    "isActive": true,
+    "isPublic": true,
+    "licenseExpiry": "2025-09-24T04:44:53.477Z",
+    "createdAt": "2023-06-11T13:44:24.008Z",
+    "updatedAt": "2024-08-16T10:19:13.748Z",
+    "ownerId": "usr_031",
+    "planId": "plan_free",
+    "settings": {
+      "allowOnlineOrders": true,
+      "allowTableOrders": true,
+      "requirePaymentUpfront": false,
+      "estimatedPrepTime": 13,
+      "maxOrdersPerHour": 63
+    }
+  },
+  {
+    "id": "kiosk_019",
+    "name": "Vento Sul Guarujá",
+    "slug": "vento-sul-guaruja",
+    "description": "O melhor quiosque de Guarujá. Especializado em frutos do mar frescos e drinks tropicais.",
+    "logo": "https://images.unsplash.com/photo-1500046450406?w=200",
+    "coverImage": "https://images.unsplash.com/photo-1500075432714?w=1200",
+    "address": {
+      "street": "Av. Beira Mar",
+      "number": "948",
+      "complement": "Quiosque 24",
+      "neighborhood": "Centro",
+      "city": "Guarujá",
+      "state": "SP",
+      "zipCode": "45574-357",
+      "country": "Brasil",
+      "coordinates": {
+        "latitude": -15.71232891389459,
+        "longitude": -47.67302513102082
+      }
+    },
+    "contact": {
+      "phone": "(93) 3422-4147",
+      "whatsapp": "(21) 98581-8129",
+      "email": "contato@vento-sul-guaru.com.br",
+      "instagram": "@vento-sul-guaru"
+    },
+    "operatingHours": [
+      {
+        "dayOfWeek": "sunday",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "22:00"
+      },
+      {
+        "dayOfWeek": "monday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "tuesday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "wednesday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "thursday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "friday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "23:00"
+      },
+      {
+        "dayOfWeek": "saturday",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "23:00"
+      }
+    ],
+    "isActive": true,
+    "isPublic": true,
+    "licenseExpiry": "2025-12-03T17:09:12.908Z",
+    "createdAt": "2023-08-18T09:01:25.083Z",
+    "updatedAt": "2024-12-07T15:19:32.344Z",
+    "ownerId": "usr_023",
+    "planId": "plan_basic",
+    "settings": {
+      "allowOnlineOrders": true,
+      "allowTableOrders": true,
+      "requirePaymentUpfront": false,
+      "estimatedPrepTime": 23,
+      "maxOrdersPerHour": 62
+    }
+  },
+  {
+    "id": "kiosk_020",
+    "name": "Areia Dourada Cabo Frio",
+    "slug": "areia-dourada-cabo-frio",
+    "description": "O melhor quiosque de Cabo Frio. Especializado em frutos do mar frescos e drinks tropicais.",
+    "logo": "https://images.unsplash.com/photo-1500082086999?w=200",
+    "coverImage": "https://images.unsplash.com/photo-1500025893230?w=1200",
+    "address": {
+      "street": "Av. Beira Mar",
+      "number": "2201",
+      "complement": "Quiosque 29",
+      "neighborhood": "Centro",
+      "city": "Cabo Frio",
+      "state": "RJ",
+      "zipCode": "17973-948",
+      "country": "Brasil",
+      "coordinates": {
+        "latitude": -7.142484491447913,
+        "longitude": -38.397507613674094
+      }
+    },
+    "contact": {
+      "phone": "(20) 3053-6084",
+      "whatsapp": "(51) 97008-7867",
+      "email": "contato@areia-dourada-c.com.br",
+      "instagram": "@areia-dourada-c"
+    },
+    "operatingHours": [
+      {
+        "dayOfWeek": "sunday",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "22:00"
+      },
+      {
+        "dayOfWeek": "monday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "tuesday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "wednesday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "thursday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "20:00"
+      },
+      {
+        "dayOfWeek": "friday",
+        "isOpen": true,
+        "openTime": "10:00",
+        "closeTime": "23:00"
+      },
+      {
+        "dayOfWeek": "saturday",
+        "isOpen": true,
+        "openTime": "08:00",
+        "closeTime": "23:00"
+      }
+    ],
+    "isActive": true,
+    "isPublic": true,
+    "licenseExpiry": "2025-11-28T09:32:19.782Z",
+    "createdAt": "2023-12-05T12:45:17.725Z",
+    "updatedAt": "2024-09-30T13:40:44.794Z",
+    "ownerId": "usr_043",
+    "planId": "plan_basic",
+    "settings": {
+      "allowOnlineOrders": true,
+      "allowTableOrders": true,
+      "requirePaymentUpfront": false,
+      "estimatedPrepTime": 19,
+      "maxOrdersPerHour": 75
+    }
   }
 ]
-

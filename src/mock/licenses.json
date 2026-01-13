@@ -9,8 +9,8 @@
     "startDate": "2024-01-01T00:00:00Z",
     "expiryDate": "2025-12-31T23:59:59Z",
     "billingCycle": "annual",
-    "price": 299.90,
-    "totalPaid": 2878.80,
+    "price": 299.9,
+    "totalPaid": 2878.8,
     "autoRenew": true,
     "features": {
       "stockManagement": true,
@@ -29,8 +29,22 @@
       "employees": -1
     },
     "paymentHistory": [
-      { "id": "pay_001", "date": "2024-01-01T10:00:00Z", "amount": 2878.80, "status": "paid", "method": "credit_card", "invoice": "INV-2024-001" },
-      { "id": "pay_002", "date": "2023-01-01T10:00:00Z", "amount": 2638.80, "status": "paid", "method": "credit_card", "invoice": "INV-2023-001" }
+      {
+        "id": "pay_001",
+        "date": "2024-01-01T10:00:00Z",
+        "amount": 2878.8,
+        "status": "paid",
+        "method": "credit_card",
+        "invoice": "INV-2024-001"
+      },
+      {
+        "id": "pay_002",
+        "date": "2023-01-01T10:00:00Z",
+        "amount": 2638.8,
+        "status": "paid",
+        "method": "credit_card",
+        "invoice": "INV-2023-001"
+      }
     ],
     "createdAt": "2023-01-01T10:00:00Z",
     "updatedAt": "2024-01-01T10:00:00Z"
@@ -45,8 +59,8 @@
     "startDate": "2024-02-01T00:00:00Z",
     "expiryDate": "2025-06-30T23:59:59Z",
     "billingCycle": "semiannual",
-    "price": 199.90,
-    "totalPaid": 1079.40,
+    "price": 199.9,
+    "totalPaid": 1079.4,
     "autoRenew": true,
     "features": {
       "stockManagement": true,
@@ -65,8 +79,22 @@
       "employees": 5
     },
     "paymentHistory": [
-      { "id": "pay_003", "date": "2024-08-01T10:00:00Z", "amount": 1079.40, "status": "paid", "method": "pix", "invoice": "INV-2024-045" },
-      { "id": "pay_004", "date": "2024-02-01T10:00:00Z", "amount": 1079.40, "status": "paid", "method": "pix", "invoice": "INV-2024-012" }
+      {
+        "id": "pay_003",
+        "date": "2024-08-01T10:00:00Z",
+        "amount": 1079.4,
+        "status": "paid",
+        "method": "pix",
+        "invoice": "INV-2024-045"
+      },
+      {
+        "id": "pay_004",
+        "date": "2024-02-01T10:00:00Z",
+        "amount": 1079.4,
+        "status": "paid",
+        "method": "pix",
+        "invoice": "INV-2024-012"
+      }
     ],
     "createdAt": "2024-02-01T10:00:00Z",
     "updatedAt": "2024-08-01T10:00:00Z"
@@ -81,8 +109,8 @@
     "startDate": "2024-02-15T00:00:00Z",
     "expiryDate": "2025-09-30T23:59:59Z",
     "billingCycle": "monthly",
-    "price": 199.90,
-    "totalPaid": 1999.00,
+    "price": 199.9,
+    "totalPaid": 1999,
     "autoRenew": true,
     "features": {
       "stockManagement": true,
@@ -101,7 +129,14 @@
       "employees": 5
     },
     "paymentHistory": [
-      { "id": "pay_005", "date": "2024-11-01T10:00:00Z", "amount": 199.90, "status": "paid", "method": "credit_card", "invoice": "INV-2024-089" }
+      {
+        "id": "pay_005",
+        "date": "2024-11-01T10:00:00Z",
+        "amount": 199.9,
+        "status": "paid",
+        "method": "credit_card",
+        "invoice": "INV-2024-089"
+      }
     ],
     "createdAt": "2024-02-15T10:00:00Z",
     "updatedAt": "2024-11-01T10:00:00Z"
@@ -116,8 +151,8 @@
     "startDate": "2024-03-01T00:00:00Z",
     "expiryDate": "2025-03-31T23:59:59Z",
     "billingCycle": "annual",
-    "price": 99.90,
-    "totalPaid": 958.80,
+    "price": 99.9,
+    "totalPaid": 958.8,
     "autoRenew": false,
     "features": {
       "stockManagement": true,
@@ -136,7 +171,14 @@
       "employees": 0
     },
     "paymentHistory": [
-      { "id": "pay_006", "date": "2024-03-01T10:00:00Z", "amount": 958.80, "status": "paid", "method": "boleto", "invoice": "INV-2024-023" }
+      {
+        "id": "pay_006",
+        "date": "2024-03-01T10:00:00Z",
+        "amount": 958.8,
+        "status": "paid",
+        "method": "boleto",
+        "invoice": "INV-2024-023"
+      }
     ],
     "createdAt": "2024-03-01T10:00:00Z",
     "updatedAt": "2024-03-01T10:00:00Z"
@@ -151,8 +193,8 @@
     "startDate": "2024-03-15T00:00:00Z",
     "expiryDate": "2025-11-30T23:59:59Z",
     "billingCycle": "annual",
-    "price": 299.90,
-    "totalPaid": 2878.80,
+    "price": 299.9,
+    "totalPaid": 2878.8,
     "autoRenew": true,
     "features": {
       "stockManagement": true,
@@ -171,7 +213,14 @@
       "employees": -1
     },
     "paymentHistory": [
-      { "id": "pay_007", "date": "2024-03-15T10:00:00Z", "amount": 2878.80, "status": "paid", "method": "credit_card", "invoice": "INV-2024-028" }
+      {
+        "id": "pay_007",
+        "date": "2024-03-15T10:00:00Z",
+        "amount": 2878.8,
+        "status": "paid",
+        "method": "credit_card",
+        "invoice": "INV-2024-028"
+      }
     ],
     "createdAt": "2024-03-15T10:00:00Z",
     "updatedAt": "2024-03-15T10:00:00Z"
@@ -186,8 +235,8 @@
     "startDate": "2024-04-01T00:00:00Z",
     "expiryDate": "2025-08-31T23:59:59Z",
     "billingCycle": "monthly",
-    "price": 199.90,
-    "totalPaid": 1399.30,
+    "price": 199.9,
+    "totalPaid": 1399.3,
     "autoRenew": true,
     "features": {
       "stockManagement": true,
@@ -206,7 +255,14 @@
       "employees": 5
     },
     "paymentHistory": [
-      { "id": "pay_008", "date": "2024-11-01T10:00:00Z", "amount": 199.90, "status": "paid", "method": "pix", "invoice": "INV-2024-090" }
+      {
+        "id": "pay_008",
+        "date": "2024-11-01T10:00:00Z",
+        "amount": 199.9,
+        "status": "paid",
+        "method": "pix",
+        "invoice": "INV-2024-090"
+      }
     ],
     "createdAt": "2024-04-01T10:00:00Z",
     "updatedAt": "2024-11-01T10:00:00Z"
@@ -221,8 +277,8 @@
     "startDate": "2024-04-15T00:00:00Z",
     "expiryDate": "2025-04-30T23:59:59Z",
     "billingCycle": "annual",
-    "price": 99.90,
-    "totalPaid": 958.80,
+    "price": 99.9,
+    "totalPaid": 958.8,
     "autoRenew": false,
     "features": {
       "stockManagement": true,
@@ -241,7 +297,14 @@
       "employees": 0
     },
     "paymentHistory": [
-      { "id": "pay_009", "date": "2024-04-15T10:00:00Z", "amount": 958.80, "status": "paid", "method": "boleto", "invoice": "INV-2024-035" }
+      {
+        "id": "pay_009",
+        "date": "2024-04-15T10:00:00Z",
+        "amount": 958.8,
+        "status": "paid",
+        "method": "boleto",
+        "invoice": "INV-2024-035"
+      }
     ],
     "createdAt": "2024-04-15T10:00:00Z",
     "updatedAt": "2024-04-15T10:00:00Z"
@@ -256,8 +319,8 @@
     "startDate": "2024-05-01T00:00:00Z",
     "expiryDate": "2025-10-31T23:59:59Z",
     "billingCycle": "semiannual",
-    "price": 299.90,
-    "totalPaid": 1619.40,
+    "price": 299.9,
+    "totalPaid": 1619.4,
     "autoRenew": true,
     "features": {
       "stockManagement": true,
@@ -276,7 +339,14 @@
       "employees": -1
     },
     "paymentHistory": [
-      { "id": "pay_010", "date": "2024-05-01T10:00:00Z", "amount": 1619.40, "status": "paid", "method": "credit_card", "invoice": "INV-2024-042" }
+      {
+        "id": "pay_010",
+        "date": "2024-05-01T10:00:00Z",
+        "amount": 1619.4,
+        "status": "paid",
+        "method": "credit_card",
+        "invoice": "INV-2024-042"
+      }
     ],
     "createdAt": "2024-05-01T10:00:00Z",
     "updatedAt": "2024-05-01T10:00:00Z"
@@ -291,8 +361,8 @@
     "startDate": "2024-05-15T00:00:00Z",
     "expiryDate": "2025-07-31T23:59:59Z",
     "billingCycle": "monthly",
-    "price": 199.90,
-    "totalPaid": 1199.40,
+    "price": 199.9,
+    "totalPaid": 1199.4,
     "autoRenew": true,
     "features": {
       "stockManagement": true,
@@ -311,7 +381,14 @@
       "employees": 5
     },
     "paymentHistory": [
-      { "id": "pay_011", "date": "2024-11-01T10:00:00Z", "amount": 199.90, "status": "paid", "method": "pix", "invoice": "INV-2024-091" }
+      {
+        "id": "pay_011",
+        "date": "2024-11-01T10:00:00Z",
+        "amount": 199.9,
+        "status": "paid",
+        "method": "pix",
+        "invoice": "INV-2024-091"
+      }
     ],
     "createdAt": "2024-05-15T10:00:00Z",
     "updatedAt": "2024-11-01T10:00:00Z"
@@ -326,8 +403,8 @@
     "startDate": "2024-06-01T00:00:00Z",
     "expiryDate": "2025-05-31T23:59:59Z",
     "billingCycle": "annual",
-    "price": 99.90,
-    "totalPaid": 958.80,
+    "price": 99.9,
+    "totalPaid": 958.8,
     "autoRenew": true,
     "features": {
       "stockManagement": true,
@@ -346,9 +423,377 @@
       "employees": 0
     },
     "paymentHistory": [
-      { "id": "pay_012", "date": "2024-06-01T10:00:00Z", "amount": 958.80, "status": "paid", "method": "pix", "invoice": "INV-2024-051" }
+      {
+        "id": "pay_012",
+        "date": "2024-06-01T10:00:00Z",
+        "amount": 958.8,
+        "status": "paid",
+        "method": "pix",
+        "invoice": "INV-2024-051"
+      }
     ],
     "createdAt": "2024-06-01T10:00:00Z",
     "updatedAt": "2024-06-01T10:00:00Z"
+  },
+  {
+    "id": "lic_011",
+    "kioskId": "kiosk_011",
+    "kioskName": "Pôr do Sol Salvador",
+    "planId": "plan_professional",
+    "plan": "professional",
+    "status": "active",
+    "startDate": "2024-08-19T02:53:33.334Z",
+    "expiryDate": "2026-10-08T00:45:47.017Z",
+    "billingCycle": "semiannual",
+    "price": 1079.4,
+    "totalPaid": 1079.4,
+    "autoRenew": false,
+    "features": {
+      "stockManagement": true,
+      "employeeManagement": true,
+      "publicRanking": true
+    },
+    "limits": {
+      "products": -1,
+      "ordersPerMonth": -1,
+      "employees": 5
+    },
+    "paymentHistory": [
+      {
+        "id": "pay_381",
+        "date": "2024-04-02T23:39:00.234Z",
+        "amount": 1079.4,
+        "status": "paid",
+        "method": "credit_card",
+        "invoice": "INV-2024-837"
+      }
+    ],
+    "createdAt": "2024-03-21T10:55:50.569Z",
+    "updatedAt": "2024-12-20T00:38:40.708Z"
+  },
+  {
+    "id": "lic_012",
+    "kioskId": "kiosk_012",
+    "kioskName": "Pérola do Mar Fortaleza",
+    "planId": "plan_professional",
+    "plan": "professional",
+    "status": "expiring_soon",
+    "startDate": "2024-08-31T11:48:19.378Z",
+    "expiryDate": "2025-06-30T10:41:21.595Z",
+    "billingCycle": "semiannual",
+    "price": 1079.4,
+    "totalPaid": 1079.4,
+    "autoRenew": true,
+    "features": {
+      "stockManagement": true,
+      "employeeManagement": true,
+      "publicRanking": true
+    },
+    "limits": {
+      "products": -1,
+      "ordersPerMonth": -1,
+      "employees": 5
+    },
+    "paymentHistory": [
+      {
+        "id": "pay_302",
+        "date": "2024-01-22T14:05:09.720Z",
+        "amount": 1079.4,
+        "status": "paid",
+        "method": "pix",
+        "invoice": "INV-2024-213"
+      }
+    ],
+    "createdAt": "2024-03-30T03:56:20.825Z",
+    "updatedAt": "2024-10-20T19:19:28.201Z"
+  },
+  {
+    "id": "lic_013",
+    "kioskId": "kiosk_013",
+    "kioskName": "Onda Azul Santos",
+    "planId": "plan_professional",
+    "plan": "professional",
+    "status": "active",
+    "startDate": "2024-02-04T07:54:03.866Z",
+    "expiryDate": "2026-05-03T19:39:32.160Z",
+    "billingCycle": "annual",
+    "price": 1918.8,
+    "totalPaid": 1918.8,
+    "autoRenew": true,
+    "features": {
+      "stockManagement": true,
+      "employeeManagement": true,
+      "publicRanking": true
+    },
+    "limits": {
+      "products": -1,
+      "ordersPerMonth": -1,
+      "employees": 5
+    },
+    "paymentHistory": [
+      {
+        "id": "pay_929",
+        "date": "2024-10-09T17:57:56.514Z",
+        "amount": 1918.8,
+        "status": "paid",
+        "method": "pix",
+        "invoice": "INV-2024-115"
+      }
+    ],
+    "createdAt": "2024-04-24T05:58:46.857Z",
+    "updatedAt": "2024-09-29T01:36:23.552Z"
+  },
+  {
+    "id": "lic_014",
+    "kioskId": "kiosk_014",
+    "kioskName": "Costa Verde Cabo Frio",
+    "planId": "plan_professional",
+    "plan": "professional",
+    "status": "active",
+    "startDate": "2024-03-11T03:37:53.589Z",
+    "expiryDate": "2025-06-05T00:42:57.192Z",
+    "billingCycle": "annual",
+    "price": 1918.8,
+    "totalPaid": 1918.8,
+    "autoRenew": true,
+    "features": {
+      "stockManagement": true,
+      "employeeManagement": true,
+      "publicRanking": true
+    },
+    "limits": {
+      "products": -1,
+      "ordersPerMonth": -1,
+      "employees": 5
+    },
+    "paymentHistory": [
+      {
+        "id": "pay_401",
+        "date": "2024-12-12T02:17:00.419Z",
+        "amount": 1918.8,
+        "status": "paid",
+        "method": "credit_card",
+        "invoice": "INV-2024-175"
+      }
+    ],
+    "createdAt": "2024-05-04T02:25:03.662Z",
+    "updatedAt": "2024-11-23T11:39:46.718Z"
+  },
+  {
+    "id": "lic_015",
+    "kioskId": "kiosk_015",
+    "kioskName": "Refúgio Tropical Ubatuba",
+    "planId": "plan_basic",
+    "plan": "basic",
+    "status": "active",
+    "startDate": "2024-03-01T08:35:09.431Z",
+    "expiryDate": "2026-01-23T15:41:31.478Z",
+    "billingCycle": "semiannual",
+    "price": 539.4,
+    "totalPaid": 539.4,
+    "autoRenew": true,
+    "features": {
+      "stockManagement": true,
+      "employeeManagement": false,
+      "publicRanking": false
+    },
+    "limits": {
+      "products": 50,
+      "ordersPerMonth": 500,
+      "employees": 0
+    },
+    "paymentHistory": [
+      {
+        "id": "pay_638",
+        "date": "2024-10-24T16:08:37.468Z",
+        "amount": 539.4,
+        "status": "paid",
+        "method": "pix",
+        "invoice": "INV-2024-246"
+      }
+    ],
+    "createdAt": "2024-03-25T11:52:55.818Z",
+    "updatedAt": "2024-12-04T17:28:06.863Z"
+  },
+  {
+    "id": "lic_016",
+    "kioskId": "kiosk_016",
+    "kioskName": "Costa Verde Angra dos Reis",
+    "planId": "plan_premium",
+    "plan": "premium",
+    "status": "expiring_soon",
+    "startDate": "2024-05-23T05:07:30.952Z",
+    "expiryDate": "2026-10-09T03:59:14.327Z",
+    "billingCycle": "monthly",
+    "price": 299.9,
+    "totalPaid": 299.9,
+    "autoRenew": true,
+    "features": {
+      "stockManagement": true,
+      "employeeManagement": true,
+      "publicRanking": true,
+      "prioritySupport": true
+    },
+    "limits": {
+      "products": -1,
+      "ordersPerMonth": -1,
+      "employees": -1
+    },
+    "paymentHistory": [
+      {
+        "id": "pay_396",
+        "date": "2024-09-01T02:34:28.858Z",
+        "amount": 299.9,
+        "status": "paid",
+        "method": "boleto",
+        "invoice": "INV-2024-526"
+      }
+    ],
+    "createdAt": "2024-04-10T11:56:14.396Z",
+    "updatedAt": "2024-09-08T05:44:55.640Z"
+  },
+  {
+    "id": "lic_017",
+    "kioskId": "kiosk_017",
+    "kioskName": "Maré Alta Cabo Frio",
+    "planId": "plan_professional",
+    "plan": "professional",
+    "status": "active",
+    "startDate": "2024-01-23T18:06:34.450Z",
+    "expiryDate": "2026-05-05T09:00:00.385Z",
+    "billingCycle": "semiannual",
+    "price": 1079.4,
+    "totalPaid": 1079.4,
+    "autoRenew": true,
+    "features": {
+      "stockManagement": true,
+      "employeeManagement": true,
+      "publicRanking": true
+    },
+    "limits": {
+      "products": -1,
+      "ordersPerMonth": -1,
+      "employees": 5
+    },
+    "paymentHistory": [
+      {
+        "id": "pay_229",
+        "date": "2024-08-20T20:24:01.799Z",
+        "amount": 1079.4,
+        "status": "paid",
+        "method": "pix",
+        "invoice": "INV-2024-986"
+      }
+    ],
+    "createdAt": "2024-01-30T07:15:09.627Z",
+    "updatedAt": "2024-06-03T17:06:55.630Z"
+  },
+  {
+    "id": "lic_018",
+    "kioskId": "kiosk_018",
+    "kioskName": "Quiosque Sol Nascente Niterói",
+    "planId": "plan_free",
+    "plan": "free",
+    "status": "active",
+    "startDate": "2024-11-17T09:07:43.261Z",
+    "expiryDate": "2026-10-12T09:55:13.496Z",
+    "billingCycle": "monthly",
+    "price": 99.9,
+    "totalPaid": 99.9,
+    "autoRenew": false,
+    "features": {
+      "stockManagement": false,
+      "employeeManagement": false,
+      "publicRanking": false
+    },
+    "limits": {
+      "products": 10,
+      "ordersPerMonth": 50,
+      "employees": 0
+    },
+    "paymentHistory": [
+      {
+        "id": "pay_372",
+        "date": "2024-07-08T06:34:47.392Z",
+        "amount": 99.9,
+        "status": "paid",
+        "method": "pix",
+        "invoice": "INV-2024-779"
+      }
+    ],
+    "createdAt": "2024-04-20T01:56:12.900Z",
+    "updatedAt": "2024-10-25T01:22:05.859Z"
+  },
+  {
+    "id": "lic_019",
+    "kioskId": "kiosk_019",
+    "kioskName": "Vento Sul Guarujá",
+    "planId": "plan_basic",
+    "plan": "basic",
+    "status": "active",
+    "startDate": "2024-03-17T15:03:32.318Z",
+    "expiryDate": "2026-09-02T09:23:25.624Z",
+    "billingCycle": "annual",
+    "price": 958.8,
+    "totalPaid": 958.8,
+    "autoRenew": true,
+    "features": {
+      "stockManagement": true,
+      "employeeManagement": false,
+      "publicRanking": false
+    },
+    "limits": {
+      "products": 50,
+      "ordersPerMonth": 500,
+      "employees": 0
+    },
+    "paymentHistory": [
+      {
+        "id": "pay_318",
+        "date": "2024-05-12T09:44:38.237Z",
+        "amount": 958.8,
+        "status": "paid",
+        "method": "pix",
+        "invoice": "INV-2024-185"
+      }
+    ],
+    "createdAt": "2024-03-28T01:31:42.284Z",
+    "updatedAt": "2024-06-06T05:18:36.518Z"
+  },
+  {
+    "id": "lic_020",
+    "kioskId": "kiosk_020",
+    "kioskName": "Areia Dourada Cabo Frio",
+    "planId": "plan_basic",
+    "plan": "basic",
+    "status": "active",
+    "startDate": "2024-07-28T19:51:10.345Z",
+    "expiryDate": "2025-11-10T04:11:00.714Z",
+    "billingCycle": "monthly",
+    "price": 99.9,
+    "totalPaid": 99.9,
+    "autoRenew": false,
+    "features": {
+      "stockManagement": true,
+      "employeeManagement": false,
+      "publicRanking": false
+    },
+    "limits": {
+      "products": 50,
+      "ordersPerMonth": 500,
+      "employees": 0
+    },
+    "paymentHistory": [
+      {
+        "id": "pay_810",
+        "date": "2024-10-16T12:01:07.330Z",
+        "amount": 99.9,
+        "status": "paid",
+        "method": "credit_card",
+        "invoice": "INV-2024-409"
+      }
+    ],
+    "createdAt": "2024-02-24T02:37:20.266Z",
+    "updatedAt": "2024-12-18T15:57:55.888Z"
   }
 ]

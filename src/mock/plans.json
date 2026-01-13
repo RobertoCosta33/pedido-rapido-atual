@@ -1,5 +1,53 @@
 [
   {
+    "id": "plan_free",
+    "name": "Free",
+    "slug": "free",
+    "description": "Experimente gratuitamente por 14 dias",
+    "badge": "Grátis",
+    "pricing": {
+      "monthly": 0,
+      "semiannual": 0,
+      "annual": 0,
+      "monthlyDiscount": {
+        "semiannual": 0,
+        "annual": 0
+      }
+    },
+    "limits": {
+      "products": 10,
+      "ordersPerMonth": 50,
+      "employees": 0,
+      "categories": 3,
+      "imagesPerProduct": 1
+    },
+    "features": {
+      "stockManagement": false,
+      "recipeManagement": false,
+      "analytics": false,
+      "advancedAnalytics": false,
+      "employeeManagement": false,
+      "publicRanking": false,
+      "prioritySupport": false,
+      "customDomain": false,
+      "apiAccess": false,
+      "whatsappIntegration": false,
+      "multipleMenus": false,
+      "promotions": false,
+      "loyaltyProgram": false,
+      "tableManagement": false,
+      "kitchenDisplay": false,
+      "exportReports": false,
+      "rankingEnabled": false,
+      "employeesEnabled": false,
+      "highlightedInRanking": false
+    },
+    "trialDays": 14,
+    "order": 0,
+    "isActive": true,
+    "isPopular": false
+  },
+  {
     "id": "plan_basic",
     "name": "Basic",
     "slug": "basic",
