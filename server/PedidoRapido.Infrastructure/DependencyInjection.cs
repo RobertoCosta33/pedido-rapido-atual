@@ -1,12 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PedidoRapido.Application.Interfaces;
 using PedidoRapido.Domain.Entities;
 using PedidoRapido.Domain.Interfaces;
+using PedidoRapido.Infrastructure.Configuration;
 using PedidoRapido.Infrastructure.Data;
 using PedidoRapido.Infrastructure.Repositories;
 using PedidoRapido.Infrastructure.Repositories.EF;
 using PedidoRapido.Infrastructure.Seed;
+using PedidoRapido.Infrastructure.Services;
 
 namespace PedidoRapido.Infrastructure;
 
@@ -38,6 +41,9 @@ public static class DependencyInjection
             Console.WriteLine("[INFRA] 💾 Configurando repositórios InMemory");
             AddInMemoryServices(services);
         }
+
+        // Configurar Stripe (sempre disponível)
+        AddStripeServices(services, configuration);
 
         return services;
     }
@@ -115,6 +121,23 @@ public static class DependencyInjection
         services.AddSingleton<ISubscriptionRepository>(subscriptionRepo);
 
         Console.WriteLine("[INFRA] ✅ Repositórios InMemory registrados como Singleton");
+    }
+
+    /// <summary>
+    /// Configura serviços do Stripe
+    /// </summary>
+    private static void AddStripeServices(IServiceCollection services, IConfiguration configuration)
+    {
+        // Configurar StripeSettings usando Bind
+        services.Configure<StripeSettings>(options =>
+        {
+            configuration.GetSection("Stripe").Bind(options);
+        });
+
+        // Registrar StripeService
+        services.AddScoped<IStripeService, StripeService>();
+
+        Console.WriteLine("[INFRA] ✅ Serviços Stripe registrados");
     }
 
     /// <summary>
