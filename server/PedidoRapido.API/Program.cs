@@ -168,8 +168,8 @@ builder.Services.AddCors(options =>
 // Injeção de Dependências (Clean Architecture)
 // =============================================================================
 
-// Camada Infrastructure (repositórios in-memory com seed)
-builder.Services.AddInfrastructure();
+// Camada Infrastructure (repositórios EF Core + PostgreSQL ou InMemory)
+builder.Services.AddInfrastructure(builder.Configuration);
 
 // Camada Application (serviços de negócio)
 builder.Services.AddApplication();
@@ -241,6 +241,7 @@ Console.WriteLine(@"
 ║  API Base:   http://localhost:5000/api                        ║
 ║                                                               ║
 ║  🔐 AUTENTICAÇÃO JWT ATIVADA                                  ║
+║  🗄️  POSTGRESQL + ENTITY FRAMEWORK CORE                      ║
 ║                                                               ║
 ║  Usuários de teste:                                           ║
 ║  • admin@pedidorapido.com (SuperAdmin) - senha: 123456        ║
@@ -257,5 +258,8 @@ Console.WriteLine(@"
 ║                                                               ║
 ╚═══════════════════════════════════════════════════════════════╝
 ");
+
+// Inicializar banco de dados (migrations + seed)
+await PedidoRapido.Infrastructure.DependencyInjection.InitializeDatabaseAsync(app.Services);
 
 app.Run();
