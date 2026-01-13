@@ -23,3 +23,5 @@ export type { ProductCardProps } from './ProductCard';
 export { DataTable } from './DataTable';
 export type { DataTableProps } from './DataTable';
 
+export { PlanGate } from './PlanGate';
+

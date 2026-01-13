@@ -37,7 +37,10 @@
       "loyaltyProgram": false,
       "tableManagement": false,
       "kitchenDisplay": false,
-      "exportReports": false
+      "exportReports": false,
+      "rankingEnabled": false,
+      "employeesEnabled": false,
+      "highlightedInRanking": false
     },
     "order": 1,
     "isActive": true,
@@ -81,7 +84,10 @@
       "loyaltyProgram": false,
       "tableManagement": true,
       "kitchenDisplay": true,
-      "exportReports": true
+      "exportReports": true,
+      "rankingEnabled": true,
+      "employeesEnabled": true,
+      "highlightedInRanking": false
     },
     "order": 2,
     "isActive": true,
@@ -125,7 +131,10 @@
       "loyaltyProgram": true,
       "tableManagement": true,
       "kitchenDisplay": true,
-      "exportReports": true
+      "exportReports": true,
+      "rankingEnabled": true,
+      "employeesEnabled": true,
+      "highlightedInRanking": true
     },
     "order": 3,
     "isActive": true,

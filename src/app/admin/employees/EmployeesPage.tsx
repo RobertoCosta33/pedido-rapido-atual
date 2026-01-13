@@ -45,7 +45,8 @@ import {
 } from '@mui/icons-material';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNotification } from '@/contexts/NotificationContext';
-import { employeeService, Employee, CreateEmployeeData, EMPLOYEE_ROLES, licenseService } from '@/services';
+import { PlanGate } from '@/components';
+import { employeeService, Employee, CreateEmployeeData, EMPLOYEE_ROLES } from '@/services';
 import { formatCurrency, formatPhone } from '@/utils/formatters';
 
 // Styled Components
@@ -80,7 +81,6 @@ const EmployeesPage = () => {
   
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [loading, setLoading] = useState(true);
-  const [hasPermission, setHasPermission] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [editingEmployee, setEditingEmployee] = useState<Employee | null>(null);
@@ -107,21 +107,6 @@ const EmployeesPage = () => {
   });
 
   /**
-   * Verifica permissão do plano
-   */
-  const checkPermission = useCallback(async () => {
-    if (!user?.kioskId) return false;
-    
-    try {
-      const license = await licenseService.getByKiosk(user.kioskId);
-      // Apenas Professional e Premium podem gerenciar funcionários
-      return license?.features?.employeeManagement === true;
-    } catch {
-      return false;
-    }
-  }, [user?.kioskId]);
-
-  /**
    * Carrega funcionários e estatísticas
    */
   const loadData = useCallback(async () => {
@@ -129,25 +114,20 @@ const EmployeesPage = () => {
     
     setLoading(true);
     try {
-      const [hasAccess, employeesList, employeeStats] = await Promise.all([
-        checkPermission(),
+      const [employeesList, employeeStats] = await Promise.all([
         employeeService.getByKiosk(user.kioskId),
         employeeService.getStats(user.kioskId),
       ]);
       
-      setHasPermission(hasAccess);
-      
-      if (hasAccess) {
-        setEmployees(employeesList);
-        setStats(employeeStats);
-      }
+      setEmployees(employeesList);
+      setStats(employeeStats);
     } catch (error) {
       console.error('Erro ao carregar funcionários:', error);
       showNotification('Erro ao carregar funcionários', 'error');
     } finally {
       setLoading(false);
     }
-  }, [user?.kioskId, checkPermission, showNotification]);
+  }, [user?.kioskId, showNotification]);
 
   useEffect(() => {
     loadData();
@@ -263,26 +243,14 @@ const EmployeesPage = () => {
     );
   }
 
-  // Sem permissão
-  if (!hasPermission) {
-    return (
-      <PageContainer>
-        <Alert severity="warning" sx={{ mb: 2 }}>
-          <Typography variant="h6" gutterBottom>
-            Funcionalidade não disponível
-          </Typography>
-          <Typography>
-            O gerenciamento de funcionários está disponível apenas nos planos Professional e Premium.
-          </Typography>
-          <Button variant="contained" sx={{ mt: 2 }} href="/admin/upgrade">
-            Fazer Upgrade
-          </Button>
-        </Alert>
-      </PageContainer>
-    );
-  }
-
   return (
+    <PlanGate
+      feature="employeesEnabled"
+      title="Gerenciamento de Funcionários"
+      description="Cadastre e gerencie os funcionários do seu quiosque. Acompanhe desempenho, avaliações e folha de pagamento."
+      requiredPlans={['professional', 'premium']}
+      onUpgradeClick={() => window.location.href = '/admin/upgrade'}
+    >
     <PageContainer>
       <PageHeader>
         <Typography variant="h4" fontWeight={600}>
@@ -521,6 +489,7 @@ const EmployeesPage = () => {
         </DialogActions>
       </Dialog>
     </PageContainer>
+    </PlanGate>
   );
 };
 
